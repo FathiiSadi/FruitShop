@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 use yii\bootstrap5\BootstrapAsset;
+use yii\grid\ActionColumn;
+use app\models\Products;
 /* @var $this View */
 
 $this->title = 'FruitShop Admin';
@@ -53,9 +55,7 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
             <div class="main-panel" style="width:100%;min-height:100vh;">
                 <div class="content-wrapper" style="height:100%;display:flex;flex-direction:column;justify-content:center;">
 
-                    <a href="/admin/products" class="btn btn-info btn-lg">
-                        <span class="glyphicon glyphicon-edit"></span> Edit
-                    </a>
+
                     <div class="card" style="flex:1;display:flex;flex-direction:column;min-height:0;">
 
                         <div class="card-body" style="flex:1;display:flex;flex-direction:column;min-height:0;">
@@ -71,6 +71,7 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                             <th>Category</th>
                                             <th>Price</th>
                                             <th>Quantity</th>
+                                            <th>actions</th>
 
                                         </tr>
                                     </thead>
@@ -82,6 +83,16 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                                 <td><?= $product->category ?></td>
                                                 <td><?= $product->price ?></td>
                                                 <td><?= $product->stock ?></td>
+
+                                                <td>
+                                                    <a href="<?= Url::toRoute(['/admin/products/update', 'ProductID' => $product->ProductID]) ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                    <?= Html::beginForm(['/admin/products/delete', 'ProductID' => $product->ProductID], 'post', ['style' => 'display:inline']) ?>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+                                                    <?= Html::endForm() ?>
+                                                </td>
+
+
+
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>

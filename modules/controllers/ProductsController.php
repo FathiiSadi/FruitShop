@@ -117,9 +117,9 @@ class ProductsController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($ProductID)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($ProductID)->delete();
 
         return $this->redirect(['index']);
     }

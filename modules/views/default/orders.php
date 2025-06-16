@@ -57,9 +57,7 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
             <div class="main-panel" style="width:100%;min-height:100vh;">
                 <div class="content-wrapper" style="height:100%;display:flex;flex-direction:column;justify-content:center;">
 
-                    <a href="/admin/orders" class="btn btn-info btn-lg">
-                        <span class="glyphicon glyphicon-edit"></span> Edit
-                    </a>
+
                     <div class="card" style="flex:1;display:flex;flex-direction:column;min-height:0;">
 
                         <div class="card-body" style="flex:1;display:flex;flex-direction:column;min-height:0;">
@@ -78,6 +76,7 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                             <th>subtotal</th>
                                             <th>tax</th>
                                             <th>$Total</th>
+                                            <th>actions</th>
 
 
                                         </tr>
@@ -93,6 +92,13 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                                 <td><?= $order->subtotal ?></td>
                                                 <td><?= $order->tax_amount ?></td>
                                                 <td><?= $order->total_amount ?></td>
+                                                <td>
+                                                    <a href="<?= Url::toRoute(['/admin/orders/update', 'order_id' => $order->order_id]) ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                    <?= Html::beginForm(['/admin/orders/delete', 'order_id' => $order->order_id], 'post', ['style' => 'display:inline']) ?>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+                                                    <?= Html::endForm() ?>
+
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>

@@ -41,7 +41,7 @@ class OrdersController extends Controller
         $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('/admin/default/orders', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -113,7 +113,7 @@ class OrdersController extends Controller
     {
         $this->findModel($order_id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/admin/default/orders']);
     }
 
     /**
