@@ -26,6 +26,7 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
     <link rel="stylesheet" href="<?= Url::to('@web/vendors/ti-icons/css/themify-icons.css') ?>">
     <link rel="stylesheet" href="<?= Url::to('@web/vendors/css/vendor.bundle.base.css') ?>">
     <link rel="stylesheet" href="<?= Url::to('@web/vendors/mdi/css/materialdesignicons.min.css') ?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="<?= Url::to('@web/vendors/datatables.net-bs4/dataTables.bootstrap4.css') ?>">
@@ -49,33 +50,6 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
 
 
 
-            <!-- partial -->
-            <!-- partial:partials/_sidebar.html -->
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/default/index">
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= Url::to(['/admin/default/user']) ?>">
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">User</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= Url::to(['/admin/default/products']) ?>">
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Products</span>
-                        </a>
-                </ul>
-            </nav>
-
-
-
-
             <div class="main-panel" style="width:100%;min-height:100vh;">
                 <div class="content-wrapper" style="height:100%;display:flex;flex-direction:column;justify-content:center;">
 
@@ -92,11 +66,11 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                 <table class="table" style="width:100%;height:100%;">
                                     <thead>
                                         <tr>
-                                            <th>product name</th>
-                                            <th>id</th>
-                                            <th>category</th>
-                                            <th>price</th>
-                                            <th>quantity</th>
+                                            <th>Product name</th>
+                                            <th>ID</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
 
                                         </tr>
                                     </thead>
@@ -104,7 +78,7 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                         <?php foreach ($products as $product): ?>
                                             <tr>
                                                 <td><?= $product->name ?></td>
-                                                <td><?= $product->id ?></td>
+                                                <td><?= $product->ProductID ?></td>
                                                 <td><?= $product->category ?></td>
                                                 <td><?= $product->price ?></td>
                                                 <td><?= $product->stock ?></td>
@@ -128,10 +102,10 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                         <div>
                                             <div class="text-muted text-uppercase fw-bold small">Expected Revenue</div>
                                             <div class="stat-value text-primary">$<?= number_format($profit, 2) ?></div>
-                                            <div class="stat-change text-success">
+                                            <!-- <div class="stat-change text-success">
                                                 <i class="fas fa-arrow-up trend-icon"></i>
                                                 <span>8.3% increase</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="icon-circle">
                                             <i class="fas fa-dollar-sign text-primary"></i>
@@ -159,13 +133,10 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                         <div>
                                             <div class="text-muted text-uppercase fw-bold small">products</div>
                                             <div class="stat-value text-success"><?= count($products) ?></div>
-                                            <div class="stat-change text-success">
-                                                <i class="fas fa-arrow-up trend-icon"></i>
-                                                <span>12.4% increase</span>
-                                            </div>
+
                                         </div>
                                         <div class="icon-circle">
-                                            <i class="fas fa-users text-success"></i>
+                                            <i class="fas fa-solid fa-box text-success"></i>
                                         </div>
                                     </div>
                                     <div class="progress mt-4">
@@ -190,13 +161,10 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                         <div>
                                             <div class="text-muted text-uppercase fw-bold small">low of stock</div>
                                             <div class="stat-value text-info"><?= $lowStockCount ?></div>
-                                            <div class="stat-change text-danger">
-                                                <i class="fas fa-arrow-down trend-icon"></i>
-                                                <span>3.2% decrease</span>
-                                            </div>
+
                                         </div>
                                         <div class="icon-circle">
-                                            <i class="fas fa-tasks text-info"></i>
+                                            <i class="fas fa-solid fa-arrow-down text-info"></i>
                                         </div>
                                     </div>
                                     <div class="progress mt-4">
@@ -221,13 +189,10 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                         <div>
                                             <div class="text-muted text-uppercase fw-bold small">Out Of stock</div>
                                             <div class="stat-value text-warning"><?= $outOfStockCount ?></div>
-                                            <div class="stat-change text-success">
-                                                <i class="fas fa-arrow-up trend-icon"></i>
-                                                <span>5.7% increase</span>
-                                            </div>
+
                                         </div>
                                         <div class="icon-circle">
-                                            <i class="fas fa-chart-pie text-warning"></i>
+                                            <i class="fas fa-triangle-exclamation text-warning"></i>
                                         </div>
                                     </div>
                                     <div class="progress mt-4">

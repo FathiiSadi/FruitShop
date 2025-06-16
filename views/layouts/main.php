@@ -52,7 +52,7 @@ $this->beginPage();
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title ?? 'FruitShop Admin') ?></title>
+    <title><?= Html::encode($this->title ?? 'FruitShop') ?></title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="<?= Url::to('@web/vendors/feather/feather.css') ?>">
     <link rel="stylesheet" href="<?= Url::to('@web/vendors/ti-icons/css/themify-icons.css') ?>">
@@ -75,7 +75,7 @@ $this->beginPage();
 
     <header id="header">
         <?php
-        if (Yii::$app->user->isGuest || isset(Yii::$app->user->identity->role) && Yii::$app->user->identity->role === 'user') {
+        if (Yii::$app->user->isGuest ||  Yii::$app->user->identity->role === 'user') {
             NavBar::begin([
                 'brandLabel' => Yii::$app->name,
                 'brandUrl' => Yii::$app->homeUrl,
@@ -88,14 +88,23 @@ $this->beginPage();
                     ['label' => 'cart', 'url' => ['/cart/index']],
                     ['label' => 'About', 'url' => ['/site/about']],
                     ['label' => "shop", 'url' => ['site/shop']],
-                    ['label' => 'Contact', 'url' => ['/site/contact']],
-                    ['label' => 'User Cart', 'url' => ['/site/user-cart']],
-                    ['label' => 'Signup', 'url' => ['/site/signup']],
-                    !Yii::$app->user->isGuest && isset(Yii::$app->user->identity->role) && Yii::$app->user->identity->role == "admin"
-                        ? ['label' => 'Admin', 'url' => ['/admin/default/index']]
+                    // ['label' => 'User Cart', 'url' => ['/site/user-cart']],
+                    !Yii::$app->user->isGuest && Yii::$app->user->identity->role == "admin"
+                        ? [
+                            'label' => 'Admin',
+                            'url' => ['/admin/default/index'],
+                            ['label' => 'Signup', 'url' => ['/site/signup']],
+                        ]
                         : '',
                     Yii::$app->user->isGuest
-                        ? ['label' => 'Login', 'url' => ['/site/login']]
+                        ? [
+                            'label' => 'Authantication',
+                            'items' => [
+                                ['label' => 'Login', 'url' => ['/site/login']],
+                                ['label' => 'Signup', 'url' => ['/site/signup']]
+                            ]
+                        ]
+
                         : '<li class="nav-item">'
                         . Html::beginForm(['/site/logout'])
                         . Html::submitButton(
@@ -115,73 +124,40 @@ $this->beginPage();
                     <a class="navbar-brand brand-logo-mini" href="index.html"><img src="<?= Url::to('@web/images/logo-mini.svg') ?>" alt="logo" /></a>
                 </div>
                 <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-                        <span class="icon-menu"></span>
-                    </button>
+
                     <ul class="navbar-nav mr-lg-2">
-                        <li class="nav-item nav-search d-none d-lg-block">
-                            <div class="input-group">
-                                <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
-                                    <span class="input-group-text" id="search">
-                                        <i class="icon-search"></i>
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
-                            </div>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= Url::to(['/admin/default']) ?>">
+                                <i class="icon-grid menu-icon"></i>
+                                <span class="menu-title">Dashboard</span>
+                            </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= Url::to(['/admin/default/user']) ?>">
+                                <i class="icon-grid menu-icon"></i>
+                                <span class="menu-title">User</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= Url::to(['/admin/default/products']) ?>">
+                                <i class="icon-grid menu-icon"></i>
+                                <span class="menu-title">Products</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= Url::to(['/admin/default/orders']) ?>">
+                                <i class="icon-grid menu-icon"></i>
+                                <span class="menu-title">Orders</span>
+                            </a>
+                        </li>
+
                     </ul>
                     <ul class="navbar-nav navbar-nav-right">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                                <i class="icon-bell mx-0"></i>
-                                <span class="count"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-success">
-                                            <i class="ti-info-alt mx-0"></i>
-                                        </div>
-                                    </div>
-                                    <div class="preview-item-content">
-                                        <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                                        <p class="font-weight-light small-text mb-0 text-muted">
-                                            Just now
-                                        </p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-warning">
-                                            <i class="ti-settings mx-0"></i>
-                                        </div>
-                                    </div>
-                                    <div class="preview-item-content">
-                                        <h6 class="preview-subject font-weight-normal">Settings</h6>
-                                        <p class="font-weight-light small-text mb-0 text-muted">
-                                            Private message
-                                        </p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-info">
-                                            <i class="ti-user mx-0"></i>
-                                        </div>
-                                    </div>
-                                    <div class="preview-item-content">
-                                        <h6 class="preview-subject font-weight-normal">New user registration</h6>
-                                        <p class="font-weight-light small-text mb-0 text-muted">
-                                            2 days ago
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </li>
+
+
                         <li class="nav-item nav-profile dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                                <img src=<?= Url::to('@web/images/faces/face28.jpg') ?> alt="profile" />
+                                <img src=<?= Url::to('@web/assets/img/default.webp') ?> alt="profile" />
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                                 <a class="dropdown-item">
@@ -200,13 +176,14 @@ $this->beginPage();
                             </div>
                         </li>
 
+
                     </ul>
                     <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
                         <span class="icon-menu"></span>
                     </button>
                 </div>
             </nav>
-            
+
         <?php }
 
         ?>
@@ -227,7 +204,7 @@ $this->beginPage();
     <footer id="footer" class="mt-auto py-3 bg-light">
         <div class="">
             <div class="row text-muted">
-                <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
+                <div class="col-md-6 text-center text-md-start">&copy; Altibbi <?= date('Y') ?></div>
                 <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
             </div>
         </div>

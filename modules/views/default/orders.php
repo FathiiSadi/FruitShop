@@ -49,29 +49,7 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
 
 
 
-            <!-- partial -->
-            <!-- partial:partials/_sidebar.html -->
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/default/index">
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= Url::to(['/admin/default/user']) ?>">
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">User</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= Url::to(['/admin/default/products']) ?>">
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Products</span>
-                        </a>
-                </ul>
-            </nav>
+
 
 
 
@@ -79,35 +57,42 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
             <div class="main-panel" style="width:100%;min-height:100vh;">
                 <div class="content-wrapper" style="height:100%;display:flex;flex-direction:column;justify-content:center;">
 
-                    <a href="/admin/products" class="btn btn-info btn-lg">
+                    <a href="/admin/orders" class="btn btn-info btn-lg">
                         <span class="glyphicon glyphicon-edit"></span> Edit
                     </a>
                     <div class="card" style="flex:1;display:flex;flex-direction:column;min-height:0;">
 
                         <div class="card-body" style="flex:1;display:flex;flex-direction:column;min-height:0;">
-                            <h4 class="card-title">Products Management</h4>
+                            <h4 class="card-title">Orders Management</h4>
                             <p class="card-description">
                             </p>
                             <div class="table-responsive" style="flex:1;min-height:0;">
                                 <table class="table" style="width:100%;height:100%;">
                                     <thead>
                                         <tr>
-                                            <th>product name</th>
-                                            <th>id</th>
-                                            <th>category</th>
-                                            <th>price</th>
-                                            <th>quantity</th>
+                                            <th>Order ID</th>
+                                            <th>Order Date</th>
+                                            <th>Username</th>
+                                            <th>city</th>
+                                            <th>status</th>
+                                            <th>subtotal</th>
+                                            <th>tax</th>
+                                            <th>$Total</th>
+
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($products as $product): ?>
+                                        <?php foreach ($orders as $order): ?>
                                             <tr>
-                                                <td><?= $product->name ?></td>
-                                                <td><?= $product->id ?></td>
-                                                <td><?= $product->category ?></td>
-                                                <td><?= $product->price ?></td>
-                                                <td><?= $product->stock ?></td>
+                                                <td><?= $order->order_id ?></td>
+                                                <td><?= $order->order_date ?></td>
+                                                <td><?= $order->user->username ?></td>
+                                                <td><?= $order->address->city ?></td>
+                                                <td><?= $order->status ?></td>
+                                                <td><?= $order->subtotal ?></td>
+                                                <td><?= $order->tax_amount ?></td>
+                                                <td><?= $order->total_amount ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>
@@ -126,15 +111,18 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div>
-                                            <div class="text-muted text-uppercase fw-bold small">Revenue</div>
-                                            <div class="stat-value text-primary">$42,890</div>
-                                            <div class="stat-change text-success">
+                                            <div class="text-muted text-uppercase fw-bold small">Best Month</div>
+                                            <div class="stat-value text-primary"><?= DateTime::createFromFormat('!m', $bestMonth['month'])->format('F')  ?></div>
+                                            <!-- <div class="stat-change text-success">
                                                 <i class="fas fa-arrow-up trend-icon"></i>
-                                                <span>8.3% increase</span>
-                                            </div>
+                                                <div class="stat-value text-info">
+                                                </div>
+                                                <span>increase 10.1%</span>
+                                            </div> -->
                                         </div>
                                         <div class="icon-circle">
-                                            <i class="fas fa-dollar-sign text-primary"></i>
+                                            <i class="fas fa-solid fa-clock text-primary"></i>
+
                                         </div>
                                     </div>
                                     <div class="progress mt-4">
@@ -151,18 +139,20 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                             </div>
                         </div>
 
+
+
                         <!-- Users Card -->
                         <div class="col-xl-3 col-md-6">
                             <div class="card stats-card card-hover-success shadow-sm">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div>
-                                            <div class="text-muted text-uppercase fw-bold small">products</div>
-                                            <div class="stat-value text-success"><?= count($products) ?></div>
-                                            <div class="stat-change text-success">
+                                            <div class="text-muted text-uppercase fw-bold small">Total Orders</div>
+                                            <div class="stat-value text-success"><?= count($orders) ?></div>
+                                            <!-- <div class="stat-change text-success">
                                                 <i class="fas fa-arrow-up trend-icon"></i>
                                                 <span>12.4% increase</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="icon-circle">
                                             <i class="fas fa-users text-success"></i>
@@ -188,12 +178,12 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div>
-                                            <div class="text-muted text-uppercase fw-bold small">Tasks</div>
-                                            <div class="stat-value text-info">156</div>
-                                            <div class="stat-change text-danger">
+                                            <div class="text-muted text-uppercase fw-bold small">pending orders</div>
+                                            <div class="stat-value text-info"><?= $pending ?></div>
+                                            <!-- <div class="stat-change text-danger">
                                                 <i class="fas fa-arrow-down trend-icon"></i>
                                                 <span>3.2% decrease</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="icon-circle">
                                             <i class="fas fa-tasks text-info"></i>
@@ -214,20 +204,55 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                         </div>
 
                         <!-- Conversion Card -->
+
+
+                        <!-- City card -->
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card stats-card card-hover-primary shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <div class="text-muted text-uppercase fw-bold small">Best City</div>
+                                            <div class="stat-value text-primary"><?= $bestCity[0]['city'] ?></div>
+                                            <div class="stat-change text">
+
+                                                <span><?= $bestCity[0]['total'] ?> Countries </span>
+                                            </div>
+                                        </div>
+                                        <div class="icon-circle">
+                                            <i class="fa fas-solid fa-city text-primary"></i>
+                                        </div>
+                                    </div>
+                                    <div class="progress mt-4">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"></div>
+                                    </div>
+                                    <div class="mini-chart">
+                                        <div class="chart-bar" style="height: 60%"></div>
+                                        <div class="chart-bar" style="height: 40%"></div>
+                                        <div class="chart-bar" style="height: 80%"></div>
+                                        <div class="chart-bar" style="height: 65%"></div>
+                                        <div class="chart-bar" style="height: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Conversion Card -->
                         <div class="col-xl-3 col-md-6">
                             <div class="card stats-card card-hover-warning shadow-sm">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div>
-                                            <div class="text-muted text-uppercase fw-bold small">Conversion</div>
-                                            <div class="stat-value text-warning">24.5%</div>
-                                            <div class="stat-change text-success">
+                                            <div class="text-muted text-uppercase fw-bold small">Max paid cart</div>
+                                            <div class="stat-value text-warning"><?= $max ?></div>
+                                            <!-- <div class="stat-change text-success">
                                                 <i class="fas fa-arrow-up trend-icon"></i>
                                                 <span>5.7% increase</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="icon-circle">
-                                            <i class="fas fa-chart-pie text-warning"></i>
+
+                                            <i class="fas fa-solid fa-money-bill text-warning"></i>
                                         </div>
                                     </div>
                                     <div class="progress mt-4">
@@ -244,15 +269,18 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                             </div>
                         </div>
                     </div>
+
+
                 </div>
-
-
-
-
-
             </div>
 
+
+
+
+
         </div>
+
+    </div>
 
 
     </div>

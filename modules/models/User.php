@@ -17,8 +17,6 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord
 {
-
-
     /**
      * {@inheritdoc}
      */
@@ -62,6 +60,10 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Orders]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return array
      */
+    public static function getAdmin()
+    {
+        return User::find()->where(['role' => 'admin'])->all();
+    }
 }

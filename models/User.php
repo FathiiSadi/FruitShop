@@ -2,11 +2,9 @@
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
-use yii\web\IdentityInterface;
-use yii\base\NotSupportedException;
 use Yii;
-
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;  // Add this use statement
 /**
  * @property int $id
  * @property string $username
@@ -60,6 +58,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return Yii::$app->security->validatePassword($password, $this->password);
     }
+
+    public static function findByEmail($email)
+    {
+        return static::findOne(['email' => $email]);
+    }
+
 
     public function setPassword(string $password)
     {

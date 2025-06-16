@@ -2,16 +2,16 @@
 
 namespace app\controllers;
 
-use app\models\Cartitem;
-use app\models\CartitemSearch;
+use app\models\CartItem;
+use app\Models\CartItemSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CartitemController implements the CRUD actions for Cartitem model.
+ * CartItemController implements the CRUD actions for CartItem model.
  */
-class CartitemController extends Controller
+class CartItemController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,46 +32,47 @@ class CartitemController extends Controller
     }
 
     /**
-     * Lists all Cartitem models.
+     * Lists all CartItem models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new CartitemSearch();
+        $searchModel = new CartItemSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('/admin/cart-item', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
-
     /**
-     * Displays a single Cartitem model.
-     * @param int $id ID
+     * Displays a single CartItem model.
+     * @param int $CartItemID Cart Item ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($CartItemID)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($CartItemID),
         ]);
     }
 
     /**
-     * Creates a new Cartitem model.
+     * Creates a new CartItem model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Cartitem();
+        $model = new CartItem();
+
+        $model->AddedAt = date('Y-m-d H:i:s');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'CartItemID' => $model->CartItemID]);
             }
         } else {
             $model->loadDefaultValues();
@@ -83,18 +84,18 @@ class CartitemController extends Controller
     }
 
     /**
-     * Updates an existing Cartitem model.
+     * Updates an existing CartItem model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
+     * @param int $CartItemID Cart Item ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($CartItemID)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($CartItemID);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'CartItemID' => $model->CartItemID]);
         }
 
         return $this->render('update', [
@@ -103,29 +104,29 @@ class CartitemController extends Controller
     }
 
     /**
-     * Deletes an existing Cartitem model.
+     * Deletes an existing CartItem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
+     * @param int $CartItemID Cart Item ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($CartItemID)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($CartItemID)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Cartitem model based on its primary key value.
+     * Finds the CartItem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Cartitem the loaded model
+     * @param int $CartItemID Cart Item ID
+     * @return CartItem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($CartItemID)
     {
-        if (($model = Cartitem::findOne(['id' => $id])) !== null) {
+        if (($model = CartItem::findOne(['CartItemID' => $CartItemID])) !== null) {
             return $model;
         }
 

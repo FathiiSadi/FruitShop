@@ -21,6 +21,8 @@ class Products extends \yii\db\ActiveRecord
 {
 
 
+    public $imageFile;
+
     /**
      * {@inheritdoc}
      */
@@ -44,6 +46,9 @@ class Products extends \yii\db\ActiveRecord
             [['createdAt', 'updatedAt'], 'safe'],
             [['name', 'ImageURL'], 'string', 'max' => 255],
             [['category'], 'string', 'max' => 100],
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, webp', 'checkExtensionByMimeType' => false],
+
+
         ];
     }
 
@@ -65,6 +70,31 @@ class Products extends \yii\db\ActiveRecord
         ];
     }
 
+
+    public function upload()
+    {
+        if ($this->imageFile === null) {
+            return true; // No file uploaded is valid in this case
+        }
+
+        // Generate unique filename
+        $filename = Yii::$app->security->generateRandomString() . '.' . $this->imageFile->extension;
+        $uploadPath = Yii::getAlias('uploads/events/');
+
+        // Create directory if it doesn't exist
+        if (!file_exists($uploadPath)) {
+            mkdir($uploadPath, 0777, true);
+        }
+
+        $fullPath = $uploadPath . $filename;
+
+        if ($this->imageFile->saveAs($fullPath)) {
+            $this->ImageURL = 'uploads/events/' . $filename; // Web-accessible path
+            return true;
+        }
+
+        return false;
+    }
     public static function getProducts()
     {
         return self::find()->all();

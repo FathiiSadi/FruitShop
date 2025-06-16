@@ -1,55 +1,34 @@
 <?php
 
-/** @var yii\web\View $this */
-/** @var yii\bootstrap5\ActiveForm $form */
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
-/** @var app\models\SignupForm $model */
-
-use yii\bootstrap5\ActiveForm;
-use yii\bootstrap5\Html;
+/* @var $this yii\web\View */
+/* @var $model app\models\SignupForm */
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-Signup">
+<div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to Signup:</p>
+    <p>Please fill out the following fields to signup:</p>
 
-    <div class="row">
-        <div class="col-lg-5">
+    <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-            <?php $form = ActiveForm::begin([
-                'id' => 'Signup-form',
-                'fieldConfig' => [
-                    'template' => "{label}\n{input}\n{error}",
-                    'labelOptions' => ['class' => 'col-lg-1 col-form-label mr-lg-3'],
-                    'inputOptions' => ['class' => 'col-lg-3 form-control'],
-                    'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
-                ],
-            ]); ?>
+    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+    <?= $form->field($model, 'email') ?>
 
-            <?= $form->field($model, 'password')->passwordInput() ?>
+    <?= $form->field($model, 'password')->passwordInput() ?>
 
-            <?= $form->field($model, 'rememberMe')->checkbox([
-                'template' => "<div class=\"custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            ]) ?>
+    <?= $form->field($model, 'password_repeat')->passwordInput() ?>
 
-            <div class="form-group">
-                <div>
-                    <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'Signup-button']) ?>
-                </div>
-            </div>
 
-            <?php ActiveForm::end(); ?>
 
-            <div style="color:#999;">
-                You may Signup with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-                To modify the username/password, please check out the code <code>app\models\User::$users</code>.
-            </div>
-
-        </div>
+    <div class="form-group">
+        <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
     </div>
+
+    <?php ActiveForm::end(); ?>
 </div>

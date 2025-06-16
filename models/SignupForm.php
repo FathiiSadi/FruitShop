@@ -4,21 +4,17 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use app\models\User;
 
 /**
- * SignupForm is the model behind the Signup form.
- *
- * @property-read User|null $user
- *
+ * Signup form
  */
 class SignupForm extends Model
 {
     public $username;
+    public $email;
     public $password;
-    public $rememberMe = true;
-
-    private $_user = false;
-
+    public $password_repeat;
 
     /**
      * @return array the validation rules.
@@ -26,57 +22,43 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            // username, email, password are required
+            [['username', 'email', 'password', 'password_repeat'], 'required'],
+
+            // username should be unique and contain only letters and numbers
+            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'match', 'pattern' => '/^[a-zA-Z0-9]+$/', 'message' => 'Username can only contain letters and numbers.'],
+            ['username', 'string', 'min' => 3, 'max' => 255],
+
+            // email should be a valid email format and unique
+            ['email', 'email'],
+            ['email', 'string', 'max' => 255],
+            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
+
+            // password validation
+            ['password', 'string', 'min' => 6],
+            ['password_repeat', 'compare', 'compareAttribute' => 'password', 'message' => "Passwords don't match"],
+
         ];
     }
 
     /**
-     * Validates the password.
-     * This method serves as the inline validation for password.
+     * Signs user up.
      *
-     * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
+     * @return bool whether the user was successfully created
      */
-    public function validatePassword($attribute, $params)
+    public function signup()
     {
-        if (!$this->hasErrors()) {
-            $user = $this->getUser();
-
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
-            }
-        }
-    }
-
-    /**
-     * Logs in a user using the provided username and password.
-     * @return bool whether the user is logged in successfully
-     */
-    public function Signup()
-    {
-        if ($this->validate()) {
-            return Yii::$app->user->Signup($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
-        }
-        return false;
-    }
-    
-
-    /**
-     * Finds user by [[username]]
-     *
-     * @return User|null
-     */
-    public function getUser()
-    {
-        if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+        if (!$this->validate()) {
+            return null;
         }
 
-        return $this->_user;
+        $user = new User();
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+
+        return $user->save();
     }
 }

@@ -189,3 +189,27 @@ a.desc:after {
 .stats-card:hover .chart-bar {
   background: rgba(255, 255, 255, 0.2);
 }
+
+/* order page */
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-row.total {
+  border-top: 2px solid #333;
+  border-bottom: 2px solid #333;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.order-details {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}

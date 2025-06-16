@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "products".
  *
- * @property int $id
+ * @property int $ProductID
  * @property string $name
  * @property float $price
  * @property string|null $Description
@@ -19,6 +19,7 @@ use Yii;
  */
 class Products extends \yii\db\ActiveRecord
 {
+
 
 
     /**
@@ -44,6 +45,8 @@ class Products extends \yii\db\ActiveRecord
             [['createdAt', 'updatedAt'], 'safe'],
             [['name', 'ImageURL'], 'string', 'max' => 255],
             [['category'], 'string', 'max' => 100],
+
+
         ];
     }
 
@@ -53,9 +56,9 @@ class Products extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'ProductID' => 'ID',
             'name' => 'Name',
-            'price' => 'Price',
+            'price' => 'price',
             'Description' => 'Description',
             'category' => 'Category',
             'stock' => 'Stock',
@@ -64,6 +67,8 @@ class Products extends \yii\db\ActiveRecord
             'updatedAt' => 'Updated At',
         ];
     }
+
+
 
     public function getAllProducts()
     {

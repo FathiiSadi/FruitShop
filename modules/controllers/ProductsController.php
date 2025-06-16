@@ -2,11 +2,14 @@
 
 namespace app\modules\controllers;
 
+use Yii;
 use app\modules\models\Products;
 use app\modules\models\ProductsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+
 
 /**
  * ProductsController implements the CRUD actions for Products model.
@@ -53,10 +56,10 @@ class ProductsController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($ProductID)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($ProductID),
         ]);
     }
 
@@ -70,38 +73,43 @@ class ProductsController extends Controller
         $model = new Products();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            $model->load($this->request->post());
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+
+            // Skip validation for the file if it's not required
+            if ($model->imageFile) {
+                if (!$model->upload()) {
+                    Yii::$app->session->setFlash('error', 'File upload failed');
+                    return $this->refresh();
+                }
             }
-        } else {
-            $model->loadDefaultValues();
+
+            if ($model->save()) {
+                return $this->redirect(['view', 'ProductID' => $model->ProductID]);
+            }
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return $this->render('create', ['model' => $model]);
     }
 
-    /**
-     * Updates an existing Products model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+    public function actionUpdate($ProductID)
+    {
+        $model = $this->findModel($ProductID);
+
+        if ($this->request->isPost) {
+            $model->load($this->request->post());
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+
+            if ($model->upload() && $model->save()) {
+                return $this->redirect(['view', 'ProductID' => $model->ProductID]);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
     }
-
     /**
      * Deletes an existing Products model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -123,9 +131,9 @@ class ProductsController extends Controller
      * @return Products the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($ProductID)
     {
-        if (($model = Products::findOne(['id' => $id])) !== null) {
+        if (($model = Products::findOne(['ProductID' => $ProductID])) !== null) {
             return $model;
         }
 

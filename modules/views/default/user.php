@@ -49,30 +49,7 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
 
 
 
-            <!-- partial -->
-            <!-- partial:partials/_sidebar.html -->
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/default/index">
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= Url::to(['/admin/default/user']) ?>">
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">User</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= Url::to(['/admin/default/products']) ?>">
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Products</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+
 
 
 
@@ -115,37 +92,8 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                 <div class="container mb-5 Statistics">
                     <h2 class="text-center mb-4">Dashboard Statistics</h2>
 
-                    <div class="row g-4">
-                        <!-- Revenue Card -->
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card stats-card card-hover-primary shadow-sm">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-start">
-                                        <div>
-                                            <div class="text-muted text-uppercase fw-bold small">Revenue</div>
-                                            <div class="stat-value text-primary">$42,890</div>
-                                            <div class="stat-change text-success">
-                                                <i class="fas fa-arrow-up trend-icon"></i>
-                                                <span>8.3% increase</span>
-                                            </div>
-                                        </div>
-                                        <div class="icon-circle">
-                                            <i class="fas fa-dollar-sign text-primary"></i>
-                                        </div>
-                                    </div>
-                                    <div class="progress mt-4">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"></div>
-                                    </div>
-                                    <div class="mini-chart">
-                                        <div class="chart-bar" style="height: 60%"></div>
-                                        <div class="chart-bar" style="height: 40%"></div>
-                                        <div class="chart-bar" style="height: 80%"></div>
-                                        <div class="chart-bar" style="height: 65%"></div>
-                                        <div class="chart-bar" style="height: 75%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row justify-content-center">
+
 
                         <!-- Users Card -->
                         <div class="col-xl-3 col-md-6">
@@ -154,11 +102,11 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div>
                                             <div class="text-muted text-uppercase fw-bold small">Active Users</div>
-                                            <div class="stat-value text-success"><?= count($users) ?></div>
-                                            <div class="stat-change text-success">
+                                            <div class="stat-value text-success"><?= count($users) - count($admin) ?></div>
+                                            <!-- <div class="stat-change text-success">
                                                 <i class="fas fa-arrow-up trend-icon"></i>
                                                 <span>12.4% increase</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="icon-circle">
                                             <i class="fas fa-users text-success"></i>
@@ -178,36 +126,7 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                             </div>
                         </div>
 
-                        <!-- Tasks Card -->
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card stats-card card-hover-info shadow-sm">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-start">
-                                        <div>
-                                            <div class="text-muted text-uppercase fw-bold small">Tasks</div>
-                                            <div class="stat-value text-info">156</div>
-                                            <div class="stat-change text-danger">
-                                                <i class="fas fa-arrow-down trend-icon"></i>
-                                                <span>3.2% decrease</span>
-                                            </div>
-                                        </div>
-                                        <div class="icon-circle">
-                                            <i class="fas fa-tasks text-info"></i>
-                                        </div>
-                                    </div>
-                                    <div class="progress mt-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 65%"></div>
-                                    </div>
-                                    <div class="mini-chart">
-                                        <div class="chart-bar" style="height: 80%"></div>
-                                        <div class="chart-bar" style="height: 65%"></div>
-                                        <div class="chart-bar" style="height: 55%"></div>
-                                        <div class="chart-bar" style="height: 65%"></div>
-                                        <div class="chart-bar" style="height: 65%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
 
                         <!-- Conversion Card -->
                         <div class="col-xl-3 col-md-6">
@@ -215,12 +134,12 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div>
-                                            <div class="text-muted text-uppercase fw-bold small">Conversion</div>
-                                            <div class="stat-value text-warning">24.5%</div>
-                                            <div class="stat-change text-success">
+                                            <div class="text-muted text-uppercase fw-bold small">Admins</div>
+                                            <div class="stat-value text-warning"><?= count($admin) ?></div>
+                                            <!-- <div class="stat-change text-success">
                                                 <i class="fas fa-arrow-up trend-icon"></i>
                                                 <span>5.7% increase</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="icon-circle">
                                             <i class="fas fa-chart-pie text-warning"></i>

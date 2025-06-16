@@ -5,8 +5,9 @@ namespace app\modules\controllers;
 use Yii;
 use yii\web\Controller;
 use app\modules\models\Admin;
-use app\models\User;
+use app\modules\models\User;
 use app\modules\models\Products;
+use app\modules\models\Orders;
 
 /**
  * Default controller for the `modules` module
@@ -42,6 +43,8 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $products = Products::find()->indexBy('name')->all();
+        $cities = Orders::getOrdersByCity();
+        $orders = Orders::getOrdersByTotal();
         $data = [
             'userCount' => Admin::getUserCount(),
             // 'soldProductCount' => Admin::getSoldProductCount(),
@@ -53,9 +56,10 @@ class DefaultController extends Controller
             'totalProfit' => Admin::getTotalProfit(),
             'profitByProduct' => Admin::profitByProduct(),
             'products' => $products,
-            // 'topProducts' => Admin::getTopProducts(),
+            'OrdersThisMonth' => Orders::getOrdersThisMonth(),
         ];
-        return $this->render('index', ['data' => $data]);
+
+        return $this->render('index', ['data' => $data, 'cities' => $cities, 'orders' => $orders]);
     }
 
 
@@ -64,13 +68,12 @@ class DefaultController extends Controller
     {
 
         $users = User::find()->all();
-        return $this->render('user', ['users' => $users]);
+        $admin = User::getAdmin();
+        return $this->render('user', ['users' => $users, 'admin' => $admin]);
     }
 
     public function actionUserEdit()
     {
-
-
         return $this->render('user-edit', [
             'user' => Yii::$app->user->identity,
         ]);
@@ -83,5 +86,15 @@ class DefaultController extends Controller
         $lowStockCount = Admin::getLowStockProductCount(10);
         $outOfStockCount = Admin::getOutOfStockProductCount();
         return $this->render('products', ['products' => $products, 'profit' => $profit, 'lowStockCount' => $lowStockCount, 'outOfStockCount' => $outOfStockCount]);
+    }
+    public function actionOrders()
+    {
+        $orders = Orders::find()->all();
+        $max = Orders::getMax();
+        $pending = Orders::getStatusPending();
+        $bestMonth = Orders::getOrdersByMonth();
+        $bestCity = Orders::getOrdersByCity();
+
+        return $this->render('orders', ['orders' => $orders, 'max' => $max, 'pending' => $pending, 'bestMonth' => $bestMonth, 'bestCity' => $bestCity]);
     }
 }

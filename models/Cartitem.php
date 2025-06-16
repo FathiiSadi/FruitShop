@@ -5,19 +5,19 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "cartitem".
+ * This is the model class for table "CartItem".
  *
- * @property int $id
+ * @property int $CartItemID
  * @property int $CartID
  * @property int $ProductID
- * @property int $Quantity
- * @property float $Price
+ * @property int $quantity
+ * @property float $price
  * @property string|null $AddedAt
  *
  * @property Cart $cart
  * @property Products $product
  */
-class Cartitem extends \yii\db\ActiveRecord
+class CartItem extends \yii\db\ActiveRecord
 {
 
 
@@ -26,7 +26,7 @@ class Cartitem extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'cartitem';
+        return 'CartItem';
     }
 
     /**
@@ -35,13 +35,13 @@ class Cartitem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Quantity'], 'default', 'value' => 1],
-            [['CartID', 'ProductID', 'Price'], 'required'],
-            [['CartID', 'ProductID', 'Quantity'], 'integer'],
-            [['Price'], 'number'],
+            [['quantity'], 'default', 'value' => 1],
+            [['CartID', 'ProductID', 'price'], 'required'],
+            [['CartID', 'ProductID', 'quantity'], 'integer'],
+            [['price'], 'number'],
             [['AddedAt'], 'safe'],
             [['CartID'], 'exist', 'skipOnError' => true, 'targetClass' => Cart::class, 'targetAttribute' => ['CartID' => 'CartID']],
-            [['ProductID'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['ProductID' => 'id']],
+            [['ProductID'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['ProductID' => 'ProductID']],
         ];
     }
 
@@ -51,11 +51,11 @@ class Cartitem extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'CartItemID' => 'Cart Item ID',
             'CartID' => 'Cart ID',
             'ProductID' => 'Product ID',
-            'Quantity' => 'Quantity',
-            'Price' => 'Price',
+            'quantity' => 'quantity',
+            'price' => 'price',
             'AddedAt' => 'Added At',
         ];
     }
@@ -77,7 +77,6 @@ class Cartitem extends \yii\db\ActiveRecord
      */
     public function getProduct()
     {
-        return $this->hasOne(Products::class, ['id' => 'ProductID']);
+        return $this->hasOne(Products::class, ['ProductID' => 'ProductID']);
     }
-
 }

@@ -47,7 +47,10 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [],
+            'rules' => [
+                // 'orders/success/<id:\d+>' => 'orders/success',
+
+            ],
         ],
 
 
