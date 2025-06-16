@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # FruitShop
 =======
 <p align="center">
