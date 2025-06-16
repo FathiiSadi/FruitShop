@@ -26,7 +26,7 @@ class AppAsset extends AssetBundle
         '@web/assets/css/animate.css',
         '@web/assets/css/meanmenu.min.css',
         '@web/assets/css/main.css', 
-        '@web/assets/css/responsive.css',
+    '@web/assets/css/responsive.css',
     ];
     public $js = [
         'assets/js/jquery-1.11.3.min.js',
