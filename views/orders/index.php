@@ -58,8 +58,8 @@
                         </div>
                     <?php else: ?>
                         <div class="detail-row">
-                            <h4>Order ID:</h4>
-                            <h5><em>Will be assigned after order creation</em></h5>
+                            <h4>Order ID: no</h4>
+
                         </div>
                     <?php endif; ?>
                 </div>

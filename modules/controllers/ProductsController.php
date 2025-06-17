@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
+use app\modules\models\Admin;
 
 /**
  * ProductsController implements the CRUD actions for Products model.
@@ -44,7 +45,16 @@ class ProductsController extends Controller
         $searchModel = new ProductsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+
+        $products = Products::find()->all();
+        $profit = Products::getExpectedProfit();
+        $lowStockCount = Admin::getLowStockProductCount(10);
+        $outOfStockCount = Admin::getOutOfStockProductCount();
         return $this->render('index', [
+            'products' => $products,
+            'profit' => $profit,
+            'lowStockCount' => $lowStockCount,
+            'outOfStockCount' => $outOfStockCount,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

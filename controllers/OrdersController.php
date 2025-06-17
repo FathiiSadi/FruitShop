@@ -99,8 +99,12 @@ class OrdersController extends Controller
      */
     public function actionView($order_id)
     {
+        $order = Orders::find()
+            ->where(['order_id' => $order_id, 'UserID' => Yii::$app->user->id])
+            ->one();
         return $this->render('view', [
             'model' => $this->findModel($order_id),
+            'order' => $order,
         ]);
     }
 

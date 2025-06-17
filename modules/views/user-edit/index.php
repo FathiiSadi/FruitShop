@@ -6,58 +6,18 @@ use yii\web\View;
 use yii\bootstrap5\BootstrapAsset;
 /* @var $this View */
 
-$this->title = 'FruitShop Admin';
-$this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootstrap5\BootstrapAsset::className()]]);
+$this->title = 'User  - Admin';
+
 ?>
-
-
-<head>
-    <!-- Required meta tags -->
-    <?php
-    ?>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title ?? 'FruitShop Admin') ?></title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="<?= Url::to('@web/vendors/feather/feather.css') ?>">
-    <link rel="stylesheet" href="<?= Url::to('@web/vendors/ti-icons/css/themify-icons.css') ?>">
-    <link rel="stylesheet" href="<?= Url::to('@web/vendors/css/vendor.bundle.base.css') ?>">
-    <link rel="stylesheet" href="<?= Url::to('@web/vendors/mdi/css/materialdesignicons.min.css') ?>">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="<?= Url::to('@web/vendors/datatables.net-bs4/dataTables.bootstrap4.css') ?>">
-    <link rel="stylesheet" href="<?= Url::to('@web/vendors/ti-icons/css/themify-icons.css') ?>">
-    <link rel="stylesheet" type="text/css" href="<?= Url::to('@web/js/select.dataTables.min.css') ?>">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <link rel="stylesheet" href="<?= Url::to('@web/css/vertical-layout-light/style.css') ?>">
-    <!-- endinject -->
-    <link rel="shortcut icon" href="<?= Url::to('@web/images/favicon.png') ?>" />
-</head>
 
 <body>
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
-
-
-
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
-
-
-
-
-
-
-
-
             <div class="main-panel" style="width:100%;min-height:100vh;">
                 <div class="content-wrapper" style="height:100%;display:flex;flex-direction:column;justify-content:center;">
-
-
                     <div class="card" style="flex:1;display:flex;flex-direction:column;min-height:0;">
-
                         <div class="card-body" style="flex:1;display:flex;flex-direction:column;min-height:0;">
                             <h4 class="card-title">User Management</h4>
                             <p class="card-description">
@@ -127,8 +87,6 @@ $this->registerCssFile(Url::to('@web/css/style.css'), ['depends' => [\yii\bootst
                                 </div>
                             </div>
                         </div>
-
-
 
                         <!-- Conversion Card -->
                         <div class="col-xl-3 col-md-6">

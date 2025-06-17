@@ -31,6 +31,8 @@ class OrdersController extends Controller
         );
     }
 
+
+
     /**
      * Lists all Orders models.
      *
@@ -38,10 +40,21 @@ class OrdersController extends Controller
      */
     public function actionIndex()
     {
+
         $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $orders = Orders::find()->all();
+        $max = Orders::getMax();
+        $pending = Orders::getStatusPending();
+        $bestMonth = Orders::getOrdersByMonth();
+        $bestCity = Orders::getOrdersByCity();
 
-        return $this->render('/admin/default/orders', [
+        return $this->render('index', [
+            'orders' => $orders,
+            'max' => $max,
+            'pending' => $pending,
+            'bestMonth' => $bestMonth,
+            'bestCity' => $bestCity,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

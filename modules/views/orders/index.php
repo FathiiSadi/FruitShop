@@ -1,52 +1,261 @@
 <?php
 
-use app\modules\models\Orders;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use yii\web\View;
+use yii\bootstrap5\BootstrapAsset;
+/* @var $this View */
 
-/** @var yii\web\View $this */
-/** @var app\modules\models\OrdersSearch $searchModel */
-/** @var yii\data\ActiveDataProvider $dataProvider */
-
-$this->title = 'Orders';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Orders  - Admin';
 ?>
-<div class="orders-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Orders', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'order_id',
-            'UserID',
-            'address_id',
-            'order_date',
-            'status',
-            //'subtotal',
-            //'tax_amount',
-            //'shipping_cost',
-            //'total_amount',
-            //'notes:ntext',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'order_id' => $model->order_id]);
-                 }
-            ],
-        ],
-    ]); ?>
+
+
+
+
+
+
+        <div class="main-panel" style="width:100%;min-height:100vh;">
+            <div class="content-wrapper" style="height:100%;display:flex;flex-direction:column;justify-content:center;">
+
+
+                <div class="card" style="flex:1;display:flex;flex-direction:column;min-height:0;">
+
+                    <div class="card-body" style="flex:1;display:flex;flex-direction:column;min-height:0;">
+                        <h4 class="card-title">Orders Management</h4>
+                        <p class="card-description">
+                        </p>
+                        <div class="table-responsive" style="flex:1;min-height:0;">
+                            <table class="table" style="width:100%;height:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Order Date</th>
+                                        <th>Username</th>
+                                        <th>city</th>
+                                        <th>status</th>
+                                        <th>subtotal</th>
+                                        <th>tax</th>
+                                        <th>$Total</th>
+                                        <th>actions</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($orders as $order): ?>
+                                        <tr>
+                                            <td><?= $order->order_id ?></td>
+                                            <td><?= $order->order_date ?></td>
+                                            <td><?= $order->user->username ?></td>
+                                            <td><?= $order->address->city ?></td>
+                                            <td><?= $order->status ?></td>
+                                            <td><?= $order->subtotal ?></td>
+                                            <td><?= $order->tax_amount ?></td>
+                                            <td><?= $order->total_amount ?></td>
+                                            <td>
+                                                <a href="<?= Url::toRoute(['/admin/orders/update', 'order_id' => $order->order_id]) ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                <?= Html::beginForm(['/admin/orders/delete', 'order_id' => $order->order_id], 'post', ['style' => 'display:inline']) ?>
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+                                                <?= Html::endForm() ?>
+
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container mb-5 Statistics">
+                <h2 class="text-center mb-4">Dashboard Statistics</h2>
+
+                <div class="row g-4">
+                    <!-- Revenue Card -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card stats-card card-hover-primary shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <div class="text-muted text-uppercase fw-bold small">Best Month</div>
+                                        <div class="stat-value text-primary"><?= DateTime::createFromFormat('!m', $bestMonth['month'])->format('F')  ?></div>
+                                        <!-- <div class="stat-change text-success">
+                                                <i class="fas fa-arrow-up trend-icon"></i>
+                                                <div class="stat-value text-info">
+                                                </div>
+                                                <span>increase 10.1%</span>
+                                            </div> -->
+                                    </div>
+                                    <div class="icon-circle">
+                                        <i class="fas fa-solid fa-clock text-primary"></i>
+
+                                    </div>
+                                </div>
+                                <div class="progress mt-4">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"></div>
+                                </div>
+                                <div class="mini-chart">
+                                    <div class="chart-bar" style="height: 60%"></div>
+                                    <div class="chart-bar" style="height: 40%"></div>
+                                    <div class="chart-bar" style="height: 80%"></div>
+                                    <div class="chart-bar" style="height: 65%"></div>
+                                    <div class="chart-bar" style="height: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Users Card -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card stats-card card-hover-success shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <div class="text-muted text-uppercase fw-bold small">Total Orders</div>
+                                        <div class="stat-value text-success"><?= count($orders) ?></div>
+                                        <!-- <div class="stat-change text-success">
+                                                <i class="fas fa-arrow-up trend-icon"></i>
+                                                <span>12.4% increase</span>
+                                            </div> -->
+                                    </div>
+                                    <div class="icon-circle">
+                                        <i class="fas fa-users text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="progress mt-4">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 85%"></div>
+                                </div>
+                                <div class="mini-chart">
+                                    <div class="chart-bar" style="height: 50%"></div>
+                                    <div class="chart-bar" style="height: 70%"></div>
+                                    <div class="chart-bar" style="height: 85%"></div>
+                                    <div class="chart-bar" style="height: 75%"></div>
+                                    <div class="chart-bar" style="height: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tasks Card -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card stats-card card-hover-info shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <div class="text-muted text-uppercase fw-bold small">pending orders</div>
+                                        <div class="stat-value text-info"><?= $pending ?></div>
+                                        <!-- <div class="stat-change text-danger">
+                                                <i class="fas fa-arrow-down trend-icon"></i>
+                                                <span>3.2% decrease</span>
+                                            </div> -->
+                                    </div>
+                                    <div class="icon-circle">
+                                        <i class="fas fa-tasks text-info"></i>
+                                    </div>
+                                </div>
+                                <div class="progress mt-4">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 65%"></div>
+                                </div>
+                                <div class="mini-chart">
+                                    <div class="chart-bar" style="height: 80%"></div>
+                                    <div class="chart-bar" style="height: 65%"></div>
+                                    <div class="chart-bar" style="height: 55%"></div>
+                                    <div class="chart-bar" style="height: 65%"></div>
+                                    <div class="chart-bar" style="height: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conversion Card -->
+
+
+                    <!-- City card -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card stats-card card-hover-primary shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <div class="text-muted text-uppercase fw-bold small">Best City</div>
+                                        <div class="stat-value text-primary"><?= $bestCity[0]['city'] ?></div>
+                                        <div class="stat-change text">
+
+                                            <span><?= $bestCity[0]['total'] ?> Orders </span>
+                                        </div>
+                                    </div>
+                                    <div class="icon-circle">
+                                        <i class="fa fas-solid fa-city text-primary"></i>
+                                    </div>
+                                </div>
+                                <div class="progress mt-4">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"></div>
+                                </div>
+                                <div class="mini-chart">
+                                    <div class="chart-bar" style="height: 60%"></div>
+                                    <div class="chart-bar" style="height: 40%"></div>
+                                    <div class="chart-bar" style="height: 80%"></div>
+                                    <div class="chart-bar" style="height: 65%"></div>
+                                    <div class="chart-bar" style="height: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conversion Card -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card stats-card card-hover-warning shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <div class="text-muted text-uppercase fw-bold small">Max paid cart</div>
+                                        <div class="stat-value text-warning">$<?= $max ?></div>
+                                        <!-- <div class="stat-change text-success">
+                                                <i class="fas fa-arrow-up trend-icon"></i>
+                                                <span>5.7% increase</span>
+                                            </div> -->
+                                    </div>
+                                    <div class="icon-circle">
+
+                                        <i class="fas fa-solid fa-money-bill text-warning"></i>
+                                    </div>
+                                </div>
+                                <div class="progress mt-4">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 45%"></div>
+                                </div>
+                                <div class="mini-chart">
+                                    <div class="chart-bar" style="height: 30%"></div>
+                                    <div class="chart-bar" style="height: 45%"></div>
+                                    <div class="chart-bar" style="height: 40%"></div>
+                                    <div class="chart-bar" style="height: 45%"></div>
+                                    <div class="chart-bar" style="height: 45%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+</div>
 
 
 </div>

@@ -23,7 +23,8 @@ class Admin extends \yii\base\Module
     public function init()
     {
         parent::init();
-        Yii::$app->layout = '@app/views/layouts/main';
+        Yii::$app->layoutPath = '@app';
+        Yii::$app->layout = '/modules/views/layouts/main';
         // Yii::$app->response->redirect(Url::home());
         // Yii::$app->response->send();
         // exit;
@@ -42,13 +43,7 @@ class Admin extends \yii\base\Module
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'],
-                        'matchCallback' => function ($rule, $action) {
-                            return Yii::$app->user->identity->role === 'admin';
-                        },
-                        'denyCallback' => function ($rule, $action) {
-                            return Yii::$app->response->redirect(['/site/index']);
-                        }
+
                     ],
                 ],
             ],

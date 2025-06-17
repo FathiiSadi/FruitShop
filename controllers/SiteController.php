@@ -118,7 +118,9 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
             if (Yii::$app->user->identity->role === 'admin') return $this->redirect(['/admin/default/index']);
-            else return $this->redirect(['/site/index']);
+            else {
+                return $this->redirect(['/site/index']);
+            }
         }
 
         $model->password = '';
