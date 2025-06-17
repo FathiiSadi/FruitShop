@@ -6,32 +6,36 @@
  * @license https://www.yiiframework.com/license/
  */
 
-namespace app\assets;
+namespace app\modules\asset;
 
 use yii\web\AssetBundle;
 
-class AppAsset extends AssetBundle
+class AdminAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
-        '@web/assets/img/favicon.png',
-        "https://fonts.googleapis.com/css?family=Open+Sans:300,400,700",
-        "https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap",
-        '@web/assets/css/all.min.css',
-        '@web/assets/bootstrap/css/bootstrap.min.css',
-        '@web/assets/css/owl.carousel.css',
-        '@web/assets/css/magnific-popup.css',
-        '@web/assets/css/animate.css',
-        '@web/assets/css/meanmenu.min.css',
-        '@web/assets/css/main.css',
-        '@web/assets/css/responsive.css',
+        'assets/css/all.min.css',
+        'assets/bootstrap/css/bootstrap.min.css',
+        'assets/css/owl.carousel.css',
+        'assets/css/magnific-popup.css',
+        'assets/css/animate.css',
+        'assets/css/meanmenu.min.css',
+        'assets/css/main.css',
+        'assets/css/responsive.css',
+        'vendors/feather/feather.css',
+        'vendors/ti-icons/css/themify-icons.css',
+        'vendors/css/vendor.bundle.base.css',
+        'vendors/mdi/css/materialdesignicons.min.css',
+        'vendors/datatables.net-bs4/dataTables.bootstrap4.css',
+        'js/select.dataTables.min.css',
+        'css/vertical-layout-light/style.css',
     ];
     public $js = [
         'assets/js/jquery-1.11.3.min.js',
         'assets/bootstrap/js/bootstrap.min.js',
-        'assets/js/jquery.countdown.js',
+        'assets/js/ .countdown.js',
         'assets/js/jquery.isotope-3.0.6.min.js',
         'assets/js/waypoints.js',
         'assets/js/owl.carousel.min.js',

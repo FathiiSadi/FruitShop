@@ -118,7 +118,7 @@ class UserEditController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['/admin/default/user']);
+        return $this->redirect(['/admin/user-edit']);
     }
 
     /**

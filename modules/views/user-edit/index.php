@@ -10,6 +10,10 @@ $this->title = 'User  - Admin';
 
 ?>
 
+<style>
+
+</style>
+
 <body>
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->

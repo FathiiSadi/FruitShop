@@ -23,8 +23,8 @@ class Admin extends \yii\base\Module
     public function init()
     {
         parent::init();
-        Yii::$app->layoutPath = '@app';
-        Yii::$app->layout = '/modules/views/layouts/main';
+        Yii::$app->layoutPath = '@app/modules/views/layouts';
+        Yii::$app->layout = 'main';
         // Yii::$app->response->redirect(Url::home());
         // Yii::$app->response->send();
         // exit;

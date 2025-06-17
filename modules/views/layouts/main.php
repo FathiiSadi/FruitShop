@@ -1,5 +1,6 @@
 <?php
 
+use app\modules\asset\AdminAsset;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -11,6 +12,9 @@ use yii\bootstrap5\NavBar;
 
 $this->beginPage();
 
+AdminAsset::register($this);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -20,48 +24,12 @@ $this->beginPage();
 <head>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <link rel="shortcut icon" type="image/png" href="<?= Url::to('@web/assets/img/favicon.png') ?>">
-    <!-- google font -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-    <!-- fontawesome -->
-    <link rel="stylesheet" href="<?= \yii\helpers\Url::to('@web/assets/css/all.min.css') ?>">
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="<?= \yii\helpers\Url::to('@web/assets/bootstrap/css/bootstrap.min.css') ?>">
-    <!-- owl carousel -->
-    <link rel="stylesheet" href="<?= \yii\helpers\Url::to('@web/assets/css/owl.carousel.css') ?>">
-    <!-- magnific popup -->
-    <link rel="stylesheet" href="<?= \yii\helpers\Url::to('@web/assets/css/magnific-popup.css') ?>">
-    <!-- animate css -->
-    <link rel="stylesheet" href="<?= \yii\helpers\Url::to('@web/assets/css/animate.css') ?>">
-    <!-- mean menu css -->
-    <link rel="stylesheet" href="<?= \yii\helpers\Url::to('@web/assets/css/meanmenu.min.css') ?>">
-    <!-- main style -->
-    <link rel="stylesheet" href="<?= \yii\helpers\Url::to('@web/assets/css/main.css') ?>">
-    <!-- responsive -->
-    <link rel="stylesheet" href="<?= \yii\helpers\Url::to('@web/assets/css/responsive.css') ?>">
 
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title ?? 'FruitShop') ?></title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="<?= Url::to('@web/vendors/feather/feather.css') ?>">
-    <link rel="stylesheet" href="<?= Url::to('@web/vendors/ti-icons/css/themify-icons.css') ?>">
-    <link rel="stylesheet" href="<?= Url::to('@web/vendors/css/vendor.bundle.base.css') ?>">
-    <link rel="stylesheet" href="<?= Url::to('@web/vendors/mdi/css/materialdesignicons.min.css') ?>">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="<?= Url::to('@web/vendors/datatables.net-bs4/dataTables.bootstrap4.css') ?>">
-    <link rel="stylesheet" href="<?= Url::to('@web/vendors/ti-icons/css/themify-icons.css') ?>">
-    <link rel="stylesheet" type="text/css" href="<?= Url::to('@web/js/select.dataTables.min.css') ?>">
-    <!-- End plugin css for this page -->
-    <link rel="stylesheet" href="<?= Url::to('@web/css/site.css') ?>">
 
-    <!-- inject:css -->
-    <link rel="stylesheet" href="<?= Url::to('@web/css/vertical-layout-light/style.css') ?>">
-    <!-- endinject -->
-    <link rel="shortcut icon" href="<?= Url::to('@web/images/favicon.png') ?>" />
 </head>
 
 <body>
@@ -155,25 +123,3 @@ $this->beginPage();
 
 </html>
 <?php $this->endPage() ?>
-
-
-<!-- jquery -->
-<script src="<?= Url::to('@web/assets/js/jquery-1.11.3.min.js') ?>"></script>
-<!-- bootstrap -->
-<script src="<?= Url::to('@web/assets/bootstrap/js/bootstrap.min.js') ?>"></script>
-<!-- countdown -->
-<script src="<?= Url::to('@web/assets/js/countdown.js') ?>"></script>
-<!-- isotope -->
-<script src="<?= Url::to('@web/assets/js/jquery.isotope-3.0.6.min.js') ?>"></script>
-<!-- waypoints -->
-<script src="<?= Url::to('@web/assets/js/waypoints.js') ?>"></script>
-<!-- owl carousel -->
-<script src="<?= Url::to('@web/assets/js/owl.carousel.min.js') ?>"></script>
-<!-- magnific popup -->
-<script src="<?= Url::to('@web/assets/js/jquery.magnific-popup.min.js') ?>"></script>
-<!-- mean menu -->
-<script src="<?= Url::to('@web/assets/js/jquery.meanmenu.min.js') ?>"></script>
-<!-- sticker js -->
-<script src="<?= Url::to('@web/assets/js/sticker.js') ?>"></script>
-<!-- main js -->
-<script src="<?= Url::to('@web/assets/js/main.js') ?>"></script>
