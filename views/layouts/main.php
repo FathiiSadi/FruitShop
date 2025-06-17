@@ -89,13 +89,7 @@ $this->beginPage();
                     ['label' => 'About', 'url' => ['/site/about']],
                     ['label' => "shop", 'url' => ['site/shop']],
                     // ['label' => 'User Cart', 'url' => ['/site/user-cart']],
-                    !Yii::$app->user->isGuest && Yii::$app->user->identity->role == "admin"
-                        ? [
-                            'label' => 'Admin',
-                            'url' => ['/admin/default/index'],
-                            ['label' => 'Signup', 'url' => ['/site/signup']],
-                        ]
-                        : '',
+
                     Yii::$app->user->isGuest
                         ? [
                             'label' => 'Authantication',
@@ -195,7 +189,7 @@ $this->beginPage();
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= Url::to(['/admin/default/user']) ?>">
+                    <a class="nav-link" href="<?= Url::to(['/admin/user-edit/index']) ?>">
                         <i class="icon-grid menu-icon"></i>
                         <span class="menu-title">User</span>
                     </a>

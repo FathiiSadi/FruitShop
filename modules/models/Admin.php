@@ -14,6 +14,7 @@ class Admin
         return User::find()->count();
     }
 
+
     // public static function getSoldProductCount()
     // {
     //     return Products::find()->where(['status' => 'sold'])->count();

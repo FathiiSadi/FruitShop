@@ -41,9 +41,14 @@ class UserEditController extends Controller
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('/admin/default/index', [
+        $users = User::find()->all();
+        $admin = User::getAdmin();
+        return $this->render('index', [
+            'users' => $users,
+            'admin' => $admin,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+
         ]);
     }
 
