@@ -9,272 +9,40 @@ $this->title = 'FruitShop - Altibbi';
 ?>
 
 
-<head>
-
-    <title>Fruitkha - Slider Version</title>
-
-    <?php
-    ?>
 
 
-</head>
-
-<body>
-
-    <!--PreLoader-->
-    <!-- <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
-    </div> -->
-    <!--PreLoader Ends-->
-
-    <!-- header -->
-
-    <!-- end search area -->
-
-    <!-- home page slider -->
-    <div class="homepage-slider">
-        <!-- single home slider -->
-        <div class="single-homepage-slider homepage-bg-1">
-            <div class="">
-                <div class="row">
-                    <div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
-                        <div class="hero-text">
-                            <div class="hero-text-tablecell">
-                                <p class="subtitle">Fresh & Organic</p>
-                                <h1>Delicious Seasonal Fruits</h1>
-                                <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">Fruit Collection</a>
-                                    <a href="contact.html" class="bordered-btn">Contact Us</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- single home slider -->
-        <div class="single-homepage-slider homepage-bg-2">
-            <div class="">
-                <div class="row">
-                    <div class="col-lg-10 offset-lg-1 text-center">
-                        <div class="hero-text">
-                            <div class="hero-text-tablecell">
-                                <p class="subtitle">Fresh Everyday</p>
-                                <h1>100% Organic Collection</h1>
-                                <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">Visit Shop</a>
-                                    <a href="contact.html" class="bordered-btn">Contact Us</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- single home slider -->
-        <div class="single-homepage-slider homepage-bg-3">
-            <div class="">
-                <div class="row">
-                    <div class="col-lg-10 offset-lg-1 text-right">
-                        <div class="hero-text">
-                            <div class="hero-text-tablecell">
-                                <p class="subtitle">Mega Sale Going On!</p>
-                                <h1>Get December Discount</h1>
-                                <div class="hero-btns">
-                                    <a href="shop.html" class="boxed-btn">Visit Shop</a>
-                                    <a href="contact.html" class="bordered-btn">Contact Us</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end home page slider -->
-
-    <!-- features list section -->
-    <div class="list-section pt-80 pb-80">
+<div class="homepage-slider mt-5">
+    <!-- single home slider -->
+    <div class="single-homepage-slider homepage-bg-1">
         <div class="">
-
             <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                    <div class="list-box d-flex align-items-center">
-                        <div class="list-icon">
-                            <i class="fas fa-shipping-fast"></i>
-                        </div>
-                        <div class="content">
-                            <h3>Free Shipping</h3>
-                            <p>When order over $75</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                    <div class="list-box d-flex align-items-center">
-                        <div class="list-icon">
-                            <i class="fas fa-phone-volume"></i>
-                        </div>
-                        <div class="content">
-                            <h3>24/7 Support</h3>
-                            <p>Get support all day</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="list-box d-flex justify-content-start align-items-center">
-                        <div class="list-icon">
-                            <i class="fas fa-sync"></i>
-                        </div>
-                        <div class="content">
-                            <h3>Refund</h3>
-                            <p>Get refund within 3 days!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <!-- end features list section -->
-
-    <!-- product section -->
-    <div class="product-section mt-150 mb-150">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center">
-                    <div class="section-title">
-                        <h3><span class="orange-text">Our</span> Products</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/products/product-img-1.jpg') ?> alt="">
-                        </div>
-                        <h3>Strawberry</h3>
-                        <p class="product-price"><span>Per Kg</span> 85$ </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/products/product-img-2.jpg') ?> alt="">
-                        </div>
-                        <h3>Berry</h3>
-                        <p class="product-price"><span>Per Kg</span> 70$ </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/products/product-img-3.jpg') ?> alt="">
-                        </div>
-                        <h3>Lemon</h3>
-                        <p class="product-price"><span>Per Kg</span> 35$ </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end product section -->
-
-    <!-- cart banner section -->
-    <section class="cart-banner pt-100 pb-100">
-        <div class="">
-            <div class="row clearfix">
-                <!--Image Column-->
-                <div class="image-column col-lg-6">
-                    <div class="image">
-                        <div class="price-box">
-                            <div class="inner-price">
-                                <span class="price">
-                                    <strong>30%</strong> <br> off per kg
-                                </span>
-                            </div>
-                        </div>
-                        <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/a.jpg') ?> alt="">
-                    </div>
-                </div>
-                <!--Content Column-->
-                <div class="content-column col-lg-6">
-                    <h3><span class="orange-text">Deal</span> of the month</h3>
-                    <h4>Hikan Strwaberry</h4>
-                    <div class="text">Quisquam minus maiores repudiandae nobis, minima saepe id, fugit ullam similique! Beatae, minima quisquam molestias facere ea. Perspiciatis unde omnis iste natus error sit voluptatem accusant</div>
-                    <!--Countdown Timer-->
-                    <div class="time-counter">
-                        <div class="time-countdown clearfix" data-countdown="2020/2/01">
-                            <div class="counter-column">
-                                <div class="inner"><span class="count">00</span>Days</div>
-                            </div>
-                            <div class="counter-column">
-                                <div class="inner"><span class="count">00</span>Hours</div>
-                            </div>
-                            <div class="counter-column">
-                                <div class="inner"><span class="count">00</span>Mins</div>
-                            </div>
-                            <div class="counter-column">
-                                <div class="inner"><span class="count">00</span>Secs</div>
+                <div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
+                    <div class="hero-text">
+                        <div class="hero-text-tablecell">
+                            <p class="subtitle">Fresh & Organic</p>
+                            <h1>Delicious Seasonal Fruits</h1>
+                            <div class="hero-btns">
+                                <a href="shop.html" class="boxed-btn">Fruit Collection</a>
+                                <a href="contact.html" class="bordered-btn">Contact Us</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- end cart banner section -->
-
-    <!-- testimonail-section -->
-    <div class="testimonail-section mt-150 mb-150">
+    </div>
+    <!-- single home slider -->
+    <div class="single-homepage-slider homepage-bg-2">
         <div class="">
             <div class="row">
                 <div class="col-lg-10 offset-lg-1 text-center">
-                    <div class="testimonial-sliders">
-                        <div class="single-testimonial-slider">
-                            <div class="client-avater">
-                                <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/avaters/avatar1.png') ?> alt="">
-                            </div>
-                            <div class="client-meta">
-                                <h3>Saira Hakim <span>Local shop owner</span></h3>
-                                <p class="testimonial-body">
-                                    " Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-                                </p>
-                                <div class="last-icon">
-                                    <i class="fas fa-quote-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-testimonial-slider">
-                            <div class="client-avater">
-                                <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/avaters/avatar2.png') ?> alt="">
-                            </div>
-                            <div class="client-meta">
-                                <h3>David Niph <span>Local shop owner</span></h3>
-                                <p class="testimonial-body">
-                                    " Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-                                </p>
-                                <div class="last-icon">
-                                    <i class="fas fa-quote-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-testimonial-slider">
-                            <div class="client-avater">
-                                <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/avaters/avatar3.png') ?> alt="">
-                            </div>
-                            <div class="client-meta">
-                                <h3>Jacob Sikim <span>Local shop owner</span></h3>
-                                <p class="testimonial-body">
-                                    " Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-                                </p>
-                                <div class="last-icon">
-                                    <i class="fas fa-quote-right"></i>
-                                </div>
+                    <div class="hero-text">
+                        <div class="hero-text-tablecell">
+                            <p class="subtitle">Fresh Everyday</p>
+                            <h1>100% Organic Collection</h1>
+                            <div class="hero-btns">
+                                <a href="shop.html" class="boxed-btn">Visit Shop</a>
+                                <a href="contact.html" class="bordered-btn">Contact Us</a>
                             </div>
                         </div>
                     </div>
@@ -282,61 +50,270 @@ $this->title = 'FruitShop - Altibbi';
             </div>
         </div>
     </div>
-    <!-- end testimonail-section -->
-
-    <!-- advertisement section -->
-    <div class="abt-section mb-150">
+    <!-- single home slider -->
+    <div class="single-homepage-slider homepage-bg-3">
         <div class="">
             <div class="row">
-                <div class="col-lg-6 col-md-12">
-                    <div class="abt-bg">
-                        <a href="" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="abt-text">
-                        <p class="top-sub">Since Year 1999</p>
-                        <h2>We are <span class="orange-text">Fruitkha</span></h2>
-                        <p>Etiam vulputate ut augue vel sodales. In sollicitudin neque et massa porttitor vestibulum ac vel nisi. Vestibulum placerat eget dolor sit amet posuere. In ut dolor aliquet, aliquet sapien sed, interdum velit. Nam eu molestie lorem.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.</p>
+                <div class="col-lg-10 offset-lg-1 text-right">
+                    <div class="hero-text">
+                        <div class="hero-text-tablecell">
+                            <p class="subtitle">Mega Sale Going On!</p>
+                            <h1>Get December Discount</h1>
+                            <div class="hero-btns">
+                                <a href="shop.html" class="boxed-btn">Visit Shop</a>
+                                <a href="contact.html" class="bordered-btn">Contact Us</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end advertisement section -->
+</div>
+<!-- end home page slider -->
 
-    <!-- shop banner -->
-    <section class="shop-banner mb-5">
-        <div class="">
-            <h3>December sale is on! <br> with big <span class="orange-text">Discount...</span></h3>
-            <div class="sale-percent"><span>Sale! <br> Upto</span>50% <span>off</span></div>
-            <a href="/site/shop" class="cart-btn btn-lg">Shop Now</a>
+<!-- features list section -->
+<div class="list-section pt-80 pb-80">
+    <div class="">
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                <div class="list-box d-flex align-items-center">
+                    <div class="list-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="content">
+                        <h3>Free Shipping</h3>
+                        <p>When order over $75</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                <div class="list-box d-flex align-items-center">
+                    <div class="list-icon">
+                        <i class="fas fa-phone-volume"></i>
+                    </div>
+                    <div class="content">
+                        <h3>24/7 Support</h3>
+                        <p>Get support all day</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="list-box d-flex justify-content-start align-items-center">
+                    <div class="list-icon">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <div class="content">
+                        <h3>Refund</h3>
+                        <p>Get refund within 3 days!</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
-    <!-- end shop banner -->
+
+    </div>
+</div>
+<!-- end features list section -->
+
+<!-- product section -->
+<div class="product-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="section-title">
+                    <h3><span class="orange-text">Our</span> Products</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6 text-center">
+                <div class="single-product-item">
+                    <div class="product-image">
+                        <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/products/product-img-1.jpg') ?> alt="">
+                    </div>
+                    <h3>Strawberry</h3>
+                    <p class="product-price"><span>Per Kg</span> 85$ </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 text-center">
+                <div class="single-product-item">
+                    <div class="product-image">
+                        <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/products/product-img-2.jpg') ?> alt="">
+                    </div>
+                    <h3>Berry</h3>
+                    <p class="product-price"><span>Per Kg</span> 70$ </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
+                <div class="single-product-item">
+                    <div class="product-image">
+                        <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/products/product-img-3.jpg') ?> alt="">
+                    </div>
+                    <h3>Lemon</h3>
+                    <p class="product-price"><span>Per Kg</span> 35$ </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end product section -->
+
+<!-- cart banner section -->
+<section class="cart-banner pt-100 pb-100">
+    <div class="">
+        <div class="row clearfix">
+            <!--Image Column-->
+            <div class="image-column col-lg-6">
+                <div class="image">
+                    <div class="price-box">
+                        <div class="inner-price">
+                            <span class="price">
+                                <strong>30%</strong> <br> off per kg
+                            </span>
+                        </div>
+                    </div>
+                    <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/a.jpg') ?> alt="">
+                </div>
+            </div>
+            <!--Content Column-->
+            <div class="content-column col-lg-6">
+                <h3><span class="orange-text">Deal</span> of the month</h3>
+                <h4>Hikan Strwaberry</h4>
+                <div class="text">Quisquam minus maiores repudiandae nobis, minima saepe id, fugit ullam similique! Beatae, minima quisquam molestias facere ea. Perspiciatis unde omnis iste natus error sit voluptatem accusant</div>
+                <!--Countdown Timer-->
+                <div class="time-counter">
+                    <div class="time-countdown clearfix" data-countdown="2020/2/01">
+                        <div class="counter-column">
+                            <div class="inner"><span class="count">00</span>Days</div>
+                        </div>
+                        <div class="counter-column">
+                            <div class="inner"><span class="count">00</span>Hours</div>
+                        </div>
+                        <div class="counter-column">
+                            <div class="inner"><span class="count">00</span>Mins</div>
+                        </div>
+                        <div class="counter-column">
+                            <div class="inner"><span class="count">00</span>Secs</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end cart banner section -->
+
+<!-- testimonail-section -->
+<div class="testimonail-section mt-150 mb-150">
+    <div class="">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 text-center">
+                <div class="testimonial-sliders">
+                    <div class="single-testimonial-slider">
+                        <div class="client-avater">
+                            <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/avaters/avatar1.png') ?> alt="">
+                        </div>
+                        <div class="client-meta">
+                            <h3>Saira Hakim <span>Local shop owner</span></h3>
+                            <p class="testimonial-body">
+                                " Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
+                            </p>
+                            <div class="last-icon">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-testimonial-slider">
+                        <div class="client-avater">
+                            <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/avaters/avatar2.png') ?> alt="">
+                        </div>
+                        <div class="client-meta">
+                            <h3>David Niph <span>Local shop owner</span></h3>
+                            <p class="testimonial-body">
+                                " Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
+                            </p>
+                            <div class="last-icon">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-testimonial-slider">
+                        <div class="client-avater">
+                            <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/avaters/avatar3.png') ?> alt="">
+                        </div>
+                        <div class="client-meta">
+                            <h3>Jacob Sikim <span>Local shop owner</span></h3>
+                            <p class="testimonial-body">
+                                " Sed ut perspiciatis unde omnis iste natus error veritatis et quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
+                            </p>
+                            <div class="last-icon">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end testimonail-section -->
+
+<!-- advertisement section -->
+<div class="abt-section mb-150">
+    <div class="">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="abt-bg">
+                    <a href="" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="abt-text">
+                    <p class="top-sub">Since Year 1999</p>
+                    <h2>We are <span class="orange-text">Fruitkha</span></h2>
+                    <p>Etiam vulputate ut augue vel sodales. In sollicitudin neque et massa porttitor vestibulum ac vel nisi. Vestibulum placerat eget dolor sit amet posuere. In ut dolor aliquet, aliquet sapien sed, interdum velit. Nam eu molestie lorem.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end advertisement section -->
+
+<!-- shop banner -->
+<section class="shop-banner mb-5">
+    <div class="">
+        <h3>December sale is on! <br> with big <span class="orange-text">Discount...</span></h3>
+        <div class="sale-percent"><span>Sale! <br> Upto</span>50% <span>off</span></div>
+        <a href="/site/shop" class="cart-btn btn-lg">Shop Now</a>
+    </div>
+</section>
+<!-- end shop banner -->
 
 
-    <!-- jquery -->
-    <script src="assets/js/jquery-1.11.3.min.js"></script>
-    <!-- bootstrap -->
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <!-- count down -->
-    <script src="assets/js/jquery.countdown.js"></script>
-    <!-- isotope -->
-    <script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
-    <!-- waypoints -->
-    <script src="assets/js/waypoints.js"></script>
-    <!-- owl carousel -->
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <!-- magnific popup -->
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
-    <!-- mean menu -->
-    <script src="assets/js/jquery.meanmenu.min.js"></script>
-    <!-- sticker js -->
-    <script src="assets/js/sticker.js"></script>
-    <!-- main js -->
-    <script src="assets/js/main.js"></script>
+<!-- jquery -->
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<!-- bootstrap -->
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<!-- count down -->
+<script src="assets/js/jquery.countdown.js"></script>
+<!-- isotope -->
+<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+<!-- waypoints -->
+<script src="assets/js/waypoints.js"></script>
+<!-- owl carousel -->
+<script src="assets/js/owl.carousel.min.js"></script>
+<!-- magnific popup -->
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<!-- mean menu -->
+<script src="assets/js/jquery.meanmenu.min.js"></script>
+<!-- sticker js -->
+<script src="assets/js/sticker.js"></script>
+<!-- main js -->
+<script src="assets/js/main.js"></script>
 
 </body>
 

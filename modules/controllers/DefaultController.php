@@ -21,26 +21,8 @@ class DefaultController extends Controller
 
 
     /**
-     * @return array
+     * @return \yii\web\Response
      */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => \yii\filters\AccessControl::class,
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                        'matchCallback' => function ($rule, $action) {
-                            return !Yii::$app->user->isGuest && Yii::$app->user->identity->role === 'admin';
-                        },
-                    ],
-                ],
-            ],
-        ];
-    }
-
     public function actionLogout()
     {
         Yii::$app->user->logout();

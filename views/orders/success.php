@@ -44,11 +44,7 @@ $this->title = 'Order Success';
                         ]) ?>
                     </div>
 
-                    <div class="mt-4">
-                        <small class="text-muted">
-                            A confirmation email has been sent to your registered email address.
-                        </small>
-                    </div>
+
                 </div>
             </div>
         </div>

@@ -1,75 +1,83 @@
-    <?php
+<?php
 
-    use app\models\Orders;
-    use yii\helpers\Html;
-    use yii\helpers\Url;
-    use yii\widgets\ActiveForm;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
-    /** @var yii\widgets\ActiveForm $form */
+/** @var yii\web\View $this */
+/** @var app\models\Orders $order */
 
-    ?>
-    <div class="container mt-100">
-        <div class="row">
-            <div class="col-md-6">
-                <h2>Order Summary</h2>
+$this->title = 'Order Success';
+?>
 
-                <div class="order-details">
-                    <?php foreach ($cart->cartItems as $item) : ?>
-                        <div class="detail-row">
-                            <h4><?= $item->product->name ?> ($<?= $item->price ?> per unit) :</h4>
-                            <h5><?= $item->quantity  ?> * $<?= $item->price ?></h5>
+<div class="container mt-100">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                    </div>
+
+                    <h2 class="text-success mb-3">Order Placed Successfully!</h2>
+
+                    <div class="order-details mb-4">
+                        <p class="lead">Thank you for your order!</p>
+                        <div class="order-info">
+                            <p><strong>Order ID:</strong> <?= Html::encode($order->order_id) ?></p>
+                            <p><strong>Order Date:</strong> <?= Html::encode(date('F j, Y', strtotime($order->order_date))) ?></p>
+                            <p><strong>Total Amount:</strong> $<?= Html::encode(number_format($order->total_amount, 2)) ?></p>
+                            <p><strong>Status:</strong> <span class="badge badge-info"><?= Html::encode($order->displayStatus()) ?></span></p>
                         </div>
-                    <?php endforeach ?>
-                    <?php $form = ActiveForm::begin(); ?>
-                    <div class="detail-row">
-                        <h4>Subtotal:</h4>
-                        <h5>$<?= number_format((float)$model->subtotal, 2) ?></h5>
                     </div>
 
-                    <div class="detail-row">
-                        <h4>Tax Amount:</h4>
-                        <h5>$<?= number_format((float)$model->tax_amount, 2) ?></h5>
+                    <div class="order-actions">
+                        <?= Html::a('View Order Details', ['orders/view', 'order_id' => $order->order_id], [
+                            'class' => 'btn btn-primary me-2'
+                        ]) ?>
+
+                        <?= Html::a('Continue Shopping', Url::to(['site/shop']), [
+                            'class' => 'btn btn-outline-primary me-2'
+                        ]) ?>
+
+                        <?= Html::a('Return to Homepage', Yii::$app->homeUrl, [
+                            'class' => 'btn btn-secondary'
+                        ]) ?>
                     </div>
 
-                    <div class="detail-row">
-                        <h4>Shipping Cost:</h4>
-                        <h5>$<?= number_format((float)$model->shipping_cost, 2) ?></h5>
-                    </div>
 
-                    <div class="detail-row total">
-                        <h4>Total Amount:</h4>
-                        <h5>$<?= number_format((float)$model->total_amount, 2) ?></h5>
-                    </div>
-
-                    <div class="detail-row">
-                        <h4>Status:</h4>
-                        <h5><?= $model->status ?></h5>
-                    </div>
-
-                    <div class="detail-row">
-                        <h4>Order Date:</h4>
-                        <h5><?= $model->order_date ?></h5>
-                    </div>
-
-                    <?php if ($model->order_id): ?>
-                        <div class="detail-row">
-                            <h4>Order ID:</h4>
-                            <h5><?= $model->order_id ?></h5>
-                        </div>
-                    <?php else: ?>
-                        <div class="detail-row">
-                            <h4>Order ID: no</h4>
-
-                        </div>
-                    <?php endif; ?>
                 </div>
-
-                <div class="form-group">
-                    <?= Html::a('Save', ['success', 'order_id' => $model->order_id], ['class' => 'btn btn-success']) ?>
-                </div>
-
-                <?php ActiveForm::end(); ?>
-
             </div>
         </div>
     </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        border-radius: 0.375rem;
+    }
+
+    .order-info {
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 0.25rem;
+        margin: 1rem 0;
+    }
+
+    .order-info p {
+        margin-bottom: 0.5rem;
+    }
+
+    .order-actions .btn {
+        margin: 0.25rem;
+    }
+
+    @media (max-width: 768px) {
+        .order-actions .btn {
+            display: block;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+    }
+</style>

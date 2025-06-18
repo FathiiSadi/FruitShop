@@ -1,11 +1,12 @@
 <?php
 
-use app\modules\asset\AdminAsset;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap5\Alert;
 use yii\bootstrap5\NavBar;
+use app\modules\assets\AdminAsset;
+
 
 /** @var yii\web\View $this */
 /** @var string $content */
@@ -15,8 +16,27 @@ $this->beginPage();
 AdminAsset::register($this);
 
 
+
 ?>
 
+<head>
+
+    <meta charset="<?= Yii::$app->charset ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title ?? 'FruitShop Admin') ?></title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="<?= Url::to('@web/vendors/datatables.net-bs4/dataTables.bootstrap4.css') ?>">
+    <link rel="stylesheet" href="<?= Url::to('@web/vendors/ti-icons/css/themify-icons.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= Url::to('@web/js/select.dataTables.min.css') ?>">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="<?= Url::to('@web/css/vertical-layout-light/style.css') ?>">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="<?= Url::to('@web/images/favicon.png') ?>" />
+</head>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 
@@ -96,6 +116,10 @@ AdminAsset::register($this);
         </div>
     </nav>
     <?php NavBar::end(); ?>
+
+
+
+
 
     <main id="main" class="flex-shrink-0 mt-5" role="main">
         <div class="">

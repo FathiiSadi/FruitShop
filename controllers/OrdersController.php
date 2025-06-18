@@ -73,7 +73,13 @@ class OrdersController extends Controller
             $cart->Status = 'checked_out';
             $cart->save();
 
-            return $this->redirect(['success', 'order_id' => $model->order_id]);
+
+
+            $order = Orders::find()
+                ->where(['order_id' => $model->order_id, 'UserID' => Yii::$app->user->id])
+                ->one();
+
+            return $this->render('index', ['order' => $order]);
         }
     }
 

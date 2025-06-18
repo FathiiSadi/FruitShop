@@ -44,39 +44,59 @@ class Payments extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function actionSaveAddress()
     {
-        return [
-            [['cardholder_name'], 'default', 'value' => null],
-            [['payment_status'], 'default', 'value' => 'pending'],
-            [['order_id', 'payment_method', 'amount'], 'required'],
-            [['order_id'], 'integer'],
-            [['payment_method', 'payment_status'], 'string'],
-            [['amount'], 'number'],
-            [['payment_date'], 'safe'],
-            [['cardholder_name'], 'string', 'max' => 100],
-            [['last_four_digits', 'expiry_year'], 'string', 'max' => 4],
-            [['expiry_month'], 'string', 'max' => 2],
-            ['payment_method', 'in', 'range' => array_keys(self::optsPaymentMethod())],
-            ['payment_status', 'in', 'range' => array_keys(self::optsPaymentStatus())],
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
+        }
 
-            [
-                ['cardholder_name',],
-                'required',
-                'when' => function ($model) {
-                    return $model->payment_method === 'visa';
-                },
-                'message' => 'This field is required for credit card payments'
-            ],
+        $userId = Yii::$app->user->id;
+        $cart = Cart::find()->where(['UserID' => $userId, 'Status' => 'open'])->one();
 
-            [
-                ['order_id'],
-                'exist',
-                'skipOnError' => true,
-                'targetClass' => Orders::class,
-                'targetAttribute' => ['order_id' => 'order_id']
-            ],
-        ];
+        if (!$cart || $cart->isEmpty()) {
+            Yii::$app->session->setFlash('error', 'Your cart is empty.');
+            return $this->redirect(['cart/index']);
+        }
+
+        $addressModel = new Addresses();
+        $addressModel->UserID = $userId;
+        $addressModel->is_default = 0;
+
+        if ($addressModel->load(Yii::$app->request->post())) {
+            if ($addressModel->save()) {
+                // Create the order
+                $order = new Orders();
+                $order->UserID = $userId;
+                $order->order_date = date('Y-m-d H:i:s');
+                $order->status = 'pending';
+                $order->total_amount = $cart->getTotalWithTax() + 15; // including shipping
+                $order->address_id = $addressModel->address_id;
+
+                if ($order->save()) {
+                    // Save cart items to order items
+                    foreach ($cart->cartItems as $item) {
+                        $orderItem = new OrderItems();
+                        $orderItem->order_id = $order->order_id;
+                        $orderItem->product_id = $item->product_id;
+                        $orderItem->quantity = $item->quantity;
+                        $orderItem->price = $item->price;
+                        $orderItem->save();
+                    }
+
+                    return $this->redirect(['checkout/payment', 'order_id' => $order->order_id]);
+                } else {
+                    Yii::error('Order save failed: ' . print_r($order->errors, true));
+                    Yii::$app->session->setFlash('error', 'Error creating order: ' . implode(', ', $order->getFirstErrors()));
+                }
+            } else {
+                Yii::error('Address save failed: ' . print_r($addressModel->errors, true));
+                Yii::$app->session->setFlash('error', 'Error saving address: ' . implode(', ', $addressModel->getFirstErrors()));
+            }
+        } else {
+            Yii::$app->session->setFlash('error', 'No data received.');
+        }
+
+        return $this->redirect(['checkout/index']);
     }
     /**
      * {@inheritdoc}
@@ -97,6 +117,7 @@ class Payments extends \yii\db\ActiveRecord
         ];
     }
 
+
     /**
      * Gets query for [[Order]].
      *
@@ -106,6 +127,7 @@ class Payments extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Orders::class, ['order_id' => 'order_id']);
     }
+
 
 
     /**
@@ -226,5 +248,25 @@ class Payments extends \yii\db\ActiveRecord
     public function setPaymentStatusToRefunded()
     {
         $this->payment_status = self::PAYMENT_STATUS_REFUNDED;
+    }
+
+    /**
+     * Get payment method label
+     * @return string
+     */
+    public function getPaymentMethodLabel()
+    {
+        $options = self::optsPaymentMethod();
+        return isset($options[$this->payment_method]) ? $options[$this->payment_method] : $this->payment_method;
+    }
+
+    /**
+     * Get payment status label
+     * @return string
+     */
+    public function getPaymentStatusLabel()
+    {
+        $options = self::optsPaymentStatus();
+        return isset($options[$this->payment_status]) ? $options[$this->payment_status] : $this->payment_status;
     }
 }

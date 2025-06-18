@@ -76,41 +76,40 @@ $this->beginPage();
 
     <header id="header">
         <?php
-        if (Yii::$app->user->isGuest ||  Yii::$app->user->identity->role === 'user') {
-            NavBar::begin([
-                'brandLabel' => Yii::$app->name,
-                'brandUrl' => Yii::$app->homeUrl,
-                'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
-            ]);
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav'],
-                'items' => [
-                    ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'cart', 'url' => ['/cart/index']],
-                    ['label' => 'About', 'url' => ['/site/about']],
-                    ['label' => "shop", 'url' => ['site/shop']],
-                    // ['label' => 'User Cart', 'url' => ['/site/user-cart']],
+        NavBar::begin([
+            'brandLabel' => Yii::$app->name,
+            'brandUrl' => Yii::$app->homeUrl,
+            'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
+        ]);
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav'],
+            'items' => [
+                ['label' => 'Home', 'url' => ['/site/index']],
+                ['label' => 'cart', 'url' => ['/cart/index']],
+                ['label' => 'About', 'url' => ['/site/about']],
+                ['label' => "shop", 'url' => ['site/shop']],
+                // ['label' => 'User Cart', 'url' => ['/site/user-cart']],
 
-                    Yii::$app->user->isGuest
-                        ? [
-                            'label' => 'Authantication',
-                            'items' => [
-                                ['label' => 'Login', 'url' => ['/site/login']],
-                                ['label' => 'Signup', 'url' => ['/site/signup']]
-                            ]
+                Yii::$app->user->isGuest
+                    ? [
+                        'label' => 'Authantication',
+                        'items' => [
+                            ['label' => 'Login', 'url' => ['/site/login']],
+                            ['label' => 'Signup', 'url' => ['/site/signup']]
                         ]
+                    ]
 
-                        : '<li class="nav-item">'
-                        . Html::beginForm(['/site/logout'])
-                        . Html::submitButton(
-                            'Logout (' . (Yii::$app->user->identity->username ?? '') . ')',
-                            ['class' => 'nav-link btn btn-link logout']
-                        )
-                        . Html::endForm()
-                        . '</li>'
-                ]
-            ]);
-            NavBar::end();
+                    : '<li class="nav-item">'
+                    . Html::beginForm(['/site/logout'])
+                    . Html::submitButton(
+                        'Logout (' . (Yii::$app->user->identity->username ?? '') . ')',
+                        ['class' => 'nav-link btn btn-link logout']
+                    )
+                    . Html::endForm()
+                    . '</li>'
+            ]
+        ]);
+        NavBar::end();
 
         ?>
     </header>
@@ -171,17 +170,13 @@ $this->beginPage();
 
 
 
-<?php }
-
-?>
 
 
 
 
 
 
-
-<?php $this->endBody() ?>
+    <?php $this->endBody() ?>
 </body>
 
 </html>

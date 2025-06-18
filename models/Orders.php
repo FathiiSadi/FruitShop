@@ -105,6 +105,11 @@ class Orders extends \yii\db\ActiveRecord
             ->scalar();
         return $user;
     }
+
+    public function getPayment()
+    {
+        return $this->hasOne(Payments::className(), ['order_id' => 'order_id']);
+    }
     /**
      * Gets query for [[OrderItems]].
      *

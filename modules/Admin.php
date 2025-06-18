@@ -43,7 +43,10 @@ class Admin extends \yii\base\Module
                 'rules' => [
                     [
                         'allow' => true,
-
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->identity->role === 'admin';
+                        },
                     ],
                 ],
             ],
