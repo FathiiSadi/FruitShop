@@ -11,17 +11,14 @@ use Yii;
  * @property int $order_id
  * @property int $product_id
  * @property int $quantity
- * @property float $unit_price
- * @property float $total_price
+ * @property string $unit_price
+ * @property string $total_price
  *
  * @property Orders $order
  * @property Products $product
- * @property CartItem $cartItem
  */
 class OrderItems extends \yii\db\ActiveRecord
 {
-
-
     /**
      * {@inheritdoc}
      */
@@ -40,17 +37,8 @@ class OrderItems extends \yii\db\ActiveRecord
             [['order_id', 'product_id', 'quantity'], 'integer'],
             [['unit_price', 'total_price'], 'number'],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Orders::class, 'targetAttribute' => ['order_id' => 'order_id']],
-            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['product_id' => 'ProductID']],
+            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['product_id' => 'product_id']],
         ];
-    }
-
-    public function beforeSave($insert)
-    {
-        if (parent::beforeSave($insert)) {
-            $this->total_price = $this->unit_price * $this->quantity;
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -85,6 +73,6 @@ class OrderItems extends \yii\db\ActiveRecord
      */
     public function getProduct()
     {
-        return $this->hasOne(Products::class, ['ProductID' => 'product_id']);
+        return $this->hasOne(Products::class, ['product_id' => 'product_id']);
     }
 }

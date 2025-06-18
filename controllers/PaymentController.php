@@ -5,8 +5,10 @@ namespace app\controllers;
 use app\models\Payments;
 use app\Models\PaymentSearch;
 use yii\web\Controller;
+use app\models\Cart;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * PaymentsController implements the CRUD actions for Payments model.
@@ -68,6 +70,15 @@ class PaymentController extends Controller
     public function actionCreate()
     {
         $model = new Payments();
+
+        $userId = Yii::$app->user->id;
+        $cart = Cart::find()->where(['UserID' => $userId, 'Status' => 'open'])->with('cartItems.product')->one();
+
+        if ($cart === null) {
+            throw new NotFoundHttpException('No active cart found.');
+        }
+
+        $model->amount = $cart->getTotalWithTax()  + 15;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {

@@ -14,13 +14,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'order_id')->textInput() ?>
 
-    <?= $form->field($model, 'payment_method')->dropDownList([ 'cash_on_delivery' => 'Cash on delivery', 'visa' => 'Visa', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'payment_method')->dropDownList(['cash_on_delivery' => 'Cash on delivery', 'visa' => 'Visa',], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'amount')->textInput(['maxlength' => true]) ?>
+    <!-- <?= $form->field($model, 'amount')->textInput(['maxlength' => true]) ?> -->
 
-    <?= $form->field($model, 'payment_status')->dropDownList([ 'pending' => 'Pending', 'completed' => 'Completed', 'failed' => 'Failed', 'refunded' => 'Refunded', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'payment_status')->dropDownList(['pending' => 'Pending', 'completed' => 'Completed', 'failed' => 'Failed', 'refunded' => 'Refunded',], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'payment_date')->textInput() ?>
 
     <?= $form->field($model, 'cardholder_name')->textInput(['maxlength' => true]) ?>
 

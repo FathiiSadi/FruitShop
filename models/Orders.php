@@ -227,4 +227,9 @@ class Orders extends \yii\db\ActiveRecord
     {
         $this->status = self::STATUS_CANCELLED;
     }
+    /**
+     * Gets query for [[Address]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
 }

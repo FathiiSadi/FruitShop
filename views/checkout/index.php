@@ -137,7 +137,6 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
-    <!-- end check out section -->
 
     <script>
         $(document).ready(function() {

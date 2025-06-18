@@ -93,7 +93,6 @@ class CheckoutController extends Controller
             return $this->redirect(['site/login']);
         }
 
-        // Check if address was saved
         $addressId = Yii::$app->session->get('checkout_address_id');
         if (!$addressId) {
             Yii::$app->session->setFlash('error', 'Please complete the address step first.');
@@ -110,9 +109,7 @@ class CheckoutController extends Controller
 
         $addressModel = Addresses::findOne($addressId);
         $paymentModel = new Payments();
-
-        // Set the total amount
-        $paymentModel->amount = $cart->getTotalWithTax() + 15; // Including shipping
+        $paymentModel->amount = $cart->getTotalWithTax() + 15;
 
         return $this->render('payment', [
             'cart' => $cart,
@@ -145,60 +142,28 @@ class CheckoutController extends Controller
         $paymentModel->amount = $cart->getTotalWithTax() + 15;
 
         if ($paymentModel->load(Yii::$app->request->post())) {
-            $transaction = Yii::$app->db->beginTransaction();
-            try {
-                // Create the order first
-                $orderModel = new Orders();
-                $orderModel->UserID = $userId;
-                $orderModel->address_id = $addressId;
-                $orderModel->total_amount = $paymentModel->amount;
-                $orderModel->tax_amount = $cart->getTaxAmount();
-                $orderModel->shipping_cost = 15;
-                $orderModel->status = 'pending';
-                $orderModel->order_date = date('Y-m-d H:i:s');
+            // Store payment details in session for the orders controller
+            $paymentData = [
+                'payment_method' => $paymentModel->payment_method,
+                'cardholder_name' => $paymentModel->cardholder_name,
+                'expiry_month' => $paymentModel->expiry_month,
+                'expiry_year' => $paymentModel->expiry_year,
+                'amount' => $paymentModel->amount,
+                'last_four_digits' => $paymentModel->last_four_digits
+            ];
 
-                if (!$orderModel->save()) {
-                    throw new \Exception('Failed to create order: ' . implode(', ', $orderModel->getFirstErrors()));
-                }
-
-                // Set order_id for payment
-                $paymentModel->order_id = $orderModel->order_id;
-
-                // Process card details for Visa payments
-                if ($paymentModel->payment_method === 'visa') {
-                    $cardNumber = Yii::$app->request->post('card_number', '');
-                    if (strlen($cardNumber) >= 4) {
-                        $paymentModel->last_four_digits = substr($cardNumber, -4);
-                    }
-                }
-
-                if ($paymentModel->save()) {
-                    // Update cart status to closed
-                    $cart->Status = 'closed';
-                    $cart->save();
-
-                    // Clear session
-                    Yii::$app->session->remove('checkout_address_id');
-
-                    $transaction->commit();
-
-                    Yii::$app->session->setFlash('success', 'Order placed successfully!');
-                    return $this->redirect(['orders/view', 'id' => $orderModel->order_id]);
-                } else {
-                    throw new \Exception('Failed to process payment: ' . implode(', ', $paymentModel->getFirstErrors()));
-                }
-            } catch (\Exception $e) {
-                $transaction->rollBack();
-                Yii::$app->session->setFlash('error', $e->getMessage());
+            // Validate payment data
+            if ($paymentModel->validate()) {
+                Yii::$app->session->set('checkout_payment_data', $paymentData);
+                return $this->redirect(['orders/index']);
+            } else {
+                // Add validation errors to the model for display
+                Yii::$app->session->setFlash('error', 'Payment validation failed: ' . implode(', ', $paymentModel->getFirstErrors()));
             }
         }
 
-        // If we get here, there was an error
+        // If we get here, there was an error or initial form load
         $addressModel = Addresses::findOne($addressId);
-        return $this->render('payment', [
-            'cart' => $cart,
-            'addressModel' => $addressModel,
-            'paymentModel' => $paymentModel,
-        ]);
+        return $this->redirect(['orders/index']);
     }
 }

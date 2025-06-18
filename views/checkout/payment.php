@@ -30,6 +30,8 @@ $this->title = 'Payment Details';
     </div>
     <!-- end breadcrumb section -->
 
+
+
     <!-- payment section -->
     <div class="checkout-section mt-150 mb-150">
         <div class="container">
@@ -37,15 +39,13 @@ $this->title = 'Payment Details';
                 'id' => 'payment-form',
                 'method' => 'post',
                 'action' => ['checkout/process-payment'],
-                'options' => ['enctype' => 'multipart/form-data']
+                'options' => ['enctype' => 'multipart/form-data'],
+
             ]); ?>
 
             <div class="row">
-                <!-- Left Column - Payment Form -->
                 <div class="col-lg-6 mb-4">
                     <h4>Payment Information</h4>
-
-                    <!-- Payment Method Selection -->
                     <div class="form-group">
                         <label for="payment-method"><strong>Payment Method</strong></label>
                         <?= $form->field($paymentModel, 'payment_method')->radioList([
@@ -254,7 +254,6 @@ $this->title = 'Payment Details';
                 $(this).val($(this).val().replace(/[^0-9]/g, ''));
             });
 
-            // Form validation
             $('#payment-form').submit(function(e) {
                 let paymentMethod = $('input[name="Payments[payment_method]"]:checked').val();
 
@@ -277,7 +276,7 @@ $this->title = 'Payment Details';
                         return false;
                     }
 
-                    if (!cardNumber || cardNumber.length < 13) {
+                    if (!cardNumber) {
                         alert('Please enter a valid card number.');
                         e.preventDefault();
                         return false;
@@ -300,17 +299,13 @@ $this->title = 'Payment Details';
                     let currentYear = currentDate.getFullYear();
                     let currentMonth = currentDate.getMonth() + 1;
 
-                    if (parseInt(expiryYear) < currentYear ||
-                        (parseInt(expiryYear) === currentYear && parseInt(expiryMonth) < currentMonth)) {
-                        alert('Card has expired. Please use a valid card.');
-                        e.preventDefault();
-                        return false;
-                    }
+
                 }
 
-                // Show loading state
-                $('#complete-order-btn').prop('disabled', true).text('Processing...');
+                // If validation passes, show loading state
+                $('#complete-order-btn').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Processing...');
             });
+
         });
     </script>
 
