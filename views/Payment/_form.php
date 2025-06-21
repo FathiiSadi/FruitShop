@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'order_id')->textInput() ?>
+    <!-- <?= $form->field($model, 'order_id')->textInput() ?> -->
 
     <?= $form->field($model, 'payment_method')->dropDownList(['cash_on_delivery' => 'Cash on delivery', 'visa' => 'Visa',], ['prompt' => '']) ?>
 

@@ -16,6 +16,8 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'css/style.css',
+        'css/normalize.css',
         'assets/img/favicon.png',
         "https://fonts.googleapis.com/css?family=Open+Sans:300,400,700",
         "https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap",
@@ -29,6 +31,7 @@ class AppAsset extends AssetBundle
         'assets/css/responsive.css',
     ];
     public $js = [
+        'assets/js/app.js',
         'assets/js/jquery-1.11.3.min.js',
         'assets/bootstrap/js/bootstrap.min.js',
         'assets/js/jquery.countdown.js',

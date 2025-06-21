@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 class AdminAsset extends AssetBundle
 {
     public $basePath = '@webroot';
-    public $baseUrl = '@web';
+        public $baseUrl = '@web';
     public $css = [
         'css/site.css',
         'css/all.min.css',

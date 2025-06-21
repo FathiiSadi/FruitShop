@@ -6,6 +6,7 @@ use app\models\Payments;
 use app\Models\PaymentSearch;
 use yii\web\Controller;
 use app\models\Cart;
+use app\models\Orders;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Yii;
@@ -77,8 +78,10 @@ class PaymentController extends Controller
         if ($cart === null) {
             throw new NotFoundHttpException('No active cart found.');
         }
-
-        $model->amount = $cart->getTotalWithTax()  + 15;
+        $totalAmount = $cart->getTotalWithTax() + 15;
+        $model->amount = $totalAmount;
+        $model->payment_date = date('Y-m-d H:i:s');
+        $model->order_id = Orders::find()->where(['UserID' => $userId, 'status' => 'pending'])->orderBy(['order_id' => SORT_DESC])->one()->order_id;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {

@@ -48,22 +48,27 @@ $this->title = 'Payment Details';
                     <h4>Payment Information</h4>
                     <div class="form-group">
                         <label for="payment-method"><strong>Payment Method</strong></label>
-                        <?= $form->field($paymentModel, 'payment_method')->radioList([
-                            'cash_on_delivery' => 'Cash on Delivery',
-                            'visa' => 'Credit/Debit Card'
-                        ], [
-                            'item' => function ($index, $label, $name, $checked, $value) {
-                                return '<div class="form-check mb-3">' .
-                                    Html::radio($name, $checked, [
-                                        'value' => $value,
-                                        'class' => 'form-check-input payment-method-radio',
-                                        'id' => 'payment_method_' . $value
-                                    ]) .
-                                    '<label class="form-check-label ms-2" for="payment_method_' . $value . '">' .
-                                    '<strong>' . $label . '</strong>' .
-                                    '</label></div>';
-                            }
-                        ])->label(false) ?>
+                        <?= $form->field($paymentModel, 'payment_method')->radioList(
+                            [
+                                'cash_on_delivery' => 'Cash on Delivery',
+                                'visa' => 'Credit/Debit Card'
+                            ],
+                            [
+                                'item' => function ($index, $label, $name, $checked, $value) {
+                                    return '<div class="form-check mb-3">' .
+                                        Html::radio($name, $checked, [
+                                            'value' => $value,
+                                            'class' => 'form-check-input payment-method-radio',
+                                            'id' => 'payment_method_' . $value
+                                        ]) .
+                                        '<label class="form-check-label ms-2" for="payment_method_' . $value . '">' .
+                                        '<strong>' . $label . '</strong>' .
+                                        '</label></div>';
+                                }
+                            ]
+                        )->label(false)
+                        ?>
+
                     </div>
 
                     <!-- Credit Card Details (Hidden by default) -->
@@ -79,13 +84,12 @@ $this->title = 'Payment Details';
                         </div>
 
                         <div class="form-group">
-                            <label for="card_number">Card Number</label>
-                            <input type="text"
-                                class="form-control"
-                                id="card_number"
-                                name="card_number"
-                                placeholder="1234 5678 9012 3456"
-                                maxlength="19">
+                            <?= $form->field($paymentModel, 'last_four_digits')->textInput([
+                                'class' => 'form-control',
+                                'id' => 'card_number',
+                                'placeholder' => '1234 5678 9012 3456',
+                                'maxlength' => '19'
+                            ])->label('Card Number') ?>
                         </div>
 
                         <div class="row">
@@ -131,6 +135,11 @@ $this->title = 'Payment Details';
                                 maxlength="4"
                                 style="max-width: 100px;">
                         </div>
+
+
+
+
+
                     </div>
 
                     <!-- Hidden amount field -->
@@ -213,7 +222,89 @@ $this->title = 'Payment Details';
 
             <?php ActiveForm::end(); ?>
         </div>
+
+
     </div>
+    <div>
+        <form
+            id="payment-form"
+            method="POST"
+            action="https://merchant.com/charge-card">
+            <label for="card-number">Card number</label>
+            <div class="input-container card-number">
+                <div class="icon-container">
+                    <img
+                        id="icon-card-number"
+                        src="<?= Yii::getAlias('@web/images/card-icons/card.svg') ?>"
+                        alt="PAN" />
+                </div>
+                <div class="card-number-frame"></div>
+                <div class="icon-container payment-method">
+                    <img id="logo-payment-method" />
+                </div>
+                <div class="icon-container">
+                    <img id="icon-card-number-error" src="<?= Yii::getAlias('@web/images/card-icons/error.svg') ?>" />
+                </div>
+            </div>
+
+            <div class="date-and-code">
+                <div>
+                    <label for="expiry-date">Expiry date</label>
+                    <div class="input-container expiry-date">
+                        <div class="icon-container">
+                            <img
+                                id="icon-expiry-date"
+                                src="<?= Yii::getAlias('@web/images/card-icons/exp-date.svg') ?>"
+                                alt="Expiry date" />
+                        </div>
+                        <div class="expiry-date-frame"></div>
+                        <div class="icon-container">
+                            <img
+                                id="icon-expiry-date-error"
+                                src="<?= Yii::getAlias('@web/images/card-icons/error.svg') ?>" />
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="cvv">Security code</label>
+                    <div class="input-container cvv">
+                        <div class="icon-container">
+                            <img id="icon-cvv" src="<?= Yii::getAlias('@web/images/card-icons/cvv.svg') ?>" alt="CVV" />
+                        </div>
+                        <div class="cvv-frame"></div>
+                        <div class="icon-container">
+                            <img id="icon-cvv-error" src="<?= Yii::getAlias('@web/images/card-icons/error.svg') ?>" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="pay-button" disabled="">
+                PAY GBP 25.00
+            </button>
+
+            <div>
+                <span class="error-message error-message__card-number"></span>
+                <span class="error-message error-message__expiry-date"></span>
+                <span class="error-message error-message__cvv"></span>
+            </div>
+
+            <p class="success-payment-message"></p>
+        </form>
+    </div>
+    <!-- <div>
+        <h2>here are more detials for testing:</h2>
+        <h2>id=<?= $paymentModel->order_id ?></h2>
+        <h2>amount=<?= $paymentModel->amount ?></h2>
+        <h3>payment_date= <?= $paymentModel->payment_date ?></h3>
+        <h3>card= <?= $paymentModel->cardholder_name ?></h3>
+        <h3>month= <?= $paymentModel->expiry_month ?></h3>
+        <h3>year= <?= $paymentModel->expiry_year ?></h3>
+        <h3>last four= <?= $paymentModel->last_four_digits ?></h3>
+
+
+    </div> -->
     <!-- end payment section -->
 
     <script>
@@ -356,3 +447,6 @@ $this->title = 'Payment Details';
         }
     </style>
 </body>
+
+<script src="https://cdn.checkout.com/js/framesv2.min.js"></script>
+<script src="<?= Yii::getAlias('@web/js/app.js') ?>"></script>

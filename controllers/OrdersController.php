@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\Cart;
 use app\models\Addresses;
 use app\models\OrderSearch;
+use app\models\Payments;
 use Yii;
 
 /**
@@ -108,9 +109,18 @@ class OrdersController extends Controller
         $order = Orders::find()
             ->where(['order_id' => $order_id, 'UserID' => Yii::$app->user->id])
             ->one();
+
+
+        $payment =  Payments::find()
+            ->where(['order_id' => Orders::find()->where(['UserID' => Yii::$app->user->id, 'status' => 'pending'])->orderBy(['order_id' => SORT_DESC])->one()->order_id])
+            ->one();
+
+        // $model->order_id = Orders::find()->where(['UserID' => $userId, 'status' => 'processing'])->orderBy(['order_id' => SORT_DESC])->one()->order_id;
+
         return $this->render('view', [
             'model' => $this->findModel($order_id),
             'order' => $order,
+            'payment' => $payment,
         ]);
     }
 

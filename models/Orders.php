@@ -106,6 +106,11 @@ class Orders extends \yii\db\ActiveRecord
         return $user;
     }
 
+    /**
+     * Gets query for [[Payments]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getPayment()
     {
         return $this->hasOne(Payments::className(), ['order_id' => 'order_id']);
@@ -227,9 +232,4 @@ class Orders extends \yii\db\ActiveRecord
     {
         $this->status = self::STATUS_CANCELLED;
     }
-    /**
-     * Gets query for [[Address]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
 }
