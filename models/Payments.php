@@ -28,6 +28,8 @@ class Payments extends \yii\db\ActiveRecord
      */
     const PAYMENT_METHOD_CASH_ON_DELIVERY = 'cash_on_delivery';
     const PAYMENT_METHOD_VISA = 'visa';
+    const PAYMENT_METHOD_CHECKOUT_COM = 'checkout_com';
+
     const PAYMENT_STATUS_PENDING = 'pending';
     const PAYMENT_STATUS_COMPLETED = 'completed';
     const PAYMENT_STATUS_FAILED = 'failed';
@@ -64,18 +66,14 @@ class Payments extends \yii\db\ActiveRecord
                 ['cardholder_name', 'last_four_digits', 'expiry_month', 'expiry_year'],
                 'required',
                 'when' => function ($model) {
-                    return $model->payment_method === 'visa';
+                    return in_array($model->payment_method, ['visa']);
                 },
-                'message' => 'This field is required for credit card payments'
+                'message' => 'This field is required for card payments'
             ],
+            [['amount'], 'number', 'min' => 0.01, 'message' => 'The amount must be greater than zero.'],
 
-            [
-                ['order_id'],
-                'exist',
-                'skipOnError' => true,
-                'targetClass' => Orders::class,
-                'targetAttribute' => ['order_id' => 'order_id']
-            ],
+            ['order_id', 'exist', 'skipOnError' => true, 'targetClass' => Orders::class, 'targetAttribute' => ['order_id' => 'order_id'], 'message' => 'Invalid order ID.'],
+
         ];
     }
     /**
@@ -96,6 +94,14 @@ class Payments extends \yii\db\ActiveRecord
             'expiry_year' => 'Expiry Year',
         ];
     }
+    public function init()
+    {
+        parent::init();
+        $this->last_four_digits = 4242;
+        $this->expiry_month = 12;
+        $this->expiry_year = 2025;
+    }
+
 
     /**
      * Gets query for [[Order]].
@@ -117,6 +123,7 @@ class Payments extends \yii\db\ActiveRecord
         return [
             self::PAYMENT_METHOD_CASH_ON_DELIVERY => 'cash_on_delivery',
             self::PAYMENT_METHOD_VISA => 'visa',
+            self::PAYMENT_METHOD_CHECKOUT_COM => 'checkout_com',
         ];
     }
 
@@ -174,6 +181,27 @@ class Payments extends \yii\db\ActiveRecord
     public function displayPaymentStatus()
     {
         return self::optsPaymentStatus()[$this->payment_status];
+    }
+
+
+    private function getPaymentDetails($sessionId)
+    {
+        $url = 'https://api.sandbox.checkout.com/payments/' . $sessionId;
+        $headers = [
+            'Authorization: Bearer sk_sbox_l5lhlcy4u4rdaciaujh6ykg3o4t',
+            'Content-Type: application/json',
+        ];
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return json_decode($response, true);
     }
 
     /**

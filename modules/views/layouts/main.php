@@ -36,6 +36,8 @@ AdminAsset::register($this);
     <link rel="stylesheet" href="<?= Url::to('@web/css/vertical-layout-light/style.css') ?>">
     <!-- endinject -->
     <link rel="shortcut icon" href="<?= Url::to('@web/images/favicon.png') ?>" />
+    <link rel="stylesheet" href="<?= Url::to('@web/assets/bootstrap/css/bootstrap.min.css') ?>">
+
 </head>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">

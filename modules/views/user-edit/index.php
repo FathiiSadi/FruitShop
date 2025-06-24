@@ -4,6 +4,10 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 use yii\bootstrap5\BootstrapAsset;
+use yii\widgets\LinkPager;
+use yii\data\ArrayDataProvider;
+use app\modules\models\UserSearch;
+use yii\widgets\ActiveForm;
 /* @var $this View */
 
 $this->title = 'User  - Admin';
@@ -23,8 +27,40 @@ $this->title = 'User  - Admin';
                             <p class="card-description">
                             </p>
                             <div class="table-responsive" style="flex:1;min-height:0;">
+                                <?php
+
+                                $dataProvider = new ArrayDataProvider([
+                                    'allModels' => $users,
+                                    'pagination' => [
+                                        'pageSize' => 10,
+                                    ],
+                                ]);
+                                ?>
+                                <?php
+
+                                $searchModel = new UserSearch();
+                                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                                ?>
+
+                                <div>
+                                    <?php $form = ActiveForm::begin([
+                                        'action' => ['index'],
+                                        'method' => 'get',
+
+                                    ]); ?>
+                                    <?= $form->field($searchModel, 'username')->textInput(['placeholder' => 'Username'])->label(false) ?>
+                                    <?= $form->field($searchModel, 'id')->textInput(['placeholder' => 'ID'])->label(false) ?>
+                                    <?= $form->field($searchModel, 'role')->textInput(['placeholder' => 'Role'])->label(false) ?>
+                                    <div>
+                                        <?= Html::submitButton('Search', ['class' => 'btn btn-outline-primary btn-sm']) ?>
+                                        <?= Html::a('Reset', ['index'], ['class' => 'btn btn-outline-secondary btn-sm ms-1']) ?>
+                                    </div>
+                                    <?php ActiveForm::end(); ?>
+                                </div>
+
                                 <table class="table" style="width:100%;height:100%;">
                                     <thead>
+
                                         <tr>
                                             <th>username</th>
                                             <th>id</th>
@@ -33,12 +69,13 @@ $this->title = 'User  - Admin';
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($users as $user): ?>
+                                        <?php foreach ($dataProvider->getModels() as $user): ?>
                                             <tr>
-                                                <td><?= $user->username ?></td>
-                                                <td><?= $user->id ?></td>
-                                                <td><?= $user->role ?></td>
-                                                <td> <a href="<?= Url::toRoute(['/admin/user-edit/update', 'id' => $user->id]) ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                <td><?= Html::encode($user->username) ?></td>
+                                                <td><?= Html::encode($user->id) ?></td>
+                                                <td><?= Html::encode($user->role) ?></td>
+                                                <td>
+                                                    <a href="<?= Url::toRoute(['/admin/user-edit/update', 'id' => $user->id]) ?>" class="btn btn-primary btn-sm">Edit</a>
                                                     <?= Html::beginForm(['/admin/user-edit/delete', 'id' => $user->id], 'post', ['style' => 'display:inline']) ?>
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
                                                     <?= Html::endForm() ?>
@@ -47,6 +84,11 @@ $this->title = 'User  - Admin';
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
+                                <div class="d-flex justify-content-center ms-2 mt-3">
+                                    <?= LinkPager::widget([
+                                        'pagination' => $dataProvider->getPagination(),
+                                    ]) ?>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -35,7 +35,6 @@ $this->beginPage();
     <!-- fontawesome -->
     <link rel="stylesheet" href="<?= \yii\helpers\Url::to('@web/assets/css/all.min.css') ?>">
     <!-- bootstrap -->
-    <link rel="stylesheet" href="<?= \yii\helpers\Url::to('@web/assets/bootstrap/css/bootstrap.min.css') ?>">
     <!-- owl carousel -->
     <link rel="stylesheet" href="<?= \yii\helpers\Url::to('@web/assets/css/owl.carousel.css') ?>">
     <!-- magnific popup -->

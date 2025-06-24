@@ -178,7 +178,164 @@ a.desc:after {
   align-items: flex-end;
   gap: 3px;
 }
+/* 3D Secure specific styles */
+#threeds-container {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
+#threeds-container h3 {
+  color: #007bff;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+#threeds-container p {
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+}
+
+#threeds-iframe-container {
+  margin-top: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: white;
+}
+
+#threeds-iframe-container iframe {
+  display: block;
+  width: 100%;
+  border: none;
+  min-height: 400px;
+}
+
+/* Payment form enhancements */
+.input-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.input-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+.card-frame {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 0.75rem;
+  background-color: white;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.card-frame:focus-within {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.icon-container {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.icon-container img {
+  width: 24px;
+  height: auto;
+}
+
+#pay-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+#pay-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+#pay-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Loading spinner for processing state */
+.processing-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Alert styles for success/error messages */
+.alert {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #threeds-container {
+    margin: 1rem -15px;
+    border-radius: 0;
+  }
+
+  .one-liner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-container {
+    margin-bottom: 1.5rem;
+  }
+}
 .chart-bar {
   flex: 1;
   background: rgba(0, 0, 0, 0.05);

@@ -22,7 +22,6 @@ class AppAsset extends AssetBundle
         "https://fonts.googleapis.com/css?family=Open+Sans:300,400,700",
         "https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap",
         'assets/css/all.min.css',
-        'assets/bootstrap/css/bootstrap.min.css',
         'assets/css/owl.carousel.css',
         'assets/css/magnific-popup.css',
         'assets/css/animate.css',
@@ -31,9 +30,9 @@ class AppAsset extends AssetBundle
         'assets/css/responsive.css',
     ];
     public $js = [
+        'https://cdn.checkout.com/js/framesv2.min.js',
         'assets/js/app.js',
         'assets/js/jquery-1.11.3.min.js',
-        'assets/bootstrap/js/bootstrap.min.js',
         'assets/js/jquery.countdown.js',
         'assets/js/jquery.isotope-3.0.6.min.js',
         'assets/js/waypoints.js',

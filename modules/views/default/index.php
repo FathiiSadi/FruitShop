@@ -4,6 +4,10 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 use yii\bootstrap5\BootstrapAsset;
+use yii\data\ArrayDataProvider;
+use yii\widgets\LinkPager;
+use yii\widgets\Pjax;
+
 /* @var $this View */
 
 $this->title = 'FruitShop Admin';
@@ -230,6 +234,15 @@ $this->title = 'FruitShop Admin';
                                 <div class="card-body">
                                     <p class="card-title mb-0">Highest Orders</p>
                                     <div class="table-responsive">
+
+                                        <?php
+                                        $dataProvider =  new ArrayDataProvider([
+                                            'allModels' => $orders,
+                                            'pagination' => [
+                                                'pageSize' => 10,
+                                            ]
+                                        ]);
+                                        ?>
                                         <table class="table table-borderless">
                                             <thead>
                                                 <tr>
@@ -239,7 +252,7 @@ $this->title = 'FruitShop Admin';
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($orders as $order) : ?>
+                                                <?php foreach ($dataProvider->getModels() as $order) : ?>
                                                     <tr>
                                                         <td>
                                                             <p class="mb-0"><span class="font-weight-bold mr-2">$<?= $order['total_amount'] ?></span></p>
@@ -250,6 +263,15 @@ $this->title = 'FruitShop Admin';
 
                                             </tbody>
                                         </table>
+                                        <div class="d-flex">
+                                            <?= LinkPager::widget([
+                                                'pagination' => $dataProvider->getPagination(),
+                                                'options' => ['class' => 'pagination ml-auto'],
+                                                'linkOptions' => ['class' => 'page-link'],
+                                                'activePageCssClass' => 'active',
+                                                'disabledPageCssClass' => 'disabled',
+                                            ]); ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

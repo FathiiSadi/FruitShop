@@ -1,5 +1,7 @@
 <?php
 
+use app\components\PaymentComponent;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -29,7 +31,6 @@ $config = [
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
             'viewPath' => '@app/mail',
-            // send all mails to a file by default.
             'useFileTransport' => true,
         ],
         'log' => [
@@ -42,6 +43,13 @@ $config = [
             ],
         ],
         'db' => $db,
+        'payment' => [
+            'class' => app\components\PaymentComponent::class,
+            'apiUrl' => 'https://api.sandbox.checkout.com/payments',
+            'publicKey' => 'pk_sbox_g424ldgpjkxewqui7qhy3wie6ae',
+            'privateKey' => 'Bearer sk_sbox_l5lhlcy4u4rdaciaujh6ykg3o4t',
+            'processingId' => 'pc_eoifzuuhhwkevgwmwcfohvy62u',
+        ],
 
 
         'urlManager' => [
@@ -49,6 +57,12 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 // 'orders/success/<id:\d+>' => 'orders/success',
+                'admin/orders/index/page=<page:\d+>' => 'admin/orders/index',
+                'POST checkout/create-payment-3ds' => 'checkout/create-payment-3ds',
+                'POST checkout/check-payment-status' => 'checkout/check-payment-status',
+                'checkout/payment-success' => 'checkout/payment-success',
+                'checkout/payment-failure' => 'checkout/payment-failure',
+                'POST checkout/payment-webhook' => 'checkout/payment-webhook',
 
             ],
         ],

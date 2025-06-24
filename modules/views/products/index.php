@@ -6,6 +6,8 @@ use yii\web\View;
 use yii\bootstrap5\BootstrapAsset;
 use yii\grid\ActionColumn;
 use app\models\Products;
+use yii\widgets\LinkPager;
+use yii\data\ArrayDataProvider;
 /* @var $this View */
 
 $this->title = 'Products  - Admin';
@@ -35,6 +37,15 @@ $this->title = 'Products  - Admin';
                             <p class="card-description">
                             </p>
                             <div class="table-responsive" style="flex:1;min-height:0;">
+                                <?php
+
+                                $dataProvider = new ArrayDataProvider([
+                                    'allModels' => $products,
+                                    'pagination' => [
+                                        'pageSize' => 10,
+                                    ],
+                                ]);
+                                ?>
                                 <table class="table" style="width:100%;height:100%;">
                                     <thead>
                                         <tr>
@@ -48,7 +59,7 @@ $this->title = 'Products  - Admin';
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($products as $product): ?>
+                                        <?php foreach ($dataProvider->getModels() as $product): ?>
                                             <tr>
                                                 <td><?= $product->name ?></td>
                                                 <td><?= $product->ProductID ?></td>
@@ -69,6 +80,11 @@ $this->title = 'Products  - Admin';
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
+                                <div class="d-flex justify-content-center ms-2 mt-3">
+                                    <?= LinkPager::widget([
+                                        'pagination' => $dataProvider->getPagination(),
+                                    ]) ?>
+                                </div>
                             </div>
                         </div>
                     </div>

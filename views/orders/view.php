@@ -96,17 +96,6 @@ use yii\helpers\Url;
                             <th><i class="fas fa-phone me-2"></i>Phone Number</th>
                             <td><?= $order->address->phone_number ?></td>
                         </tr>
-                        <tr>
-                            <th><i class="fas fa-bill me-2"></i>payment method</th>
-                            <td><?= $payment->payment_method ?></td>
-                        </tr>
-
-                        <?php if ($payment->payment_method == 'visa'): ?>
-                            <tr>
-                                <th><i class="fas fa-bill me-2"></i>cridit card number:</th>
-                                <td>**** **** **** <?= $payment->last_four_digits ?></td>
-                            </tr>
-                        <?php endif; ?>
                         <tr class="total">
                             <th><i class="fas fa-money-bill me-2"></i>Total</th>
                             <td>$<?= $order->total_amount ?></td>

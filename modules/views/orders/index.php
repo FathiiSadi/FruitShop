@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 use yii\bootstrap5\BootstrapAsset;
+use yii\widgets\LinkPager;
+use yii\data\ArrayDataProvider;
 /* @var $this View */
 
 $this->title = 'Orders  - Admin';
@@ -26,7 +28,21 @@ $this->title = 'Orders  - Admin';
                         <h4 class="card-title">Orders Management</h4>
                         <p class="card-description">
                         </p>
-                        <div class="table-responsive" style="flex:1;min-height:0;">
+                        <div class="table-responsive">
+                            <?php
+
+                            $dataProvider = new ArrayDataProvider([
+                                'allModels' => $orders,
+                                'pagination' => [
+                                    'pageSize' => 10,
+                                    'params' => [
+
+                                        'page' => Yii::$app->request->get('page'),
+                                    ],
+                                ],
+                            ]);
+                            ?>
+
                             <table class="table" style="width:100%;height:100%;">
                                 <thead>
                                     <tr>
@@ -39,12 +55,10 @@ $this->title = 'Orders  - Admin';
                                         <th>tax</th>
                                         <th>$Total</th>
                                         <th>actions</th>
-
-
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($orders as $order): ?>
+                                    <?php foreach ($dataProvider->getModels() as $order): ?>
                                         <tr>
                                             <td><?= $order->order_id ?></td>
                                             <td><?= $order->order_date ?></td>
@@ -59,12 +73,21 @@ $this->title = 'Orders  - Admin';
                                                 <?= Html::beginForm(['/admin/orders/delete', 'order_id' => $order->order_id], 'post', ['style' => 'display:inline']) ?>
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
                                                 <?= Html::endForm() ?>
-
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
+
+                            <div class="d-flex justify-content-center mt-3">
+                                <?= LinkPager::widget([
+                                    'pagination' => $dataProvider->getPagination(),
+                                    'options' => ['class' => 'pagination justify-content-center'],
+                                    'linkOptions' => ['class' => 'page-link'],
+                                    'activePageCssClass' => 'active',
+                                    'disabledPageCssClass' => 'disabled',
+                                ]); ?>
+                            </div>
                         </div>
                     </div>
                 </div>

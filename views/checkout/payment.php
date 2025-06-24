@@ -1,452 +1,216 @@
 <?php
 
-use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\widgets\ActiveForm;
-
-/** @var yii\web\View $this */
-/** @var app\models\Cart $cart */
-/** @var app\models\Addresses $addressModel */
-/** @var app\models\Payments $paymentModel */
-
-$this->title = 'Payment Details';
+use app\components\PaymentComponent;
 ?>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <body>
-    <!-- breadcrumb-section -->
-    <div class="breadcrumb-section breadcrumb-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center">
-                    <div class="breadcrumb-text">
-                        <p>Fresh and Organic</p>
-                        <h1>Payment Details</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end breadcrumb section -->
+    <form id="payment-form" method="POST" action="/checkout/process-payment">
+        <?= \yii\helpers\Html::hiddenInput('_csrf', Yii::$app->request->csrfToken) ?>
 
-
-
-    <!-- payment section -->
-    <div class="checkout-section mt-150 mb-150">
-        <div class="container">
-            <?php $form = ActiveForm::begin([
-                'id' => 'payment-form',
-                'method' => 'post',
-                'action' => ['checkout/process-payment'],
-                'options' => ['enctype' => 'multipart/form-data'],
-
-            ]); ?>
-
-            <div class="row">
-                <div class="col-lg-6 mb-4">
-                    <h4>Payment Information</h4>
-                    <div class="form-group">
-                        <label for="payment-method"><strong>Payment Method</strong></label>
-                        <?= $form->field($paymentModel, 'payment_method')->radioList(
-                            [
-                                'cash_on_delivery' => 'Cash on Delivery',
-                                'visa' => 'Credit/Debit Card'
-                            ],
-                            [
-                                'item' => function ($index, $label, $name, $checked, $value) {
-                                    return '<div class="form-check mb-3">' .
-                                        Html::radio($name, $checked, [
-                                            'value' => $value,
-                                            'class' => 'form-check-input payment-method-radio',
-                                            'id' => 'payment_method_' . $value
-                                        ]) .
-                                        '<label class="form-check-label ms-2" for="payment_method_' . $value . '">' .
-                                        '<strong>' . $label . '</strong>' .
-                                        '</label></div>';
-                                }
-                            ]
-                        )->label(false)
-                        ?>
-
-                    </div>
-
-                    <!-- Credit Card Details (Hidden by default) -->
-                    <div id="card-details" style="display: none;">
-                        <h5>Credit Card Information</h5>
-
-                        <div class="form-group">
-                            <?= $form->field($paymentModel, 'cardholder_name')->textInput([
-                                'class' => 'form-control',
-                                'placeholder' => 'Full Name on Card',
-                                'id' => 'cardholder_name'
-                            ]) ?>
-                        </div>
-
-                        <div class="form-group">
-                            <?= $form->field($paymentModel, 'last_four_digits')->textInput([
-                                'class' => 'form-control',
-                                'id' => 'card_number',
-                                'placeholder' => '1234 5678 9012 3456',
-                                'maxlength' => '19'
-                            ])->label('Card Number') ?>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <?= $form->field($paymentModel, 'expiry_month')->dropDownList([
-                                    '' => 'Month',
-                                    '01' => '01 - January',
-                                    '02' => '02 - February',
-                                    '03' => '03 - March',
-                                    '04' => '04 - April',
-                                    '05' => '05 - May',
-                                    '06' => '06 - June',
-                                    '07' => '07 - July',
-                                    '08' => '08 - August',
-                                    '09' => '09 - September',
-                                    '10' => '10 - October',
-                                    '11' => '11 - November',
-                                    '12' => '12 - December'
-                                ], ['class' => 'form-control']) ?>
-                            </div>
-                            <div class="col-md-6">
-                                <?php
-                                $years = [];
-                                $currentYear = date('Y');
-                                for ($i = $currentYear; $i <= $currentYear + 10; $i++) {
-                                    $years[$i] = $i;
-                                }
-                                ?>
-                                <?= $form->field($paymentModel, 'expiry_year')->dropDownList(
-                                    array_merge(['' => 'Year'], $years),
-                                    ['class' => 'form-control']
-                                ) ?>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="cvv">CVV</label>
-                            <input type="text"
-                                class="form-control"
-                                id="cvv"
-                                name="cvv"
-                                placeholder="123"
-                                maxlength="4"
-                                style="max-width: 100px;">
-                        </div>
-
-
-
-
-
-                    </div>
-
-                    <!-- Hidden amount field -->
-                    <?= $form->field($paymentModel, 'amount')->hiddenInput()->label(false) ?>
-
-                    <div class="form-group text-center mt-4">
-                        <?= Html::submitButton('Complete Order', [
-                            'class' => 'btn btn-success btn-lg',
-                            'id' => 'complete-order-btn'
-                        ]) ?>
-
-                        <?= Html::a('Back to Address', ['checkout/index'], [
-                            'class' => 'btn btn-secondary btn-lg ms-2'
-                        ]) ?>
-                    </div>
-                </div>
-
-                <!-- Right Column - Order Summary and Address -->
-                <div class="col-lg-6 mb-4">
-                    <!-- Shipping Address Summary -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5>Shipping Address</h5>
-                        </div>
-                        <div class="card-body">
-                            <p><strong><?= Html::encode($addressModel->recipient_name) ?></strong></p>
-                            <p><?= Html::encode($addressModel->street_address) ?></p>
-                            <p><?= Html::encode($addressModel->city) ?>, <?= Html::encode($addressModel->state) ?> <?= Html::encode($addressModel->postal_code) ?></p>
-                            <p><?= Html::encode($addressModel->country) ?></p>
-                            <p>Phone: <?= Html::encode($addressModel->phone_number) ?></p>
-                        </div>
-                    </div>
-
-                    <!-- Order Summary -->
-                    <div class="order-details-wrap">
-                        <table class="order-details">
-                            <thead>
-                                <tr>
-                                    <th>Order Summary</th>
-                                    <th>Price</th>
-                                </tr>
-                            </thead>
-                            <tbody class="order-details-body">
-                                <tr>
-                                    <td><strong>Product</strong></td>
-                                    <td><strong>Total</strong></td>
-                                </tr>
-                                <?php foreach ($cart->cartItems as $item): ?>
-                                    <tr>
-                                        <td>
-                                            <?= Html::encode($item->product->name) ?>
-                                            <span class="product-quantity">× <?= $item->quantity ?></span>
-                                        </td>
-                                        <td>$<?= number_format($item->price * $item->quantity, 2) ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td>Subtotal</td>
-                                    <td>$<?= number_format($cart->getSubtotal(), 2) ?></td>
-                                </tr>
-                                <tr>
-                                    <td>Tax</td>
-                                    <td>$<?= number_format($cart->getTaxAmount(), 2) ?></td>
-                                </tr>
-                                <tr>
-                                    <td>Shipping</td>
-                                    <td>$15.00</td>
-                                </tr>
-                                <tr class="total-row">
-                                    <td><strong>Total</strong></td>
-                                    <td><strong>$<?= number_format($cart->getTotalWithTax() + 15, 2) ?></strong></td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <?php ActiveForm::end(); ?>
-        </div>
-
-
-    </div>
-    <div>
-        <form
-            id="payment-form"
-            method="POST"
-            action="https://merchant.com/charge-card">
-            <label for="card-number">Card number</label>
+        <div class="one-liner mt-150 mb-150 justify-content-center">
+            <!-- Card Number Frame -->
             <div class="input-container card-number">
-                <div class="icon-container">
-                    <img
-                        id="icon-card-number"
-                        src="<?= Yii::getAlias('@web/images/card-icons/card.svg') ?>"
-                        alt="PAN" />
-                </div>
-                <div class="card-number-frame"></div>
+                <label for="card-number">Card number</label>
+                <div class="card-frame" data-element="card-number"></div>
                 <div class="icon-container payment-method">
-                    <img id="logo-payment-method" />
                 </div>
-                <div class="icon-container">
-                    <img id="icon-card-number-error" src="<?= Yii::getAlias('@web/images/card-icons/error.svg') ?>" />
-                </div>
+                <p class="error-message__card-number"></p>
             </div>
 
-            <div class="date-and-code">
-                <div>
-                    <label for="expiry-date">Expiry date</label>
-                    <div class="input-container expiry-date">
-                        <div class="icon-container">
-                            <img
-                                id="icon-expiry-date"
-                                src="<?= Yii::getAlias('@web/images/card-icons/exp-date.svg') ?>"
-                                alt="Expiry date" />
-                        </div>
-                        <div class="expiry-date-frame"></div>
-                        <div class="icon-container">
-                            <img
-                                id="icon-expiry-date-error"
-                                src="<?= Yii::getAlias('@web/images/card-icons/error.svg') ?>" />
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label for="cvv">Security code</label>
-                    <div class="input-container cvv">
-                        <div class="icon-container">
-                            <img id="icon-cvv" src="<?= Yii::getAlias('@web/images/card-icons/cvv.svg') ?>" alt="CVV" />
-                        </div>
-                        <div class="cvv-frame"></div>
-                        <div class="icon-container">
-                            <img id="icon-cvv-error" src="<?= Yii::getAlias('@web/images/card-icons/error.svg') ?>" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button id="pay-button" disabled="">
-                PAY GBP 25.00
+            <button id="pay-button" disabled>
+                PAY GBP £<?= number_format($paymentModel->amount, 2) ?>
             </button>
+        </div>
 
-            <div>
-                <span class="error-message error-message__card-number"></span>
-                <span class="error-message error-message__expiry-date"></span>
-                <span class="error-message error-message__cvv"></span>
+        <p class="error-message"></p>
+        <p class="success-payment-message"></p>
+
+        <?php if (isset($paymentModel->payment_status) && $paymentModel->payment_status === 'failed'): ?>
+            <div class="alert alert-danger">
+                Payment failed. Please try again or use a different payment method.
             </div>
+        <?php endif; ?>
+    </form>
 
-            <p class="success-payment-message"></p>
-        </form>
-    </div>
-    <!-- <div>
-        <h2>here are more detials for testing:</h2>
-        <h2>id=<?= $paymentModel->order_id ?></h2>
-        <h2>amount=<?= $paymentModel->amount ?></h2>
-        <h3>payment_date= <?= $paymentModel->payment_date ?></h3>
-        <h3>card= <?= $paymentModel->cardholder_name ?></h3>
-        <h3>month= <?= $paymentModel->expiry_month ?></h3>
-        <h3>year= <?= $paymentModel->expiry_year ?></h3>
-        <h3>last four= <?= $paymentModel->last_four_digits ?></h3>
-
-
-    </div> -->
-    <!-- end payment section -->
-
+    <script src="https://cdn.checkout.com/js/framesv2.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Show/hide card details based on payment method
-            $('input[name="Payments[payment_method]"]').change(function() {
-                if ($(this).val() === 'visa') {
-                    $('#card-details').slideDown();
-                    // Make card fields required
-                    $('#cardholder_name').attr('required', true);
-                    $('#card_number').attr('required', true);
-                    $('#payments-expiry_month').attr('required', true);
-                    $('#payments-expiry_year').attr('required', true);
-                    $('#cvv').attr('required', true);
-                } else {
-                    $('#card-details').slideUp();
-                    // Remove required attribute
-                    $('#cardholder_name').removeAttr('required');
-                    $('#card_number').removeAttr('required');
-                    $('#payments-expiry_month').removeAttr('required');
-                    $('#payments-expiry_year').removeAttr('required');
-                    $('#cvv').removeAttr('required');
+        /* global Frames */
+        /* global Frames */
+        var payButton = document.getElementById("pay-button");
+        var form = document.getElementById("payment-form");
+
+        Frames.init('pk_sbox_g424ldgpjkxewqui7qhy3wie6ae');
+
+        var logos = generateLogos();
+
+        function generateLogos() {
+            var logos = {};
+            logos["card-number"] = {
+                src: "card",
+                alt: "card number logo",
+            };
+            logos["expiry-date"] = {
+                src: "exp-date",
+                alt: "expiry date logo",
+            };
+            logos["cvv"] = {
+                src: "cvv",
+                alt: "cvv logo",
+            };
+            return logos;
+        }
+
+        var errors = {};
+        errors["card-number"] = "Please enter a valid card number";
+        errors["expiry-date"] = "Please enter a valid expiry date";
+        errors["cvv"] = "Please enter a valid cvv code";
+
+        Frames.addEventHandler(
+            Frames.Events.FRAME_VALIDATION_CHANGED,
+            onValidationChanged
+        );
+
+        function onValidationChanged(event) {
+            var e = event.element;
+
+            if (event.isValid || event.isEmpty) {
+                if (e === "card-number" && !event.isEmpty) {
+                    showPaymentMethodIcon();
                 }
-            });
-
-            // Format card number input
-            $('#card_number').on('input', function() {
-                let value = $(this).val().replace(/\s/g, '').replace(/[^0-9]/g, '');
-                let formattedValue = value.replace(/(.{4})/g, '$1 ').trim();
-                if (formattedValue.length > 19) {
-                    formattedValue = formattedValue.substr(0, 19);
+                setDefaultIcon(e);
+                clearErrorIcon(e);
+                clearErrorMessage(e);
+            } else {
+                if (e === "card-number") {
+                    clearPaymentMethodIcon();
                 }
-                $(this).val(formattedValue);
-            });
+                setDefaultErrorIcon(e);
+                setErrorIcon(e);
+                setErrorMessage(e);
+            }
+        }
 
-            // Only allow numbers for CVV
-            $('#cvv').on('input', function() {
-                $(this).val($(this).val().replace(/[^0-9]/g, ''));
-            });
+        function clearErrorMessage(el) {
+            var selector = ".error-message__" + el;
+            var message = document.querySelector(selector);
+            message.textContent = "";
+        }
 
-            $('#payment-form').submit(function(e) {
-                let paymentMethod = $('input[name="Payments[payment_method]"]:checked').val();
+        function clearErrorIcon(el) {
+            var logo = document.getElementById("icon-" + el + "-error");
+            logo.style.removeProperty("display");
+        }
 
-                if (!paymentMethod) {
-                    alert('Please select a payment method.');
-                    e.preventDefault();
-                    return false;
-                }
+        function showPaymentMethodIcon(parent, pm) {
+            if (parent) parent.classList.add("show");
 
-                if (paymentMethod === 'visa') {
-                    let cardholderName = $('#cardholder_name').val().trim();
-                    let cardNumber = $('#card_number').val().replace(/\s/g, '');
-                    let expiryMonth = $('#payments-expiry_month').val();
-                    let expiryYear = $('#payments-expiry_year').val();
-                    let cvv = $('#cvv').val();
+            var logo = document.getElementById("logo-payment-method");
+            if (pm) {
+                var name = pm.toLowerCase();
+                logo.setAttribute("src", "/images/card-icons/" + name + ".svg");
+                logo.setAttribute("alt", pm || "payment method");
+            }
+            logo.style.removeProperty("display");
+        }
 
-                    if (!cardholderName) {
-                        alert('Please enter the cardholder name.');
-                        e.preventDefault();
-                        return false;
-                    }
+        function clearPaymentMethodIcon(parent) {
+            if (parent) parent.classList.remove("show");
 
-                    if (!cardNumber) {
-                        alert('Please enter a valid card number.');
-                        e.preventDefault();
-                        return false;
-                    }
+            var logo = document.getElementById("logo-payment-method");
+            logo.style.setProperty("display", "none");
+        }
 
-                    if (!expiryMonth || !expiryYear) {
-                        alert('Please select card expiry date.');
-                        e.preventDefault();
-                        return false;
-                    }
+        function setErrorMessage(el) {
+            var selector = ".error-message__" + el;
+            var message = document.querySelector(selector);
+            message.textContent = errors[el];
+        }
 
-                    if (!cvv || cvv.length < 3) {
-                        alert('Please enter a valid CVV.');
-                        e.preventDefault();
-                        return false;
-                    }
+        function setDefaultIcon(el) {
+            var selector = "icon-" + el;
+            var logo = document.getElementById(selector);
+            logo.setAttribute("src", "/images/card-icons/" + logos[el].src + ".svg");
+            logo.setAttribute("alt", logos[el].alt);
+        }
 
-                    // Check if card is not expired
-                    let currentDate = new Date();
-                    let currentYear = currentDate.getFullYear();
-                    let currentMonth = currentDate.getMonth() + 1;
+        function setDefaultErrorIcon(el) {
+            var selector = "icon-" + el;
+            var logo = document.getElementById(selector);
+            logo.setAttribute("src", "/images/card-icons/" + logos[el].src + "-error.svg");
+            logo.setAttribute("alt", logos[el].alt);
+        }
+
+        function setErrorIcon(el) {
+            var logo = document.getElementById("icon-" + el + "-error");
+            logo.style.setProperty("display", "block");
+        }
 
 
-                }
+        Frames.addEventHandler(
+            Frames.Events.CARD_TOKENIZATION_FAILED,
+            onCardTokenizationFailed
+        );
 
-                // If validation passes, show loading state
-                $('#complete-order-btn').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Processing...');
-            });
+        function onCardTokenizationFailed(error) {
+            console.log("CARD_TOKENIZATION_FAILED: %o", error);
+            Frames.enableSubmitForm();
+        }
 
-        });
+        Frames.addEventHandler(
+            Frames.Events.PAYMENT_METHOD_CHANGED,
+            paymentMethodChanged
+        );
+
+        function paymentMethodChanged(event) {
+            var pm = event.paymentMethod;
+            let container = document.querySelector(".icon-container.payment-method");
+
+            if (!pm) {
+                clearPaymentMethodIcon(container);
+            } else {
+                clearErrorIcon("card-number");
+                showPaymentMethodIcon(container, pm);
+            }
+        }
+
+        form.addEventListener("submit", onSubmit);
+
+        function onSubmit(event) {
+            event.preventDefault();
+            Frames.submitCard();
+        }
+
+
+
+        Frames.addEventHandler(
+            Frames.Events.CARD_VALIDATION_CHANGED,
+            cardValidationChanged
+        );
+
+        function cardValidationChanged() {
+            payButton.disabled = !Frames.isCardValid();
+        }
+
+        Frames.addEventHandler(Frames.Events.CARD_TOKENIZED, onCardTokenized);
+        function onCardTokenized(event) {
+            console.log("Card tokenization completed: %o", event);
+
+            document.querySelectorAll('input[name="token"]').forEach(el => el.remove());
+            document.querySelectorAll('input[name="attempt_3ds"]').forEach(el => el.remove());
+
+            var tokenInput = document.createElement("input");
+            tokenInput.type = "hidden";
+            tokenInput.name = "token";
+            tokenInput.value = event.token;
+            form.appendChild(tokenInput);
+
+            var threeDSInput = document.createElement("input");
+            threeDSInput.type = "hidden";
+            threeDSInput.name = "attempt_3ds";
+            threeDSInput.value = "true";
+            form.appendChild(threeDSInput);
+
+            form.submit();
+        }
     </script>
-
-    <style>
-        .card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-
-        .card-header {
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #ddd;
-            padding: 15px;
-        }
-
-        .card-body {
-            padding: 15px;
-        }
-
-        .form-check {
-            padding: 15px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .form-check:hover {
-            border-color: #007bff;
-            background-color: #f8f9fa;
-        }
-
-        .form-check input[type="radio"]:checked+label {
-            color: #007bff;
-        }
-
-        .total-row {
-            border-top: 2px solid #ddd;
-            font-size: 1.1em;
-        }
-
-        #card-details {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-    </style>
 </body>
-
-<script src="https://cdn.checkout.com/js/framesv2.min.js"></script>
-<script src="<?= Yii::getAlias('@web/js/app.js') ?>"></script>
