@@ -45,10 +45,10 @@ $config = [
         'db' => $db,
         'payment' => [
             'class' => 'app\components\PaymentComponent',
-            'apiUrl' => 'https://api.sandbox.checkout.com/payments',
-            'publicKey' => 'pk_sbox_g424ldgpjkxewqui7qhy3wie6ae',
-            'privateKey' => 'Bearer sk_sbox_l5lhlcy4u4rdaciaujh6ykg3o4t',
-            'processingId' => 'pc_eoifzuuhhwkevgwmwcfohvy62u',
+            'apiUrl' => env('API_URL'),
+            'publicKey' => env('PUBLIC_KEY'),
+            'privateKey' => env('PRIVATE_KEY'),
+            'processingId' => env('PROCESSING_ID'),
 
         ],
         'paymentProcessor' => [

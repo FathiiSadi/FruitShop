@@ -186,9 +186,9 @@ class Payments extends \yii\db\ActiveRecord
 
     private function getPaymentDetails($sessionId)
     {
-        $url = 'https://api.sandbox.checkout.com/payments/' . $sessionId;
+        $url = env('API_URL') . '/' . $sessionId;
         $headers = [
-            'Authorization: Bearer sk_sbox_l5lhlcy4u4rdaciaujh6ykg3o4t',
+            'Authorization: ' . env('PRIVATE_KEY'),
             'Content-Type: application/json',
         ];
 
