@@ -62,6 +62,8 @@ class Orders extends \yii\db\ActiveRecord
         ];
     }
 
+
+
     /**
      * {@inheritdoc}
      */
@@ -111,6 +113,13 @@ class Orders extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'UserID']);
     }
 
+
+    public function getOrders()
+    {
+        return Orders::find()
+            ->where(['status' => self::STATUS_PROCESSING])
+            ->all();
+    }
 
     /**
      * column status ENUM value labels

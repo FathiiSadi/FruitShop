@@ -40,10 +40,10 @@ class OrdersController extends Controller
      */
     public function actionIndex()
     {
-
         $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-        $orders = Orders::find()->all();
+        $ordersModel = new Orders();
+        $orders = $ordersModel->getOrders();
         $max = Orders::getMax();
         $pending = Orders::getStatusPending();
         $bestMonth = Orders::getOrdersByMonth();

@@ -21,12 +21,14 @@ $this->title = 'Products  - Admin';
 
 
 
-        <!-- partial -->
         <div class="container-fluid page-body-wrapper">
 
 
 
             <div class="main-panel" style="width:100%;min-height:100vh;">
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-primary" href="<?= Url::toRoute(['/admin/products/create']) ?>">Add Product</a>
+                </div>
                 <div class="content-wrapper" style="height:100%;display:flex;flex-direction:column;justify-content:center;">
 
 

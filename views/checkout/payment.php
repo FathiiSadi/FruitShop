@@ -18,7 +18,7 @@ use app\components\PaymentComponent;
             </div>
 
             <button id="pay-button" disabled>
-                PAY GBP £<?= number_format($paymentModel->amount, 2) ?>
+                £<?= number_format($paymentModel->amount, 2) ?>
             </button>
         </div>
 
@@ -27,19 +27,17 @@ use app\components\PaymentComponent;
 
         <?php if (isset($paymentModel->payment_status) && $paymentModel->payment_status === 'failed'): ?>
             <div class="alert alert-danger">
-                Payment failed. Please try again or use a different payment method.
+                Payment failed. <?= \yii\helpers\Html::a('Try again', ['/checkout/payment'], ['class' => 'alert-link']) ?>.
             </div>
         <?php endif; ?>
     </form>
 
     <script src="https://cdn.checkout.com/js/framesv2.min.js"></script>
     <script>
-        /* global Frames */
-        /* global Frames */
         var payButton = document.getElementById("pay-button");
         var form = document.getElementById("payment-form");
 
-        Frames.init('pk_sbox_g424ldgpjkxewqui7qhy3wie6ae');
+        Frames.init(<?php env('PUBLIC_KEY') ?>);
 
         var logos = generateLogos();
 
@@ -192,6 +190,7 @@ use app\components\PaymentComponent;
         }
 
         Frames.addEventHandler(Frames.Events.CARD_TOKENIZED, onCardTokenized);
+
         function onCardTokenized(event) {
             console.log("Card tokenization completed: %o", event);
 

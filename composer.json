@@ -21,7 +21,8 @@
         "ip2location/ip2location-php": "^9.7",
         "checkout/checkout-sdk-php": "^3.3",
         "guzzlehttp/guzzle": "^7.9",
-        "checkout/checkout-php-api": "^1.2"
+        "checkout/checkout-php-api": "^1.2",
+        "yiithings/yii2-dotenv": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

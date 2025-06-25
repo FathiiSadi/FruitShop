@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -9,6 +10,7 @@ namespace app\commands;
 
 use yii\console\Controller;
 use yii\console\ExitCode;
+use yii\helpers\Url;
 
 /**
  * This command echoes the first argument that you have entered.
@@ -28,6 +30,8 @@ class HelloController extends Controller
     public function actionIndex($message = 'hello world')
     {
         echo $message . "\n";
+
+        Url::to(['orders/index'], true);
 
         return ExitCode::OK;
     }

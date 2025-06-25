@@ -55,7 +55,7 @@ class PaymentController extends Controller
      * @param int $payment_id Payment ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
-     */
+     */    
     public function actionView($payment_id)
     {
         return $this->render('view', [
@@ -90,7 +90,6 @@ class PaymentController extends Controller
         } else {
             $model->loadDefaultValues();
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);

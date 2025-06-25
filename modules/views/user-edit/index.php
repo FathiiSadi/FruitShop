@@ -50,7 +50,11 @@ $this->title = 'User  - Admin';
                                     ]); ?>
                                     <?= $form->field($searchModel, 'username')->textInput(['placeholder' => 'Username'])->label(false) ?>
                                     <?= $form->field($searchModel, 'id')->textInput(['placeholder' => 'ID'])->label(false) ?>
-                                    <?= $form->field($searchModel, 'role')->textInput(['placeholder' => 'Role'])->label(false) ?>
+                                    <?= $form->field($searchModel, 'role')->dropDownList([
+                                        'admin' => 'Admin',
+                                        'user' => 'User',
+
+                                    ], ['prompt' => 'Select Role'])->label(false) ?>
                                     <div>
                                         <?= Html::submitButton('Search', ['class' => 'btn btn-outline-primary btn-sm']) ?>
                                         <?= Html::a('Reset', ['index'], ['class' => 'btn btn-outline-secondary btn-sm ms-1']) ?>
