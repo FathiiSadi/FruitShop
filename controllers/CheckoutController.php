@@ -166,11 +166,11 @@ class CheckoutController extends Controller
         $paymentModel->payment_status = Payments::PAYMENT_STATUS_PENDING;
 
         $response = Yii::$app->payment->processPayment($token, $paymentModel->amount, $paymentModel->order_id);
-//        $response = $this->paymentProcessor->processPayment(
-//            $token,
-//            $paymentModel->amount,
-//            $paymentModel->order_id
-//        );
+        //        $response = $this->paymentProcessor->processPayment(
+        //            $token,
+        //            $paymentModel->amount,
+        //            $paymentModel->order_id
+        //        );
 
         Yii::info('Payment response: ' . json_encode($response), 'payment');
 
@@ -180,7 +180,6 @@ class CheckoutController extends Controller
 
         if (isset($response['approved']) && $response['approved'] === true) {
             $paymentModel->payment_status = Payments::PAYMENT_STATUS_COMPLETED;
-            $this->paymentProcessor->completeOrder($checkoutData['cart'], $paymentModel);
 
             return $this->redirect(['orders/index']);
         }
@@ -203,17 +202,13 @@ class CheckoutController extends Controller
         $paymentDetails = Yii::$app->payment->getPaymentDetails($paymentId);
 
 
-        $paymentModel = Payments::findOne(['transaction_id' => $paymentId]) ?? new Payments();
-        $paymentModel->order_id = Yii::$app->session->get('checkout_order_id');
-        $paymentModel->payment_method = Payments::PAYMENT_METHOD_CHECKOUT_COM;
-
+        $paymentModel = Payments::findOne(['transaction_id' => $paymentId]);
         if ($paymentDetails['approved'] === true) {
             $paymentModel->payment_status = Payments::PAYMENT_STATUS_COMPLETED;
-            $paymentModel->amount = $paymentDetails['amount'] / 100;
             $paymentModel->payment_date = date('Y-m-d H:i:s');
 
             $cart = $this->checkoutManager->getUserCart();
-            if ($cart && $this->paymentProcessor->completeOrder($cart, $paymentModel)) {
+            if ($cart) {
                 Yii::$app->session->setFlash('success', 'Payment completed successfully');
                 return $this->redirect(['orders/index']);
             }

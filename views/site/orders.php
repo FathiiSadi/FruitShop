@@ -18,7 +18,7 @@
                         <tr>
                             <td><?php echo $order['order_id'] ?></td>
                             <td><?php  echo $order['order_date'] ?></td>
-                            <td><?php echo $order['total_amount'] ?></td>
+                            <td>$<?php echo $order['total_amount'] ?></td>
                             <td><?php echo $order['status'] ?></td>
                         </tr>
                     <?php endforeach; ?>

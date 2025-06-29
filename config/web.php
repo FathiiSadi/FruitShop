@@ -50,7 +50,6 @@ $config = [
             'publicKey' => env('PUBLIC_KEY'),
             'privateKey' => env('PRIVATE_KEY'),
             'processingId' => env('PROCESSING_ID'),
-            // 'currency' => 'GBP',
 
 
 

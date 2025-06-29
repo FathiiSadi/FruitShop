@@ -1,6 +1,7 @@
 <?php
 
 namespace app\components;
+
 use yii\base\Component;
 
 use Yii;
@@ -9,8 +10,9 @@ use app\models\Payments;
 use app\models\Cart;
 use yii\helpers\Url;
 use Exception;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+// use GuzzleHttp\Client;
+use yii\httpclient\Client;
+
 class PaymentComponent extends Component
 {
     public $apiUrl;
@@ -57,70 +59,86 @@ class PaymentComponent extends Component
     public function getPaymentDetails(string $paymentId): array
     {
         $url = $this->apiUrl . '/' . $paymentId;
-        return $this->makeApiRequest($url, null, false);
+        return $this->makeApiRequest($url, null);
     }
 
-    public function completeOrder(Cart $cart, Payments $payment): bool
-    {
-        $transaction = Yii::$app->db->beginTransaction();
+    // public function completeOrder(Cart $cart, Payments $payment): bool
+    // {
+    //     $transaction = Yii::$app->db->beginTransaction();
 
-        try {
-            $cart->Status = 'checked_out';
-            if (!$cart->save()) {
-                throw new Exception('Failed to save cart: ' . json_encode($cart->errors));
-            }
+    //     $cart->Status = 'checked_out';
+    //     if (!$cart->save()) {
+    //         throw new Exception('Failed to save cart: ' . json_encode($cart->errors));
+    //     }
 
-            if (!$payment->save()) {
-                throw new Exception('Failed to save payment: ' . json_encode($payment->errors));
-            }
+    //     if (!$payment->save()) {
+    //         throw new Exception('Failed to save payment: ' . json_encode($payment->errors));
+    //     }
 
-            $transaction->commit();
-            return true;
-        } catch (Exception $e) {
-            $transaction->rollBack();
-            Yii::error('Order completion failed: ' . $e->getMessage(), 'payment');
-            return false;
-        }
-    }
+    //     $transaction->commit();
+    //     return true;
+    // }
 
 
     private function makeApiRequest(string $url, ?array $payload): array
     {
-        $client = new Client([
-            'base_uri' => $this->apiUrl,
-            'timeout' => 30,
-            'verify' => true,
-        ]);
+        $client = new Client();
 
-        $headers = [
-            'Authorization' => $this->privateKey,
-            'Content-Type' => 'application/json',
-        ];
+        $request = $client->createRequest()
+            ->setUrl($url)
+            ->setMethod('POST')
+            ->addHeaders([
+                'Authorization' => $this->privateKey,
+                'Content-Type' => 'application/json',
+            ])
+            ->setFormat(Client::FORMAT_JSON);
+
+        if ($payload !== null) $request->setData($payload);
+
+        $response = $request->send();
+
+        if (!$response->isOk) throw new Exception('API request failed: ' . $response->content);
 
 
-            $options = [
-                'headers' => $headers,
-            ];
+        return $response->data;
 
-            if ($payload !== null) {
-                $options['json'] = $payload;
-            }
 
-            $response = $client->request('POST', $url, $options);
-            $statusCode = $response->getStatusCode();
 
-            if ($statusCode >= 400) {
-                throw new Exception("HTTP request failed with status code: $statusCode");
-            }
+        // $client = new Client([
+        //     'base_uri' => $this->apiUrl,
+        //     'timeout' => 30,
+        //     'verify' => true,
+        // ]);
 
-            $body = $response->getBody()->getContents();
-            $decodedResponse = json_decode($body, true);
+        // $headers = [
+        //     'Authorization' => $this->privateKey,
+        //     'Content-Type' => 'application/json',
+        // ];
 
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new Exception('Invalid JSON response from payment gateway');
-            }
 
-            return $decodedResponse;
+        //     $options = [
+        //         'headers' => $headers,
+        //     ];
+
+        //     if ($payload !== null) {
+        //         $options['json'] = $payload;
+        //     }
+
+        //     $response = $client->request('POST', $url, $options);
+        //     $statusCode = $response->getStatusCode();
+
+        //     if ($statusCode >= 400) {
+        //         throw new Exception("HTTP request failed with status code: $statusCode");
+        //     }
+
+        //     $body = $response->getBody()->getContents();
+        //     $decodedResponse = json_decode($body, true);
+
+        //     if (json_last_error() !== JSON_ERROR_NONE) {
+        //         throw new Exception('Invalid JSON response from payment gateway');
+        //     }
+
+        //     return $decodedResponse;
 
     }
 }

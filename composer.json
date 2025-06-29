@@ -24,7 +24,8 @@
         "checkout/checkout-php-api": "^1.2",
         "ext-curl": "*",
       "ext-json": "*",
-        "yiithings/yii2-dotenv": "*"
+        "yiithings/yii2-dotenv": "*",
+        "yiisoft/yii2-httpclient": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
