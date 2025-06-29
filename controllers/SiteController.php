@@ -159,6 +159,15 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+
+    public function actionOrders()
+    {
+        $orders = Orders::find()->where(['UserID' => Yii::$app->user->id, 'status' => 'processing'])->all();
+        return $this->render('orders', [
+            'orders' => $orders,
+        ]);
+    }
+
     /**
      * Displays contact page.
      *
