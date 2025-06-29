@@ -1,14 +1,22 @@
 <?php
 
 namespace app\components;
-
 use yii\base\Component;
 
+use Yii;
+use yii\base\BaseObject;
+use app\models\Payments;
+use app\models\Cart;
+use yii\helpers\Url;
+use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 class PaymentComponent extends Component
 {
     public $apiUrl;
     public $privateKey;
     public $processingId;
+
     public $publicKey;
 
 

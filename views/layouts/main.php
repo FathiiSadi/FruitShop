@@ -87,6 +87,7 @@ $this->beginPage();
                 ['label' => 'cart', 'url' => ['/cart/index']],
                 ['label' => 'About', 'url' => ['/site/about']],
                 ['label' => "shop", 'url' => ['site/shop']],
+                ['label' => "Orders", 'url' => ['site/orders']],
                 // ['label' => 'User Cart', 'url' => ['/site/user-cart']],
 
                 Yii::$app->user->isGuest

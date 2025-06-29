@@ -118,16 +118,12 @@ class CheckoutController extends Controller
                     Yii::$app->session->set('checkout_order_id', $order->order_id);
                     return $this->redirect(['checkout/payment']);
                 } else {
-                    Yii::error('Order save failed: ' . print_r($order->errors, true));
-                    Yii::$app->session->setFlash('error', 'Error creating order: ' . implode(', ', $order->getFirstErrors()));
+                    Yii::error('Order save failed: ');
                     return $this->redirect(['checkout/index']);
                 }
             } else {
-                Yii::error('Address save failed: ' . print_r($addressModel->errors, true));
-                Yii::$app->session->setFlash('error', 'Error saving address: ' . implode(', ', $addressModel->getFirstErrors()));
+                Yii::error('Address save failed: ');
             }
-        } else {
-            Yii::$app->session->setFlash('error', 'No data received.');
         }
 
         return $this->redirect(['checkout/index']);
@@ -186,7 +182,6 @@ class CheckoutController extends Controller
             $paymentModel->payment_status = Payments::PAYMENT_STATUS_COMPLETED;
             $this->paymentProcessor->completeOrder($checkoutData['cart'], $paymentModel);
 
-            Yii::$app->session->setFlash('success', 'Payment completed successfully');
             return $this->redirect(['orders/index']);
         }
 
@@ -195,7 +190,6 @@ class CheckoutController extends Controller
         $errorMessage = 'Payment failed';
 
 
-        Yii::$app->session->setFlash('error', $errorMessage);
         return $this->render('payment', [
             'cart' => $checkoutData['cart'],
             'addressModel' => $checkoutData['address'],
@@ -206,8 +200,6 @@ class CheckoutController extends Controller
     public function actionSuccess()
     {
         $paymentId = Yii::$app->request->get('cko-payment-id');
-
-
         $paymentDetails = Yii::$app->payment->getPaymentDetails($paymentId);
 
 
