@@ -1,6 +1,7 @@
 <?php
 
 use app\components\PaymentComponent;
+use yii\helpers\Url;
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
@@ -49,6 +50,9 @@ $config = [
             'publicKey' => env('PUBLIC_KEY'),
             'privateKey' => env('PRIVATE_KEY'),
             'processingId' => env('PROCESSING_ID'),
+            // 'currency' => 'GBP',
+
+
 
         ],
         'paymentProcessor' => [

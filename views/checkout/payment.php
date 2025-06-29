@@ -22,6 +22,10 @@ use app\components\PaymentComponent;
             </button>
         </div>
 
+        <div>
+            example : 4242 4242 4242 4242
+        </div>
+
         <p class="error-message"></p>
         <p class="success-payment-message"></p>
 

@@ -22,6 +22,8 @@
         "checkout/checkout-sdk-php": "^3.3",
         "guzzlehttp/guzzle": "^7.9",
         "checkout/checkout-php-api": "^1.2",
+        "ext-curl": "*",
+      "ext-json": "*",
         "yiithings/yii2-dotenv": "*"
     },
     "require-dev": {

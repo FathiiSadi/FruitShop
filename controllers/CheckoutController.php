@@ -139,7 +139,7 @@ class CheckoutController extends Controller
         }
 
         $checkoutData = $this->checkoutManager->getCheckoutData();
-        $paymentModel = $this->paymentProcessor->createPaymentModel($checkoutData['cart']);
+        $paymentModel = Yii::$app->payment->createPaymentModel($checkoutData['cart']);
 
         return $this->render('payment', [
             'cart' => $checkoutData['cart'],
@@ -163,15 +163,18 @@ class CheckoutController extends Controller
         $token = Yii::$app->request->post('token');
 
 
-        $paymentModel = $this->paymentProcessor->createPaymentModel($checkoutData['cart']);
+
+        $paymentModel = Yii::$app->payment->createPaymentModel($checkoutData['cart']);
+
+
         $paymentModel->payment_status = Payments::PAYMENT_STATUS_PENDING;
 
-
-        $response = $this->paymentProcessor->processPayment(
-            $token,
-            $paymentModel->amount,
-            $paymentModel->order_id
-        );
+        $response = Yii::$app->payment->processPayment($token, $paymentModel->amount, $paymentModel->order_id);
+//        $response = $this->paymentProcessor->processPayment(
+//            $token,
+//            $paymentModel->amount,
+//            $paymentModel->order_id
+//        );
 
         Yii::info('Payment response: ' . json_encode($response), 'payment');
 
@@ -205,7 +208,7 @@ class CheckoutController extends Controller
         $paymentId = Yii::$app->request->get('cko-payment-id');
 
 
-        $paymentDetails = $this->paymentProcessor->getPaymentDetails($paymentId);
+        $paymentDetails = Yii::$app->payment->getPaymentDetails($paymentId);
 
 
         $paymentModel = Payments::findOne(['transaction_id' => $paymentId]) ?? new Payments();
