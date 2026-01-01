@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\cart;
+use app\models\Cart;
 
 /**
  * cartSearch represents the model behind the search form of `app\models\cart`.
  */
-class cartSearch extends cart
+class CartSearch extends Cart
 {
     /**
      * {@inheritdoc}
@@ -41,7 +41,7 @@ class cartSearch extends cart
      */
     public function search($params, $formName = null)
     {
-        $query = cart::find();
+        $query = Cart::find();
 
         // add conditions that should always apply here
 

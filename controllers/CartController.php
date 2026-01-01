@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\models\Cart;
-use app\Models\CartSearch;
+use app\models\CartSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

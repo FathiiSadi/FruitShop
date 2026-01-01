@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Models;
+namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -9,7 +9,7 @@ use app\models\Products;
 /**
  * productSearch represents the model behind the search form of `app\models\Products`.
  */
-class productSearch extends Products
+class ProductSearch extends Products
 {
     /**
      * {@inheritdoc}

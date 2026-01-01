@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\models\Payments;
-use app\Models\PaymentSearch;
+use app\models\PaymentSearch;
 use yii\web\Controller;
 use app\models\Cart;
 use app\models\Orders;

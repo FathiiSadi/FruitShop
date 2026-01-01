@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\models\Products;
-use app\Models\productSearch;
+use app\models\productSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
