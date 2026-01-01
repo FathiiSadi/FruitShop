@@ -128,12 +128,12 @@ class m260101_174524_init_db extends Migration
         // DUMP DATA
         // 1. Products
         $this->batchInsert('{{%products}}', ['name', 'price', 'Description', 'category', 'stock', 'ImageURL'], [
-            ['Apple', 2.50, 'Fresh Green Apple', 'Fruits', 100, 'apple.jpg'],
-            ['Banana', 1.20, 'Sweet Banana', 'Fruits', 150, 'banana.jpg'],
-            ['Orange', 3.00, 'Juicy Orange', 'Fruits', 80, 'orange.jpg'],
-            ['Strawberry', 5.50, 'Red Strawberry', 'Berries', 50, 'strawberry.jpg'],
-            ['Blueberry', 6.00, 'Fresh Blueberry', 'Berries', 40, 'blueberry.jpg'],
-            ['Watermelon', 10.00, 'Large Watermelon', 'Fruits', 20, 'watermelon.jpg'],
+            ['Apple', 2.50, 'Fresh Green Apple', 'Fruits', 100, 'assets_static/img/products/product-img-1.jpg'],
+            ['Banana', 1.20, 'Sweet Banana', 'Fruits', 150, 'assets_static/img/products/product-img-2.jpg'],
+            ['Orange', 3.00, 'Juicy Orange', 'Fruits', 80, 'assets_static/img/products/product-img-3.jpg'],
+            ['Strawberry', 5.50, 'Red Strawberry', 'Berries', 50, 'assets_static/img/products/product-img-4.jpg'],
+            ['Blueberry', 6.00, 'Fresh Blueberry', 'Berries', 40, 'assets_static/img/products/product-img-5.jpg'],
+            ['Watermelon', 10.00, 'Large Watermelon', 'Fruits', 20, 'assets_static/img/products/product-img-6.jpg'],
         ]);
 
         // 2. Default Admin User (password: admin123)

@@ -36,7 +36,7 @@ AdminAsset::register($this);
     <link rel="stylesheet" href="<?= Url::to('@web/css/vertical-layout-light/style.css') ?>">
     <!-- endinject -->
     <link rel="shortcut icon" href="<?= Url::to('@web/images/favicon.png') ?>" />
-    <link rel="stylesheet" href="<?= Url::to('@web/assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= Url::to('@web/assets_static/bootstrap/css/bootstrap.min.css') ?>">
 
 </head>
 <!DOCTYPE html>
@@ -98,7 +98,7 @@ AdminAsset::register($this);
 
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                        <img src=<?= Url::to('@web/assets/img/default.webp') ?> alt="profile" />
+                        <img src=<?= Url::to('@web/assets_static/img/default.webp') ?> alt="profile" />
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                         <?= Html::beginForm(['/site/logout'], 'post') ?>

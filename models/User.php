@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;  // Add this use statement
+
 /**
  * @property int $id
  * @property string $username
@@ -56,7 +57,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function validatePassword(string $password): bool
     {
-        return Yii::$app->security->validatePassword($password, $this->password);
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 
     public static function findByEmail($email)
@@ -67,7 +68,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function setPassword(string $password)
     {
-        $this->password = Yii::$app->security->generatePasswordHash($password);
+        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 
     public function generateAuthKey()

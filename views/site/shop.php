@@ -1,8 +1,8 @@
 <?php
 
 $products = (new \yii\db\Query())
-    ->select(['productID', 'name', 'price', 'description', 'category', 'stock', 'ImageURL'])
-    ->from('Products')
+    ->select(['ProductID', 'name', 'price', 'Description', 'category', 'stock', 'ImageURL'])
+    ->from('products')
     ->all();
 ?>
 
@@ -14,7 +14,6 @@ use yii\helpers\Url;
 use yii\db\Query;
 ?>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     function addToCart(productId, productName) {
@@ -25,14 +24,14 @@ use yii\db\Query;
         button.prop('disabled', true);
 
         $.ajax({
-            url: '/site/add-to-cart',
+            url: '<?= Url::to(['site/add-to-cart']) ?>',
             type: 'POST',
             data: {
                 productId: productId,
                 quantity: 1,
                 _csrf: '<?= Yii::$app->request->getCsrfToken() ?>'
             },
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
                     // Show success message
                     showNotification(`${productName} added to cart successfully!`, 'success');
@@ -49,7 +48,7 @@ use yii\db\Query;
                     button.prop('disabled', false);
                 }
             },
-            error: function() {
+            error: function () {
                 showNotification('Something went wrong. Please try again.', 'error');
                 button.html(originalText);
                 button.prop('disabled', false);
@@ -59,9 +58,9 @@ use yii\db\Query;
 
     function updateCartCount() {
         $.ajax({
-            url: '/site/cart-count',
+            url: '<?= Url::to(['site/cart-count']) ?>',
             type: 'GET',
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
                     $('.cart-count').text(response.count);
                 }
@@ -85,7 +84,7 @@ use yii\db\Query;
         $('body').append(notification);
 
         // Auto-hide after 3 seconds
-        setTimeout(function() {
+        setTimeout(function () {
             $('.notification').fadeOut();
         }, 3000);
     }
@@ -133,22 +132,21 @@ use yii\db\Query;
 
             <div class="row product-lists">
 
-                <?php foreach ($products as $product) : ?>
+                <?php foreach ($products as $product): ?>
                     <div class="col-lg-4 col-md-6 text-center <?= strtolower($product['category']) ?>">
                         <div class="single-product-item">
                             <a href="/site/single-product?name=<?= urlencode($product['name']) ?>">
                                 <div class="product-image">
-                                    <img src="<?php echo Yii::$app->request->baseUrl . '/' . $product['ImageURL']; ?>" alt="<?= Html::encode($product['name']) ?>" />
+                                    <img src="<?php echo Yii::$app->request->baseUrl . '/' . $product['ImageURL']; ?>"
+                                        alt="<?= Html::encode($product['name']) ?>" />
                                 </div>
                             </a>
                             <h3><?php echo Html::encode($product['name']); ?></h3>
                             <p class="product-price"><span>Per Kg</span> $<?php echo $product['price']; ?></p>
 
-                            <button
-                                type="button"
-                                class="cart-btn btn btn-primary"
-                                data-product-id="<?= $product['productID'] ?>"
-                                onclick="addToCart(<?= $product['productID'] ?>, '<?= Html::encode($product['name']) ?>')">
+                            <button type="button" class="cart-btn btn btn-primary"
+                                data-product-id="<?= $product['ProductID'] ?>"
+                                onclick="addToCart(<?= $product['ProductID'] ?>, '<?= Html::encode($product['name']) ?>')">
                                 <i class="fas fa-shopping-cart "></i> Add to Cart
                             </button>
                         </div>

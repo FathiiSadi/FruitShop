@@ -132,7 +132,7 @@ $this->title = 'FruitShop - Altibbi';
             <div class="col-lg-4 col-md-6 text-center">
                 <div class="single-product-item">
                     <div class="product-image">
-                        <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/products/product-img-1.jpg') ?> alt="">
+                        <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets_static/img/products/product-img-1.jpg') ?> alt="">
                     </div>
                     <h3>Strawberry</h3>
                     <p class="product-price"><span>Per Kg</span> 85$ </p>
@@ -141,7 +141,7 @@ $this->title = 'FruitShop - Altibbi';
             <div class="col-lg-4 col-md-6 text-center">
                 <div class="single-product-item">
                     <div class="product-image">
-                        <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/products/product-img-2.jpg') ?> alt="">
+                        <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets_static/img/products/product-img-2.jpg') ?> alt="">
                     </div>
                     <h3>Berry</h3>
                     <p class="product-price"><span>Per Kg</span> 70$ </p>
@@ -150,7 +150,7 @@ $this->title = 'FruitShop - Altibbi';
             <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
                 <div class="single-product-item">
                     <div class="product-image">
-                        <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/products/product-img-3.jpg') ?> alt="">
+                        <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets_static/img/products/product-img-3.jpg') ?> alt="">
                     </div>
                     <h3>Lemon</h3>
                     <p class="product-price"><span>Per Kg</span> 35$ </p>
@@ -175,7 +175,7 @@ $this->title = 'FruitShop - Altibbi';
                             </span>
                         </div>
                     </div>
-                    <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/a.jpg') ?> alt="">
+                    <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets_static/img/a.jpg') ?> alt="">
                 </div>
             </div>
             <!--Content Column-->
@@ -214,7 +214,7 @@ $this->title = 'FruitShop - Altibbi';
                 <div class="testimonial-sliders">
                     <div class="single-testimonial-slider">
                         <div class="client-avater">
-                            <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/avaters/avatar1.png') ?> alt="">
+                            <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets_static/img/avaters/avatar1.png') ?> alt="">
                         </div>
                         <div class="client-meta">
                             <h3>Saira Hakim <span>Local shop owner</span></h3>
@@ -228,7 +228,7 @@ $this->title = 'FruitShop - Altibbi';
                     </div>
                     <div class="single-testimonial-slider">
                         <div class="client-avater">
-                            <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/avaters/avatar2.png') ?> alt="">
+                            <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets_static/img/avaters/avatar2.png') ?> alt="">
                         </div>
                         <div class="client-meta">
                             <h3>David Niph <span>Local shop owner</span></h3>
@@ -242,7 +242,7 @@ $this->title = 'FruitShop - Altibbi';
                     </div>
                     <div class="single-testimonial-slider">
                         <div class="client-avater">
-                            <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets/img/avaters/avatar3.png') ?> alt="">
+                            <img src=<?php echo \yii\helpers\BaseUrl::to('@web/assets_static/img/avaters/avatar3.png') ?> alt="">
                         </div>
                         <div class="client-meta">
                             <h3>Jacob Sikim <span>Local shop owner</span></h3>
@@ -295,25 +295,25 @@ $this->title = 'FruitShop - Altibbi';
 
 
 <!-- jquery -->
-<script src="assets/js/jquery-1.11.3.min.js"></script>
+<script src="assets_static/js/jquery-1.11.3.min.js"></script>
 <!-- bootstrap -->
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets_static/bootstrap/js/bootstrap.min.js"></script>
 <!-- count down -->
-<script src="assets/js/jquery.countdown.js"></script>
+<script src="assets_static/js/jquery.countdown.js"></script>
 <!-- isotope -->
-<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+<script src="assets_static/js/jquery.isotope-3.0.6.min.js"></script>
 <!-- waypoints -->
-<script src="assets/js/waypoints.js"></script>
+<script src="assets_static/js/waypoints.js"></script>
 <!-- owl carousel -->
-<script src="assets/js/owl.carousel.min.js"></script>
+<script src="assets_static/js/owl.carousel.min.js"></script>
 <!-- magnific popup -->
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<script src="assets_static/js/jquery.magnific-popup.min.js"></script>
 <!-- mean menu -->
-<script src="assets/js/jquery.meanmenu.min.js"></script>
+<script src="assets_static/js/jquery.meanmenu.min.js"></script>
 <!-- sticker js -->
-<script src="assets/js/sticker.js"></script>
+<script src="assets_static/js/sticker.js"></script>
 <!-- main js -->
-<script src="assets/js/main.js"></script>
+<script src="assets_static/js/main.js"></script>
 
 </body>
 
