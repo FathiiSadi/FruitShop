@@ -14,7 +14,6 @@ class m260101_174524_init_db extends Migration
     {
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
-            // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
@@ -39,7 +38,7 @@ class m260101_174524_init_db extends Migration
             'stock' => $this->integer()->defaultValue(0),
             'ImageURL' => $this->string(),
             'createdAt' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
-            'updatedAt' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+            'updatedAt' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
         ], $tableOptions);
 
         // 3. Addresses Table
@@ -62,8 +61,8 @@ class m260101_174524_init_db extends Migration
             'CartID' => $this->primaryKey(),
             'UserID' => $this->integer()->notNull(),
             'CreatedAt' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
-            'UpdatedAt' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
-            'Status' => "ENUM('open', 'checked_out') DEFAULT 'open'",
+            'UpdatedAt' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'Status' => $this->string(20)->defaultValue('open'),
         ], $tableOptions);
 
         // 5. CartItem Table
@@ -82,7 +81,7 @@ class m260101_174524_init_db extends Migration
             'UserID' => $this->integer()->notNull(),
             'address_id' => $this->integer()->notNull(),
             'order_date' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
-            'status' => "ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled') DEFAULT 'pending'",
+            'status' => $this->string(20)->defaultValue('pending'),
             'subtotal' => $this->decimal(10, 2)->notNull(),
             'tax_amount' => $this->decimal(10, 2)->notNull(),
             'shipping_cost' => $this->decimal(10, 2)->defaultValue(15.00),
@@ -104,9 +103,9 @@ class m260101_174524_init_db extends Migration
         $this->createTable('{{%payments}}', [
             'payment_id' => $this->primaryKey(),
             'order_id' => $this->integer()->notNull(),
-            'payment_method' => "ENUM('cash_on_delivery', 'visa', 'checkout_com') NOT NULL",
+            'payment_method' => $this->string(30)->notNull(),
             'amount' => $this->decimal(10, 2)->notNull(),
-            'payment_status' => "ENUM('pending', 'completed', 'failed', 'refunded') DEFAULT 'pending'",
+            'payment_status' => $this->string(20)->defaultValue('pending'),
             'payment_date' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'cardholder_name' => $this->string(100),
             'last_four_digits' => $this->string(4),

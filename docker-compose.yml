@@ -9,9 +9,9 @@ services:
     environment:
       - YII_ENV=prod
       - YII_DEBUG=0
-      - DB_DSN=mysql:host=db;dbname=eCommerce
-      - DB_USERNAME=root
-      - DB_PASSWORD=
+      - DB_DSN=pgsql:host=dpg-d5begcjuibrs73ce8lag-a;port=5432;dbname=fruitshop_db
+      - DB_USERNAME=fruitadmin
+      - DB_PASSWORD=6otaPMavrBeSxd7NayEGdP47NEEeuCaJ
     depends_on:
       - db
     volumes:
@@ -21,16 +21,17 @@ services:
       - /var/www/html/assets
 
   db:
-    image: mysql:8.0
+    image: postgres:15-alpine
     container_name: fruitshop_db
     restart: always
     environment:
-      - MYSQL_DATABASE=eCommerce
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRES_DB=fruitshop_db
+      - POSTGRES_USER=fruitadmin
+      - POSTGRES_PASSWORD=fruitpassword
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - db_data:/var/lib/mysql
+      - pg_data:/var/lib/postgresql/data
 
 volumes:
-  db_data:
+  pg_data:
