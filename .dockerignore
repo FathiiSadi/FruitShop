@@ -1,4 +1,5 @@
 vendor/
+vendors/
 runtime/*
 web/assets/*
 .git/

@@ -1,5 +1,5 @@
-# Use the official PHP 8.1 image with Apache
-FROM php:8.1-apache
+# Use the official PHP 8.2 image with Apache
+FROM php:8.2-apache
 
 # Set environment variables
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     libonig-dev \
     libxml2-dev \
+    libcurl4-openssl-dev \
     zip \
     unzip \
     curl \
@@ -34,7 +35,10 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     bcmath \
     mbstring \
     exif \
-    pcntl
+    pcntl \
+    dom \
+    xml \
+    fileinfo
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
