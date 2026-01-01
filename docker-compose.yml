@@ -9,7 +9,7 @@ services:
     environment:
       - YII_ENV=prod
       - YII_DEBUG=0
-      - DB_DSN=pgsql:host=dpg-d5begcjuibrs73ce8lag-a;port=5432;dbname=fruitshop_db
+      - DB_DSN=pgsql:host=dpg-d5begcjuibrs73ce8lag-a.virginia-postgres.render.com;port=5432;dbname=fruitshop_db;sslmode=require
       - DB_USERNAME=fruitadmin
       - DB_PASSWORD=6otaPMavrBeSxd7NayEGdP47NEEeuCaJ
     depends_on:
