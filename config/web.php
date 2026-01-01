@@ -83,7 +83,7 @@ $config = [
 
     'modules' => [
         'admin' => [
-            'class' => 'app\modules\admin',
+            'class' => 'app\modules\Admin',
         ],
     ],
     'params' => $params,
