@@ -17,34 +17,34 @@ class m260101_174524_init_db extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        // 1. User Table
-        $this->createTable('{{%user}}', [
+        // 1. Users Table
+        $this->createTable('{{%users}}', [
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull()->unique(),
             'email' => $this->string()->notNull()->unique(),
             'password_hash' => $this->string()->notNull(),
-            'authKey' => $this->string(32)->notNull(),
+            'auth_key' => $this->string(32)->notNull(),
             'access_token' => $this->string(),
             'role' => $this->string()->defaultValue('user'),
         ], $tableOptions);
 
         // 2. Products Table
         $this->createTable('{{%products}}', [
-            'ProductID' => $this->primaryKey(),
+            'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
             'price' => $this->decimal(10, 2)->notNull(),
-            'Description' => $this->text(),
+            'description' => $this->text(),
             'category' => $this->string(100),
             'stock' => $this->integer()->defaultValue(0),
-            'ImageURL' => $this->string(),
-            'createdAt' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
-            'updatedAt' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'image_url' => $this->string(),
+            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
         ], $tableOptions);
 
         // 3. Addresses Table
         $this->createTable('{{%addresses}}', [
-            'address_id' => $this->primaryKey(),
-            'UserID' => $this->integer()->notNull(),
+            'id' => $this->primaryKey(),
+            'user_id' => $this->integer()->notNull(),
             'recipient_name' => $this->string(100)->notNull(),
             'street_address' => $this->string(255)->notNull(),
             'city' => $this->string(100)->notNull(),
@@ -57,28 +57,28 @@ class m260101_174524_init_db extends Migration
         ], $tableOptions);
 
         // 4. Cart Table
-        $this->createTable('{{%Cart}}', [
-            'CartID' => $this->primaryKey(),
-            'UserID' => $this->integer()->notNull(),
-            'CreatedAt' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
-            'UpdatedAt' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
-            'Status' => $this->string(20)->defaultValue('open'),
+        $this->createTable('{{%cart}}', [
+            'id' => $this->primaryKey(),
+            'user_id' => $this->integer()->notNull(),
+            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'status' => $this->string(20)->defaultValue('open'),
         ], $tableOptions);
 
         // 5. CartItem Table
-        $this->createTable('{{%CartItem}}', [
-            'CartItemID' => $this->primaryKey(),
-            'CartID' => $this->integer()->notNull(),
-            'ProductID' => $this->integer()->notNull(),
+        $this->createTable('{{%cart_item}}', [
+            'id' => $this->primaryKey(),
+            'cart_id' => $this->integer()->notNull(),
+            'product_id' => $this->integer()->notNull(),
             'quantity' => $this->integer()->notNull()->defaultValue(1),
             'price' => $this->decimal(10, 2)->notNull(),
-            'AddedAt' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'added_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
         ], $tableOptions);
 
         // 6. Orders Table
         $this->createTable('{{%orders}}', [
-            'order_id' => $this->primaryKey(),
-            'UserID' => $this->integer()->notNull(),
+            'id' => $this->primaryKey(),
+            'user_id' => $this->integer()->notNull(),
             'address_id' => $this->integer()->notNull(),
             'order_date' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'status' => $this->string(20)->defaultValue('pending'),
@@ -91,7 +91,7 @@ class m260101_174524_init_db extends Migration
 
         // 7. Order Items Table
         $this->createTable('{{%order_items}}', [
-            'order_item_id' => $this->primaryKey(),
+            'id' => $this->primaryKey(),
             'order_id' => $this->integer()->notNull(),
             'product_id' => $this->integer()->notNull(),
             'quantity' => $this->integer()->notNull(),
@@ -101,7 +101,7 @@ class m260101_174524_init_db extends Migration
 
         // 8. Payments Table
         $this->createTable('{{%payments}}', [
-            'payment_id' => $this->primaryKey(),
+            'id' => $this->primaryKey(),
             'order_id' => $this->integer()->notNull(),
             'payment_method' => $this->string(30)->notNull(),
             'amount' => $this->decimal(10, 2)->notNull(),
@@ -114,19 +114,18 @@ class m260101_174524_init_db extends Migration
         ], $tableOptions);
 
         // Foreign Keys
-        $this->addForeignKey('fk-addresses-user', '{{%addresses}}', 'UserID', '{{%user}}', 'id', 'CASCADE');
-        $this->addForeignKey('fk-cart-user', '{{%Cart}}', 'UserID', '{{%user}}', 'id', 'CASCADE');
-        $this->addForeignKey('fk-cartitem-cart', '{{%CartItem}}', 'CartID', '{{%Cart}}', 'CartID', 'CASCADE');
-        $this->addForeignKey('fk-cartitem-product', '{{%CartItem}}', 'ProductID', '{{%products}}', 'ProductID', 'CASCADE');
-        $this->addForeignKey('fk-orders-user', '{{%orders}}', 'UserID', '{{%user}}', 'id', 'CASCADE');
-        $this->addForeignKey('fk-orders-address', '{{%orders}}', 'address_id', '{{%addresses}}', 'address_id', 'CASCADE');
-        $this->addForeignKey('fk-order_items-order', '{{%order_items}}', 'order_id', '{{%orders}}', 'order_id', 'CASCADE');
-        $this->addForeignKey('fk-order_items-product', '{{%order_items}}', 'product_id', '{{%products}}', 'ProductID', 'CASCADE');
-        $this->addForeignKey('fk-payments-order', '{{%payments}}', 'order_id', '{{%orders}}', 'order_id', 'CASCADE');
+        $this->addForeignKey('fk-addresses-user', '{{%addresses}}', 'user_id', '{{%users}}', 'id', 'CASCADE');
+        $this->addForeignKey('fk-cart-user', '{{%cart}}', 'user_id', '{{%users}}', 'id', 'CASCADE');
+        $this->addForeignKey('fk-cartitem-cart', '{{%cart_item}}', 'cart_id', '{{%cart}}', 'id', 'CASCADE');
+        $this->addForeignKey('fk-cartitem-product', '{{%cart_item}}', 'product_id', '{{%products}}', 'id', 'CASCADE');
+        $this->addForeignKey('fk-orders-user', '{{%orders}}', 'user_id', '{{%users}}', 'id', 'CASCADE');
+        $this->addForeignKey('fk-orders-address', '{{%orders}}', 'address_id', '{{%addresses}}', 'id', 'CASCADE');
+        $this->addForeignKey('fk-order_items-order', '{{%order_items}}', 'order_id', '{{%orders}}', 'id', 'CASCADE');
+        $this->addForeignKey('fk-order_items-product', '{{%order_items}}', 'product_id', '{{%products}}', 'id', 'CASCADE');
+        $this->addForeignKey('fk-payments-order', '{{%payments}}', 'order_id', '{{%orders}}', 'id', 'CASCADE');
 
         // DUMP DATA
-        // 1. Products
-        $this->batchInsert('{{%products}}', ['name', 'price', 'Description', 'category', 'stock', 'ImageURL'], [
+        $this->batchInsert('{{%products}}', ['name', 'price', 'description', 'category', 'stock', 'image_url'], [
             ['Apple', 2.50, 'Fresh Green Apple', 'Fruits', 100, 'assets_static/img/products/product-img-1.jpg'],
             ['Banana', 1.20, 'Sweet Banana', 'Fruits', 150, 'assets_static/img/products/product-img-2.jpg'],
             ['Orange', 3.00, 'Juicy Orange', 'Fruits', 80, 'assets_static/img/products/product-img-3.jpg'],
@@ -135,12 +134,11 @@ class m260101_174524_init_db extends Migration
             ['Watermelon', 10.00, 'Large Watermelon', 'Fruits', 20, 'assets_static/img/products/product-img-6.jpg'],
         ]);
 
-        // 2. Default Admin User (password: admin123)
-        $this->insert('{{%user}}', [
+        $this->insert('{{%users}}', [
             'username' => 'admin',
             'email' => 'admin@example.com',
             'password_hash' => Yii::$app->security->generatePasswordHash('admin123'),
-            'authKey' => Yii::$app->security->generateRandomString(),
+            'auth_key' => Yii::$app->security->generateRandomString(),
             'role' => 'admin',
         ]);
     }
@@ -153,10 +151,10 @@ class m260101_174524_init_db extends Migration
         $this->dropTable('{{%payments}}');
         $this->dropTable('{{%order_items}}');
         $this->dropTable('{{%orders}}');
-        $this->dropTable('{{%CartItem}}');
-        $this->dropTable('{{%Cart}}');
+        $this->dropTable('{{%cart_item}}');
+        $this->dropTable('{{%cart}}');
         $this->dropTable('{{%addresses}}');
         $this->dropTable('{{%products}}');
-        $this->dropTable('{{%user}}');
+        $this->dropTable('{{%users}}');
     }
 }

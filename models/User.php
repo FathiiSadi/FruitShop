@@ -10,14 +10,14 @@ use yii\web\IdentityInterface;  // Add this use statement
  * @property int $id
  * @property string $username
  * @property string $password_hash
- * @property string $authKey
+ * @property string $auth_key
  * @property string $access_token
  */
 class User extends ActiveRecord implements IdentityInterface
 {
     public static function tableName()
     {
-        return 'user';
+        return 'users';
     }
 
     public static function findIdentity($id)
@@ -47,12 +47,12 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getAuthKey(): string
     {
-        return $this->authKey;
+        return $this->auth_key;
     }
 
     public function validateAuthKey($authKey): bool
     {
-        return $this->authKey === $authKey;
+        return $this->auth_key === $authKey;
     }
 
     public function validatePassword(string $password): bool
@@ -73,7 +73,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function generateAuthKey()
     {
-        $this->authKey = Yii::$app->security->generateRandomString();
+        $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
     public function generateAccessToken()
