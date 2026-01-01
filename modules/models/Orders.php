@@ -7,9 +7,9 @@ use Yii;
 /**
  * This is the model class for table "orders".
  *
- * @property int $order_id
- * @property int $UserID
- * @property int $address_id
+ * @property int $id
+ * @property int $user_id
+ * @property int $id
  * @property string|null $order_date
  * @property string|null $status
  * @property float $subtotal
@@ -51,14 +51,14 @@ class Orders extends \yii\db\ActiveRecord
             [['notes'], 'default', 'value' => null],
             [['status'], 'default', 'value' => 'pending'],
             [['shipping_cost'], 'default', 'value' => 15.00],
-            [['UserID', 'address_id', 'subtotal', 'tax_amount', 'total_amount'], 'required'],
-            [['UserID', 'address_id'], 'integer'],
+            [['user_id', 'id', 'subtotal', 'tax_amount', 'total_amount'], 'required'],
+            [['user_id', 'id'], 'integer'],
             [['order_date'], 'safe'],
             [['status', 'notes'], 'string'],
             [['subtotal', 'tax_amount', 'shipping_cost', 'total_amount'], 'number'],
             ['status', 'in', 'range' => array_keys(self::optsStatus())],
-            [['UserID'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['UserID' => 'id']],
-            [['address_id'], 'exist', 'skipOnError' => true, 'targetClass' => Addresses::class, 'targetAttribute' => ['address_id' => 'address_id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Addresses::class, 'targetAttribute' => ['id' => 'id']],
         ];
     }
 
@@ -70,9 +70,9 @@ class Orders extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'order_id' => 'Order ID',
-            'UserID' => 'User ID',
-            'address_id' => 'Address ID',
+            'id' => 'Order ID',
+            'user_id' => 'User ID',
+            'id' => 'Address ID',
             'order_date' => 'Order Date',
             'status' => 'Status',
             'subtotal' => 'Subtotal',
@@ -90,7 +90,7 @@ class Orders extends \yii\db\ActiveRecord
      */
     public function getAddress()
     {
-        return $this->hasOne(Addresses::class, ['address_id' => 'address_id']);
+        return $this->hasOne(Addresses::class, ['id' => 'id']);
     }
 
     /**
@@ -100,7 +100,7 @@ class Orders extends \yii\db\ActiveRecord
      */
     public function getPayments()
     {
-        return $this->hasMany(Payments::class, ['order_id' => 'order_id']);
+        return $this->hasMany(Payments::class, ['id' => 'id']);
     }
 
     /**
@@ -110,7 +110,7 @@ class Orders extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'UserID']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
 

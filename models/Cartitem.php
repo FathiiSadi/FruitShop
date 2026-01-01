@@ -7,12 +7,12 @@ use Yii;
 /**
  * This is the model class for table "CartItem".
  *
- * @property int $CartItemID
- * @property int $CartID
- * @property int $ProductID
+ * @property int $id
+ * @property int $id
+ * @property int $id
  * @property int $quantity
  * @property float $price
- * @property string|null $AddedAt
+ * @property string|null $added_at
  *
  * @property Cart $cart
  * @property Products $product
@@ -26,7 +26,7 @@ class CartItem extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'CartItem';
+        return 'cart_item';
     }
 
     /**
@@ -36,12 +36,12 @@ class CartItem extends \yii\db\ActiveRecord
     {
         return [
             [['quantity'], 'default', 'value' => 1],
-            [['CartID', 'ProductID', 'price'], 'required'],
-            [['CartID', 'ProductID', 'quantity'], 'integer'],
+            [['id', 'id', 'price'], 'required'],
+            [['id', 'id', 'quantity'], 'integer'],
             [['price'], 'number'],
-            [['AddedAt'], 'safe'],
-            [['CartID'], 'exist', 'skipOnError' => true, 'targetClass' => Cart::class, 'targetAttribute' => ['CartID' => 'CartID']],
-            [['ProductID'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['ProductID' => 'ProductID']],
+            [['added_at'], 'safe'],
+            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Cart::class, 'targetAttribute' => ['id' => 'id']],
+            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['id' => 'id']],
         ];
     }
 
@@ -51,12 +51,12 @@ class CartItem extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'CartItemID' => 'Cart Item ID',
-            'CartID' => 'Cart ID',
-            'ProductID' => 'Product ID',
+            'id' => 'Cart Item ID',
+            'id' => 'Cart ID',
+            'id' => 'Product ID',
             'quantity' => 'quantity',
             'price' => 'price',
-            'AddedAt' => 'Added At',
+            'added_at' => 'Added At',
         ];
     }
 
@@ -67,7 +67,7 @@ class CartItem extends \yii\db\ActiveRecord
      */
     public function getCart()
     {
-        return $this->hasOne(Cart::class, ['CartID' => 'CartID']);
+        return $this->hasOne(Cart::class, ['id' => 'id']);
     }
 
     /**
@@ -77,6 +77,6 @@ class CartItem extends \yii\db\ActiveRecord
      */
     public function getProduct()
     {
-        return $this->hasOne(Products::class, ['ProductID' => 'ProductID']);
+        return $this->hasOne(Products::class, ['id' => 'id']);
     }
 }

@@ -67,7 +67,7 @@ class CheckoutController extends Controller
         }
 
         $userId = Yii::$app->user->id;
-        $cart = Cart::find()->where(['UserID' => $userId, 'Status' => 'open'])->with('cartItems.product')->one();
+        $cart = Cart::find()->where(['user_id' => $userId, 'Status' => 'open'])->with('cartItems.product')->one();
 
         if (!$cart || $cart->isEmpty()) {
             Yii::$app->session->setFlash('error', 'Your cart is empty.');
@@ -89,15 +89,15 @@ class CheckoutController extends Controller
         }
 
         $addressModel = new Addresses();
-        $addressModel->UserID = Yii::$app->user->id;
+        $addressModel->user_id = Yii::$app->user->id;
         $addressModel->is_default = 0;
 
         if ($addressModel->load(Yii::$app->request->post())) {
             if ($addressModel->save()) {
-                Yii::$app->session->set('checkout_address_id', $addressModel->address_id);
+                Yii::$app->session->set('checkout_id', $addressModel->id);
 
                 $userId = Yii::$app->user->id;
-                $cart = Cart::find()->where(['UserID' => $userId, 'Status' => 'open'])->with('cartItems.product')->one();
+                $cart = Cart::find()->where(['user_id' => $userId, 'Status' => 'open'])->with('cartItems.product')->one();
 
                 if (!$cart || $cart->isEmpty()) {
                     Yii::$app->session->setFlash('error', 'Your cart is empty.');
@@ -105,8 +105,8 @@ class CheckoutController extends Controller
                 }
 
                 $order = new Orders();
-                $order->UserID = $userId;
-                $order->address_id = $addressModel->address_id;
+                $order->user_id = $userId;
+                $order->id = $addressModel->id;
                 $order->order_date = date('Y-m-d H:i:s');
                 $order->status = 'pending';
                 $order->subtotal = $cart->getSubtotal();
@@ -115,7 +115,7 @@ class CheckoutController extends Controller
                 $order->total_amount = $cart->getTotalWithTax() + 15;
 
                 if ($order->save()) {
-                    Yii::$app->session->set('checkout_order_id', $order->order_id);
+                    Yii::$app->session->set('checkout_id', $order->id);
                     return $this->redirect(['checkout/payment']);
                 } else {
                     Yii::error('Order save failed: ');
@@ -165,11 +165,11 @@ class CheckoutController extends Controller
 
         $paymentModel->payment_status = Payments::PAYMENT_STATUS_PENDING;
 
-        $response = Yii::$app->payment->processPayment($token, $paymentModel->amount, $paymentModel->order_id);
+        $response = Yii::$app->payment->processPayment($token, $paymentModel->amount, $paymentModel->id);
         //        $response = $this->paymentProcessor->processPayment(
         //            $token,
         //            $paymentModel->amount,
-        //            $paymentModel->order_id
+        //            $paymentModel->id
         //        );
 
         Yii::info('Payment response: ' . json_encode($response), 'payment');

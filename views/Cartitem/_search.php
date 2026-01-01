@@ -17,15 +17,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'CartID') ?>
+    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'ProductID') ?>
+    <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'Quantity') ?>
 
     <?= $form->field($model, 'Price') ?>
 
-    <?php // echo $form->field($model, 'AddedAt') ?>
+    <?php // echo $form->field($model, 'added_at') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

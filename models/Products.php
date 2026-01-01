@@ -7,19 +7,18 @@ use Yii;
 /**
  * This is the model class for table "products".
  *
- * @property int $ProductID
+ * @property int $id
  * @property string $name
  * @property float $price
- * @property string|null $Description
+ * @property string|null $description
  * @property string|null $category
  * @property int|null $stock
- * @property string|null $ImageURL
- * @property string|null $createdAt
- * @property string|null $updatedAt
+ * @property string|null $image_url
+ * @property string|null $created_at
+ * @property string|null $updated_at
  */
 class Products extends \yii\db\ActiveRecord
 {
-
 
 
     /**
@@ -36,14 +35,14 @@ class Products extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Description', 'category', 'ImageURL'], 'default', 'value' => null],
+            [['description', 'category', 'image_url'], 'default', 'value' => null],
             [['stock'], 'default', 'value' => 0],
             [['name', 'price'], 'required'],
             [['price'], 'number'],
-            [['Description'], 'string'],
+            [['description'], 'string'],
             [['stock'], 'integer'],
-            [['createdAt', 'updatedAt'], 'safe'],
-            [['name', 'ImageURL'], 'string', 'max' => 255],
+            [['created_at', 'updated_at'], 'safe'],
+            [['name', 'image_url'], 'string', 'max' => 255],
             [['category'], 'string', 'max' => 100],
 
 
@@ -56,15 +55,15 @@ class Products extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'ProductID' => 'ID',
+            'id' => 'ID',
             'name' => 'Name',
             'price' => 'price',
-            'Description' => 'Description',
+            'description' => 'description',
             'category' => 'Category',
             'stock' => 'Stock',
-            'ImageURL' => 'Image Url',
-            'createdAt' => 'Created At',
-            'updatedAt' => 'Updated At',
+            'image_url' => 'Image Url',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 
@@ -95,13 +94,13 @@ class Products extends \yii\db\ActiveRecord
         return Products::find()->where(['stock' => $stock])->all();
     }
 
-    public function getProductsByCreatedAt($createdAt)
+    public function getProductsBycreated_at($created_at)
     {
-        return Products::find()->where(['createdAt' => $createdAt])->all();
+        return Products::find()->where(['created_at' => $created_at])->all();
     }
-    public function getProductsByUpdatedAt($updatedAt)
+    public function getProductsByupdated_at($updated_at)
     {
-        return Products::find()->where(['updatedAt' => $updatedAt])->all();
+        return Products::find()->where(['updated_at' => $updated_at])->all();
     }
     public function getProductsByNameAndCategory($name, $category)
     {

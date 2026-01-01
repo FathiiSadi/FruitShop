@@ -66,10 +66,10 @@ class ProductsController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($ProductID)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($ProductID),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -95,7 +95,7 @@ class ProductsController extends Controller
             }
 
             if ($model->save()) {
-                return $this->redirect(['view', 'ProductID' => $model->ProductID]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
 
@@ -103,16 +103,16 @@ class ProductsController extends Controller
     }
 
 
-    public function actionUpdate($ProductID)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($ProductID);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost) {
             $model->load($this->request->post());
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
 
             if ($model->upload() && $model->save()) {
-                return $this->redirect(['view', 'ProductID' => $model->ProductID]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
 
@@ -127,9 +127,9 @@ class ProductsController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($ProductID)
+    public function actionDelete($id)
     {
-        $this->findModel($ProductID)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -141,9 +141,9 @@ class ProductsController extends Controller
      * @return Products the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($ProductID)
+    protected function findModel($id)
     {
-        if (($model = Products::findOne(['ProductID' => $ProductID])) !== null) {
+        if (($model = Products::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

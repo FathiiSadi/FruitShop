@@ -17,7 +17,7 @@ class PaymentSearch extends Payments
     public function rules()
     {
         return [
-            [['payment_id', 'order_id'], 'integer'],
+            [['payment_id', 'id'], 'integer'],
             [['payment_method', 'payment_status', 'payment_date', 'cardholder_name', 'last_four_digits', 'expiry_month', 'expiry_year'], 'safe'],
             [['amount'], 'number'],
         ];
@@ -61,7 +61,7 @@ class PaymentSearch extends Payments
         // grid filtering conditions
         $query->andFilterWhere([
             'payment_id' => $this->payment_id,
-            'order_id' => $this->order_id,
+            'id' => $this->id,
             'amount' => $this->amount,
             'payment_date' => $this->payment_date,
         ]);

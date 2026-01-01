@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <!-- <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?> -->
 
-    <!-- <?= $form->field($model, 'authKey')->textInput(['maxlength' => true]) ?> -->
+    <!-- <?= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?> -->
 
     <!-- <?= $form->field($model, 'accessToken')->textInput(['maxlength' => true]) ?> -->
 

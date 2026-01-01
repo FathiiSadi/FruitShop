@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\cart $model */
 
-$this->title = 'Update Cart: ' . $model->CartID;
+$this->title = 'Update Cart: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Carts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->CartID, 'url' => ['view', 'CartID' => $model->CartID]];
+$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="cart-update">

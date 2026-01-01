@@ -16,13 +16,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'Description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'category')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'stock')->textInput() ?>
 
-    <?= $form->field($model, 'ImageURL')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'image_url')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'createdAt')->textInput() ?>
 

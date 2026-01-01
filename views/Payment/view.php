@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'payment_id',
-            'order_id',
+            'id',
             'payment_method',
             'amount',
             'payment_status',

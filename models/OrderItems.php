@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "order_items".
  *
  * @property int $order_item_id
- * @property int $order_id
+ * @property int $id
  * @property int $product_id
  * @property int $quantity
  * @property string $unit_price
@@ -33,10 +33,10 @@ class OrderItems extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'product_id', 'quantity', 'unit_price', 'total_price'], 'required'],
-            [['order_id', 'product_id', 'quantity'], 'integer'],
+            [['id', 'product_id', 'quantity', 'unit_price', 'total_price'], 'required'],
+            [['id', 'product_id', 'quantity'], 'integer'],
             [['unit_price', 'total_price'], 'number'],
-            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Orders::class, 'targetAttribute' => ['order_id' => 'order_id']],
+            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Orders::class, 'targetAttribute' => ['id' => 'id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['product_id' => 'product_id']],
         ];
     }
@@ -48,7 +48,7 @@ class OrderItems extends \yii\db\ActiveRecord
     {
         return [
             'order_item_id' => 'Order Item ID',
-            'order_id' => 'Order ID',
+            'id' => 'Order ID',
             'product_id' => 'Product ID',
             'quantity' => 'Quantity',
             'unit_price' => 'Unit Price',
@@ -63,7 +63,7 @@ class OrderItems extends \yii\db\ActiveRecord
      */
     public function getOrder()
     {
-        return $this->hasOne(Orders::class, ['order_id' => 'order_id']);
+        return $this->hasOne(Orders::class, ['id' => 'id']);
     }
 
     /**

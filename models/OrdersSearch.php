@@ -17,7 +17,7 @@ class OrdersSearch extends Orders
     public function rules()
     {
         return [
-            [['order_id', 'UserID', 'address_id'], 'integer'],
+            [['id', 'user_id', 'id'], 'integer'],
             [['order_date', 'status', 'notes'], 'safe'],
             [['subtotal', 'tax_amount', 'shipping_cost', 'total_amount'], 'number'],
         ];
@@ -60,9 +60,9 @@ class OrdersSearch extends Orders
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'order_id' => $this->order_id,
-            'UserID' => $this->UserID,
-            'address_id' => $this->address_id,
+            'id' => $this->id,
+            'user_id' => $this->user_id,
+            'id' => $this->id,
             'order_date' => $this->order_date,
             'subtotal' => $this->subtotal,
             'tax_amount' => $this->tax_amount,

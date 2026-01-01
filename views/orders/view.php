@@ -70,7 +70,7 @@ use yii\helpers\Url;
                     <table class="order-details-table">
                         <tr>
                             <th><i class="fas fa-hashtag me-2"></i>Order ID</th>
-                            <td><?= $order->order_id ?></td>
+                            <td><?= $order->id ?></td>
                         </tr>
                         <tr>
                             <th><i class="far fa-calendar-alt me-2"></i>Order Date</th>

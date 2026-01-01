@@ -11,12 +11,12 @@ use yii\web\Response;
 /**
  * This is the model class for table "Cart".
  *
- * @property int $CartID
- * @property int $UserID
- * @property string|null $CreatedAt
+ * @property int $id
+ * @property int $user_id
+ * @property string|null $created_at
  * @property string|null $Status
  *
- * @property string|null $UpdatedAt
+ * @property string|null $updated_at
  * @property CartItem[] $cartItems
  * @property User $user
  */
@@ -37,7 +37,7 @@ class Cart extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Cart';
+        return 'cart';
     }
 
     /**
@@ -47,12 +47,12 @@ class Cart extends \yii\db\ActiveRecord
     {
         return [
             [['Status'], 'default', 'value' => 'open'],
-            [['UserID'], 'required'],
-            [['UserID'], 'integer'],
-            [['CreatedAt'], 'safe'],
+            [['user_id'], 'required'],
+            [['user_id'], 'integer'],
+            [['created_at'], 'safe'],
             [['Status'], 'string'],
             ['Status', 'in', 'range' => array_keys(self::optsStatus())],
-            [['UserID'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['UserID' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -62,9 +62,9 @@ class Cart extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'CartID' => 'Cart ID',
-            'UserID' => 'User ID',
-            'CreatedAt' => 'Created At',
+            'id' => 'Cart ID',
+            'user_id' => 'User ID',
+            'created_at' => 'Created At',
             'Status' => 'Status',
         ];
     }
@@ -83,7 +83,7 @@ class Cart extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'UserID']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
 
@@ -121,7 +121,7 @@ class Cart extends \yii\db\ActiveRecord
     }
     public function getCartItems()
     {
-        return $this->hasMany(CartItem::class, ['CartID' => 'CartID']);
+        return $this->hasMany(CartItem::class, ['id' => 'id']);
     }
     /**
      * @return bool
@@ -183,7 +183,7 @@ class Cart extends \yii\db\ActiveRecord
 
                 // Check if item already exists in the cart
                 $cartItem = CartItem::find()
-                    ->where(['CartID' => $cart->CartID, 'ProductID' => $productId])
+                    ->where(['id' => $cart->id, 'id' => $productId])
                     ->one();
 
 
@@ -193,8 +193,8 @@ class Cart extends \yii\db\ActiveRecord
                 } else {
                     // Create new cart item
                     $cartItem = new CartItem();
-                    $cartItem->CartID = $cart->CartID;
-                    $cartItem->ProductID = $productId;
+                    $cartItem->id = $cart->id;
+                    $cartItem->id = $productId;
                     $cartItem->quantity = $quantity;
                     $cartItem->price = $product->price;
                 }
@@ -206,7 +206,7 @@ class Cart extends \yii\db\ActiveRecord
                 return [
                     'success' => true,
                     'message' => 'Item added to cart successfully!',
-                    'cartCount' => $this->getCartItemCount($cart->CartID)
+                    'cartCount' => $this->getCartItemCount($cart->id)
                 ];
             } catch (\Exception $e) {
                 Yii::error('Add to cart error: ' . $e->getMessage(), __METHOD__);
@@ -232,7 +232,7 @@ class Cart extends \yii\db\ActiveRecord
                 $cart = $this->getOrCreateCart();
 
                 $cartItem = CartItem::find()
-                    ->where(['CartID' => $cart->CartID, 'ProductID' => $productId])
+                    ->where(['id' => $cart->id, 'id' => $productId])
                     ->one();
 
                 $product = Products::findOne($productId);
@@ -257,7 +257,7 @@ class Cart extends \yii\db\ActiveRecord
                     return [
                         'success' => true,
                         'message' => 'Cart updated successfully!',
-                        'cartCount' => $this->getCartItemCount($cart->CartID)
+                        'cartCount' => $this->getCartItemCount($cart->id)
                     ];
                 }
 
@@ -284,7 +284,7 @@ class Cart extends \yii\db\ActiveRecord
                 $cart = $this->getOrCreateCart();
 
                 $cartItem = CartItem::find()
-                    ->where(['CartID' => $cart->CartID, 'ProductID' => $productId])
+                    ->where(['id' => $cart->id, 'id' => $productId])
                     ->one();
 
                 if ($cartItem) {
@@ -293,7 +293,7 @@ class Cart extends \yii\db\ActiveRecord
                     return [
                         'success' => true,
                         'message' => 'Item removed from cart!',
-                        'cartCount' => $this->getCartItemCount($cart->CartID)
+                        'cartCount' => $this->getCartItemCount($cart->id)
                     ];
                 }
 
@@ -314,7 +314,7 @@ class Cart extends \yii\db\ActiveRecord
 
         try {
             $cart = $this->getOrCreateCart();
-            $count = $this->getCartItemCount($cart->CartID);
+            $count = $this->getCartItemCount($cart->id);
 
             return ['success' => true, 'count' => $count];
         } catch (\Exception $e) {
@@ -331,7 +331,7 @@ class Cart extends \yii\db\ActiveRecord
 
         if (!Yii::$app->user->isGuest) {
             $cart = Cart::find()
-                ->where(['UserID' => Yii::$app->user->id, 'Status' => Cart::STATUS_OPEN])
+                ->where(['user_id' => Yii::$app->user->id, 'Status' => Cart::STATUS_OPEN])
                 ->one();
         } else {
             $cartId = $session->get('cart_id');
@@ -352,7 +352,7 @@ class Cart extends \yii\db\ActiveRecord
                 throw new \Exception('Unable to create a new cart.');
             }
             if (Yii::$app->user->isGuest) {
-                $session->set('cart_id', $cart->CartID);
+                $session->set('cart_id', $cart->id);
             }
         }
 
@@ -366,7 +366,7 @@ class Cart extends \yii\db\ActiveRecord
     private function getCartItemCount($cartId)
     {
         return CartItem::find()
-            ->where(['CartID' => $cartId])
+            ->where(['id' => $cartId])
             ->sum('quantity') ?: 0;
     }
 
@@ -378,7 +378,7 @@ class Cart extends \yii\db\ActiveRecord
     // public function getSubtotalFromDb()
     // {
     //     $result = CartItem::find()
-    //         ->where(['CartID' => $this->CartID])
+    //         ->where(['id' => $this->id])
     //         ->select('SUM(price * quantity) as subtotal')
     //         ->scalar();
 
@@ -456,7 +456,7 @@ class Cart extends \yii\db\ActiveRecord
     public function clearCart()
     {
         try {
-            CartItem::deleteAll(['CartID' => $this->CartID]);
+            CartItem::deleteAll(['id' => $this->id]);
             return true;
         } catch (\Exception $e) {
             return false;
@@ -489,9 +489,9 @@ class Cart extends \yii\db\ActiveRecord
     public static function createNewCart($userId)
     {
         $newCart = new self();
-        $newCart->UserID = $userId;
+        $newCart->user_id = $userId;
         $newCart->Status = 'open';
-        $newCart->CreatedAt = date('Y-m-d H:i:s');
+        $newCart->created_at = date('Y-m-d H:i:s');
 
         if ($newCart->save()) {
             return $newCart;
@@ -507,9 +507,9 @@ class Cart extends \yii\db\ActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($insert) {
-                $this->CreatedAt = date('Y-m-d H:i:s');
+                $this->created_at = date('Y-m-d H:i:s');
             }
-            $this->UpdatedAt = date('Y-m-d H:i:s');
+            $this->updated_at = date('Y-m-d H:i:s');
             return true;
         }
         return false;

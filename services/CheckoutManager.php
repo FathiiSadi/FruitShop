@@ -17,7 +17,7 @@ class CheckoutManager extends BaseObject
             return false;
         }
 
-        $addressId = Yii::$app->session->get('checkout_address_id');
+        $addressId = Yii::$app->session->get('checkout_id');
         if (!$addressId) {
             return false;
         }
@@ -29,7 +29,7 @@ class CheckoutManager extends BaseObject
     {
         $userId = Yii::$app->user->id;
         $cart = Cart::find()
-            ->where(['UserID' => $userId, 'Status' => 'open'])
+            ->where(['user_id' => $userId, 'Status' => 'open'])
             ->with('cartItems.product')
             ->one();
 
@@ -39,7 +39,7 @@ class CheckoutManager extends BaseObject
     public function getCheckoutData(): array
     {
         $cart = $this->getUserCart();
-        $addressId = Yii::$app->session->get('checkout_address_id');
+        $addressId = Yii::$app->session->get('checkout_id');
 
         return [
             'cart' => $cart,

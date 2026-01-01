@@ -27,7 +27,7 @@ class PaymentComponent extends Component
         $paymentModel = new Payments();
         $paymentModel->amount = $cart->getTotalWithTax() + 15;
         $paymentModel->payment_date = date('Y-m-d H:i:s');
-        $paymentModel->order_id = Yii::$app->session->get('checkout_order_id');
+        $paymentModel->id = Yii::$app->session->get('checkout_id');
         $paymentModel->payment_method = Payments::PAYMENT_METHOD_CHECKOUT_COM;
 
         return $paymentModel;

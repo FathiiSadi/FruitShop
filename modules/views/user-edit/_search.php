@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'password') ?>
 
-    <?= $form->field($model, 'authKey') ?>
+    <?= $form->field($model, 'auth_key') ?>
 
     <?= $form->field($model, 'accessToken') ?>
 

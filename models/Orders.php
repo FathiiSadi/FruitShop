@@ -7,9 +7,9 @@ use Yii;
 /**
  * This is the model class for table "orders".
  *
- * @property int $order_id
- * @property int $UserID
- * @property int $address_id
+ * @property int $id
+ * @property int $user_id
+ * @property int $id
  * @property string|null $order_date
  * @property string|null $status
  * @property float $subtotal
@@ -50,15 +50,15 @@ class Orders extends \yii\db\ActiveRecord
         return [
             [['status'], 'default', 'value' => 'pending'],
             [['shipping_cost'], 'default', 'value' => 15.00],
-            [['UserID', 'address_id', 'subtotal', 'tax_amount', 'total_amount'], 'required'],
-            [['UserID', 'address_id'], 'integer'],
+            [['user_id', 'id', 'subtotal', 'tax_amount', 'total_amount'], 'required'],
+            [['user_id', 'id'], 'integer'],
             [['order_date'], 'safe'],
             [['status', 'notes'], 'string'],
             [['subtotal', 'tax_amount', 'shipping_cost', 'total_amount'], 'number'],
             ['status', 'in', 'range' => array_keys(self::optsStatus())],
-            [['UserID'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['UserID' => 'id']],
-            // Fixed: address_id should link to address_id in Addresses table
-            [['address_id'], 'exist', 'skipOnError' => true, 'targetClass' => Addresses::class, 'targetAttribute' => ['address_id' => 'address_id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            // Fixed: id should link to id in Addresses table
+            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Addresses::class, 'targetAttribute' => ['id' => 'id']],
         ];
     }
 
@@ -69,9 +69,9 @@ class Orders extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'order_id' => 'Order ID',
-            'UserID' => 'User ID',
-            'address_id' => 'Address ID',
+            'id' => 'Order ID',
+            'user_id' => 'User ID',
+            'id' => 'Address ID',
             'order_date' => 'Order Date',
             'status' => 'Status',
             'subtotal' => 'Subtotal',
@@ -88,20 +88,20 @@ class Orders extends \yii\db\ActiveRecord
 
     /**
      * Gets query for [[Address]].
-     * Fixed: address_id should link to address_id in Addresses table
+     * Fixed: id should link to id in Addresses table
      *
      * @return \yii\db\ActiveQuery
      */
     public function getAddress()
     {
-        return $this->hasOne(Addresses::class, ['address_id' => 'address_id']);
+        return $this->hasOne(Addresses::class, ['id' => 'id']);
     }
 
     public function getUsername()
     {
         $user = User::find()
             ->select('username')
-            ->where(['id' => $this->UserID])
+            ->where(['id' => $this->user_id])
             ->scalar();
         return $user;
     }
@@ -113,7 +113,7 @@ class Orders extends \yii\db\ActiveRecord
      */
     public function getPayment()
     {
-        return $this->hasOne(Payments::className(), ['order_id' => 'order_id']);
+        return $this->hasOne(Payments::className(), ['id' => 'id']);
     }
     /**
      * Gets query for [[OrderItems]].
@@ -122,7 +122,7 @@ class Orders extends \yii\db\ActiveRecord
      */
     public function getOrderItems()
     {
-        return $this->hasMany(OrderItems::class, ['order_id' => 'order_id']);
+        return $this->hasMany(OrderItems::class, ['id' => 'id']);
     }
 
     /**
@@ -132,7 +132,7 @@ class Orders extends \yii\db\ActiveRecord
      */
     public function getPayments()
     {
-        return $this->hasMany(Payments::class, ['order_id' => 'order_id']);
+        return $this->hasMany(Payments::class, ['id' => 'id']);
     }
 
     /**
@@ -142,7 +142,7 @@ class Orders extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'UserID']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     /**

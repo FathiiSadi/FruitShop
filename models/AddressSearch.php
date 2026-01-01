@@ -17,7 +17,7 @@ class AddressSearch extends Addresses
     public function rules()
     {
         return [
-            [['address_id', 'UserID', 'is_default'], 'integer'],
+            [['id', 'user_id', 'is_default'], 'integer'],
             [['recipient_name', 'street_address', 'city', 'state', 'postal_code', 'country', 'phone_number', 'created_at'], 'safe'],
         ];
     }
@@ -59,8 +59,8 @@ class AddressSearch extends Addresses
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'address_id' => $this->address_id,
-            'UserID' => $this->UserID,
+            'id' => $this->id,
+            'user_id' => $this->user_id,
             'is_default' => $this->is_default,
             'created_at' => $this->created_at,
         ]);

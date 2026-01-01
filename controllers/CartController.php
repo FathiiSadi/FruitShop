@@ -48,7 +48,7 @@ class CartController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams);
         $userId = Yii::$app->user->id; // Assuming user is logged in
         $cart = Cart::find()->where([
-            'UserID' => $userId,
+            'user_id' => $userId,
             'Status' => 'open'
         ])->with('cartItems.product')->one();
 
@@ -88,7 +88,7 @@ class CartController extends Controller
                 $product->save();
                 // Check if item already exists in the cart
                 $cartItem = CartItem::find()
-                    ->where(['CartID' => $cart->CartID, 'ProductID' => $productId])
+                    ->where(['id' => $cart->id, 'id' => $productId])
                     ->one();
 
                 if ($cartItem) {
@@ -97,8 +97,8 @@ class CartController extends Controller
                 } else {
                     // Create new cart item
                     $cartItem = new CartItem();
-                    $cartItem->CartID = $cart->CartID;
-                    $cartItem->ProductID = $productId;
+                    $cartItem->id = $cart->id;
+                    $cartItem->id = $productId;
                     $cartItem->quantity = $quantity;
                     $cartItem->price = $product->price;
                 }
@@ -110,7 +110,7 @@ class CartController extends Controller
                 return [
                     'success' => true,
                     'message' => 'Item added to cart successfully!',
-                    'cartCount' => $this->getCartItemCount($cart->CartID)
+                    'cartCount' => $this->getCartItemCount($cart->id)
                 ];
             } catch (\Exception $e) {
                 Yii::error('Add to cart error: ' . $e->getMessage(), __METHOD__);
@@ -136,7 +136,7 @@ class CartController extends Controller
                 $cart = $this->getOrCreateCart();
 
                 $cartItem = CartItem::find()
-                    ->where(['CartID' => $cart->CartID, 'ProductID' => $productId])
+                    ->where(['id' => $cart->id, 'id' => $productId])
                     ->one();
 
                 $product = Products::findOne($productId);
@@ -160,7 +160,7 @@ class CartController extends Controller
                     return [
                         'success' => true,
                         'message' => 'Cart updated successfully!',
-                        'cartCount' => $this->getCartItemCount($cart->CartID)
+                        'cartCount' => $this->getCartItemCount($cart->id)
                     ];
                 }
 
@@ -187,7 +187,7 @@ class CartController extends Controller
                 $cart = $this->getOrCreateCart();
 
                 $cartItem = CartItem::find()
-                    ->where(['CartID' => $cart->CartID, 'ProductID' => $productId])
+                    ->where(['id' => $cart->id, 'id' => $productId])
                     ->one();
 
                 if ($cartItem) {
@@ -196,7 +196,7 @@ class CartController extends Controller
                     return [
                         'success' => true,
                         'message' => 'Item removed from cart!',
-                        'cartCount' => $this->getCartItemCount($cart->CartID)
+                        'cartCount' => $this->getCartItemCount($cart->id)
                     ];
                 }
 
@@ -217,7 +217,7 @@ class CartController extends Controller
 
         try {
             $cart = $this->getOrCreateCart();
-            $count = $this->getCartItemCount($cart->CartID);
+            $count = $this->getCartItemCount($cart->id);
 
             return ['success' => true, 'count' => $count];
         } catch (\Exception $e) {
@@ -231,7 +231,7 @@ class CartController extends Controller
 
         if (!Yii::$app->user->isGuest) {
             $cart = Cart::find()
-                ->where(['UserID' => Yii::$app->user->id, 'Status' => Cart::STATUS_OPEN])
+                ->where(['user_id' => Yii::$app->user->id, 'Status' => Cart::STATUS_OPEN])
                 ->one();
         } else {
             $cartId = $session->get('cart_id');
@@ -252,7 +252,7 @@ class CartController extends Controller
                 throw new \Exception('Unable to create a new cart.');
             }
             if (Yii::$app->user->isGuest) {
-                $session->set('cart_id', $cart->CartID);
+                $session->set('cart_id', $cart->id);
             }
         }
 
@@ -266,7 +266,7 @@ class CartController extends Controller
     public static function getCartItemCount($cartId)
     {
         return CartItem::find()
-            ->where(['CartID' => $cartId])
+            ->where(['id' => $cartId])
             ->sum('quantity') ?: 0;
     }
 }

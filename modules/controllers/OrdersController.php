@@ -62,14 +62,14 @@ class OrdersController extends Controller
 
     /**
      * Displays a single Orders model.
-     * @param int $order_id Order ID
+     * @param int $id Order ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($order_id)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($order_id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -84,7 +84,7 @@ class OrdersController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'order_id' => $model->order_id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -98,16 +98,16 @@ class OrdersController extends Controller
     /**
      * Updates an existing Orders model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $order_id Order ID
+     * @param int $id Order ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($order_id)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($order_id);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'order_id' => $model->order_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -118,13 +118,13 @@ class OrdersController extends Controller
     /**
      * Deletes an existing Orders model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $order_id Order ID
+     * @param int $id Order ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($order_id)
+    public function actionDelete($id)
     {
-        $this->findModel($order_id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['/admin/default/orders']);
     }
@@ -132,13 +132,13 @@ class OrdersController extends Controller
     /**
      * Finds the Orders model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $order_id Order ID
+     * @param int $id Order ID
      * @return Orders the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($order_id)
+    protected function findModel($id)
     {
-        if (($model = Orders::findOne(['order_id' => $order_id])) !== null) {
+        if (($model = Orders::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

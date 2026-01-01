@@ -6,7 +6,7 @@ use yii\helpers\Url;
 
 
 $products = (new \yii\db\Query())
-    ->select(['ProductID', 'name', 'price', 'description', 'category', 'stock', 'ImageURL'])
+    ->select(['id', 'name', 'price', 'description', 'category', 'stock', 'image_url'])
     ->from('Products')
     ->where(['name' => Yii::$app->request->get('name')])
     ->all();
@@ -123,7 +123,7 @@ $products = (new \yii\db\Query())
                 foreach ($products as $product) : ?>
                     <div class="col-md-5">
                         <div class="single-product-img">
-                            <img src=<?php echo Yii::$app->request->baseUrl . '/' . $product['ImageURL']; ?> alt="">
+                            <img src=<?php echo Yii::$app->request->baseUrl . '/' . $product['image_url']; ?> alt="">
                         </div>
                     </div>
                     <div class="col-md-7">
@@ -138,8 +138,8 @@ $products = (new \yii\db\Query())
                                 <button
                                     type="button"
                                     class="cart-btn btn btn-primary"
-                                    data-product-id="<?= $product['ProductID'] ?>"
-                                    onclick="addToCart(<?= $product['ProductID'] ?>, '<?= Html::encode($product['name']) ?>')">
+                                    data-product-id="<?= $product['id'] ?>"
+                                    onclick="addToCart(<?= $product['id'] ?>, '<?= Html::encode($product['name']) ?>')">
                                     <i class="fas fa-shopping-cart "></i> Add to Cart
                                 </button>
                                 <p><strong>Categories: </strong><?= $product['category'] ?></p>

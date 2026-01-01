@@ -17,8 +17,8 @@ class CartSearch extends Cart
     public function rules()
     {
         return [
-            [['CartID', 'UserID'], 'integer'],
-            [['CreatedAt', 'Status', 'UpdatedAt'], 'safe'],
+            [['id', 'user_id'], 'integer'],
+            [['created_at', 'Status', 'updated_at'], 'safe'],
         ];
     }
 
@@ -59,10 +59,10 @@ class CartSearch extends Cart
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'CartID' => $this->CartID,
-            'UserID' => $this->UserID,
-            'CreatedAt' => $this->CreatedAt,
-            'UpdatedAt' => $this->UpdatedAt,
+            'id' => $this->id,
+            'user_id' => $this->user_id,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'Status', $this->Status]);

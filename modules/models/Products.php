@@ -10,10 +10,10 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property float $price
- * @property string|null $Description
+ * @property string|null $description
  * @property string|null $category
  * @property int|null $stock
- * @property string|null $ImageURL
+ * @property string|null $image_url
  * @property string|null $createdAt
  * @property string|null $updatedAt
  */
@@ -37,14 +37,14 @@ class Products extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Description', 'category', 'ImageURL'], 'default', 'value' => null],
+            [['description', 'category', 'image_url'], 'default', 'value' => null],
             [['stock'], 'default', 'value' => 0],
             [['name', 'price'], 'required'],
             [['price'], 'number'],
-            [['Description'], 'string'],
+            [['description'], 'string'],
             [['stock'], 'integer'],
             [['createdAt', 'updatedAt'], 'safe'],
-            [['name', 'ImageURL'], 'string', 'max' => 255],
+            [['name', 'image_url'], 'string', 'max' => 255],
             [['category'], 'string', 'max' => 100],
             [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, webp', 'checkExtensionByMimeType' => false],
 
@@ -61,10 +61,10 @@ class Products extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'price' => 'Price',
-            'Description' => 'Description',
+            'description' => 'description',
             'category' => 'Category',
             'stock' => 'Stock',
-            'ImageURL' => 'Image Url',
+            'image_url' => 'Image Url',
             'createdAt' => 'Created At',
             'updatedAt' => 'Updated At',
         ];
@@ -89,7 +89,7 @@ class Products extends \yii\db\ActiveRecord
         $fullPath = $uploadPath . $filename;
 
         if ($this->imageFile->saveAs($fullPath)) {
-            $this->ImageURL = 'uploads/events/' . $filename; // Web-accessible path
+            $this->image_url = 'uploads/events/' . $filename; // Web-accessible path
             return true;
         }
 

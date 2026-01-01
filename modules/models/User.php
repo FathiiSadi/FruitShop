@@ -10,7 +10,7 @@ use Yii;
  * @property int $id
  * @property string $username
  * @property string|null $password
- * @property string $authKey
+ * @property string $auth_key
  * @property string $accessToken
  * @property string|null $role
  *
@@ -22,7 +22,7 @@ class User extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'user';
+        return 'users';
     }
 
     /**
@@ -32,13 +32,13 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['password'], 'default', 'value' => 123456],
-            [['authKey'], 'default', 'value' => Yii::$app->security->generateRandomString()],
+            [['auth_key'], 'default', 'value' => Yii::$app->security->generateRandomString()],
             [['accessToken'], 'default', 'value' => Yii::$app->security->generateRandomString()],
             [['role'], 'default', 'value' => 'user'],
-            [['username', 'authKey', 'accessToken'], 'required'],
+            [['username', 'auth_key', 'accessToken'], 'required'],
             [['username'], 'string', 'max' => 50],
             [['password', 'role'], 'string', 'max' => 255],
-            [['authKey', 'accessToken'], 'string', 'max' => 100],
+            [['auth_key', 'accessToken'], 'string', 'max' => 100],
         ];
     }
 
@@ -51,7 +51,7 @@ class User extends \yii\db\ActiveRecord
             'id' => 'ID',
             'username' => 'Username',
             'password' => 'Password',
-            'authKey' => 'Auth Key',
+            'auth_key' => 'Auth Key',
             'accessToken' => 'Access Token',
             'role' => 'Role',
         ];

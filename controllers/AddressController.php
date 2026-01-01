@@ -49,14 +49,14 @@ class AddressController extends Controller
 
     /**
      * Displays a single Addresses model.
-     * @param int $address_id Address ID
+     * @param int $id Address ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($address_id)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($address_id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -71,7 +71,7 @@ class AddressController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'address_id' => $model->address_id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,16 +85,16 @@ class AddressController extends Controller
     /**
      * Updates an existing Addresses model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $address_id Address ID
+     * @param int $id Address ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($address_id)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($address_id);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'address_id' => $model->address_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -105,13 +105,13 @@ class AddressController extends Controller
     /**
      * Deletes an existing Addresses model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $address_id Address ID
+     * @param int $id Address ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($address_id)
+    public function actionDelete($id)
     {
-        $this->findModel($address_id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -119,13 +119,13 @@ class AddressController extends Controller
     /**
      * Finds the Addresses model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $address_id Address ID
+     * @param int $id Address ID
      * @return Addresses the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($address_id)
+    protected function findModel($id)
     {
-        if (($model = Addresses::findOne(['address_id' => $address_id])) !== null) {
+        if (($model = Addresses::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

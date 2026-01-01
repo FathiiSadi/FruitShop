@@ -15,14 +15,14 @@ class CheckoutComponent extends Component
             return false;
         }
 
-        $addressId = Yii::$app->session->get('checkout_address_id');
+        $addressId = Yii::$app->session->get('checkout_id');
         if (!$addressId) {
             return false;
         }
 
         $userId = Yii::$app->user->id;
         $cart = Cart::find()
-            ->where(['UserID' => $userId, 'Status' => 'open'])
+            ->where(['user_id' => $userId, 'Status' => 'open'])
             ->with('cartItems.product')
             ->one();
 
@@ -36,10 +36,10 @@ class CheckoutComponent extends Component
     public function getCheckoutData(): array
     {
         $userId = Yii::$app->user->id;
-        $addressId = Yii::$app->session->get('checkout_address_id');
+        $addressId = Yii::$app->session->get('checkout_id');
 
         $cart = Cart::find()
-            ->where(['UserID' => $userId, 'Status' => 'open'])
+            ->where(['user_id' => $userId, 'Status' => 'open'])
             ->with('cartItems.product')
             ->one();
 

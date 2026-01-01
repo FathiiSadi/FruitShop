@@ -177,17 +177,17 @@ $this->title = 'Cart - Altibbi';
                         <tbody>
                             <?php if ($cart && $cart->cartItems): ?>
                                 <?php foreach ($cart->cartItems as $item): ?>
-                                    <tr class="table-body-row" data-product-id="<?= $item->ProductID ?>">
+                                    <tr class="table-body-row" data-product-id="<?= $item->id ?>">
                                         <td class="product-remove">
                                             <a href="javascript:void(0)"
                                                 class="remove-btn"
-                                                onclick="removeFromCart(<?= $item->ProductID ?>)">
+                                                onclick="removeFromCart(<?= $item->id ?>)">
                                                 <i class="far fa-window-close"></i>
                                             </a>
                                         </td>
                                         <td class="product-image">
                                             <?php if ($item->product): ?>
-                                                <img src="<?= Yii::getAlias('@web' . '/' . $item->product->ImageURL) ?>"
+                                                <img src="<?= Yii::getAlias('@web' . '/' . $item->product->image_url) ?>"
                                                     alt="<?= Html::encode($item->product->name) ?>"
                                                     <?php else: ?>
                                                     <img src="<?= Yii::getAlias('@web/images/no-image.png') ?>"
@@ -203,7 +203,7 @@ $this->title = 'Cart - Altibbi';
                                                 value="<?= $item->quantity ?>"
                                                 min="1"
                                                 max="99"
-                                                data-product-id="<?= $item->ProductID ?>">
+                                                data-product-id="<?= $item->id ?>">
                                         </td>
                                         <td class="product-total">$<?= number_format($item->price * $item->quantity, 2) ?></td>
                                     </tr>

@@ -48,14 +48,14 @@ class CartItemController extends Controller
     }
     /**
      * Displays a single CartItem model.
-     * @param int $CartItemID Cart Item ID
+     * @param int $id Cart Item ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($CartItemID)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($CartItemID),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -68,11 +68,11 @@ class CartItemController extends Controller
     {
         $model = new CartItem();
 
-        $model->AddedAt = date('Y-m-d H:i:s');
+        $model->added_at = date('Y-m-d H:i:s');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'CartItemID' => $model->CartItemID]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -86,16 +86,16 @@ class CartItemController extends Controller
     /**
      * Updates an existing CartItem model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $CartItemID Cart Item ID
+     * @param int $id Cart Item ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($CartItemID)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($CartItemID);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'CartItemID' => $model->CartItemID]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -106,13 +106,13 @@ class CartItemController extends Controller
     /**
      * Deletes an existing CartItem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $CartItemID Cart Item ID
+     * @param int $id Cart Item ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($CartItemID)
+    public function actionDelete($id)
     {
-        $this->findModel($CartItemID)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -120,13 +120,13 @@ class CartItemController extends Controller
     /**
      * Finds the CartItem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $CartItemID Cart Item ID
+     * @param int $id Cart Item ID
      * @return CartItem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($CartItemID)
+    protected function findModel($id)
     {
-        if (($model = CartItem::findOne(['CartItemID' => $CartItemID])) !== null) {
+        if (($model = CartItem::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

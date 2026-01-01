@@ -47,14 +47,14 @@ class OrdersController extends Controller
 
         $user = Yii::$app->user->id;
 
-        $cart = Cart::find()->where(['UserID' => $user, 'Status' => 'open'])->with('cartItems.product')->one();
+        $cart = Cart::find()->where(['user_id' => $user, 'Status' => 'open'])->with('cartItems.product')->one();
 
         if (!$cart || $cart->isEmpty()) {
             Yii::$app->session->setFlash('error', 'Your cart is empty.');
             return $this->redirect(['cart/index']);
         }
 
-        $address = Addresses::find()->where(['UserID' => $user])->orderBy(['address_id' => SORT_DESC])->one();
+        $address = Addresses::find()->where(['user_id' => $user])->orderBy(['id' => SORT_DESC])->one();
 
         if (!$address) {
             Yii::$app->session->setFlash('error', 'No address found. Please add an address first.');
@@ -62,8 +62,8 @@ class OrdersController extends Controller
         }
 
         $model = new Orders();
-        $model->UserID = $user;
-        $model->address_id = $address->address_id;
+        $model->user_id = $user;
+        $model->id = $address->id;
         $model->subtotal = $cart->getSubtotal();
         $model->tax_amount = $cart->getTaxAmount();
         $model->shipping_cost = 15;
@@ -77,7 +77,7 @@ class OrdersController extends Controller
 
 
             $order = Orders::find()
-                ->where(['order_id' => $model->order_id, 'UserID' => Yii::$app->user->id])
+                ->where(['id' => $model->id, 'user_id' => Yii::$app->user->id])
                 ->one();
 
             return $this->render('index', ['order' => $order]);
@@ -100,25 +100,25 @@ class OrdersController extends Controller
 
     /**
      * Displays a single Orders model.
-     * @param int $order_id Order ID
+     * @param int $id Order ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($order_id)
+    public function actionView($id)
     {
         $order = Orders::find()
-            ->where(['order_id' => $order_id, 'UserID' => Yii::$app->user->id])
+            ->where(['id' => $id, 'user_id' => Yii::$app->user->id])
             ->one();
 
 
         $payment =  Payments::find()
-            ->where(['order_id' => Orders::find()->where(['UserID' => Yii::$app->user->id, 'status' => 'pending'])->orderBy(['order_id' => SORT_DESC])->one()->order_id])
+            ->where(['id' => Orders::find()->where(['user_id' => Yii::$app->user->id, 'status' => 'pending'])->orderBy(['id' => SORT_DESC])->one()->id])
             ->one();
 
-        // $model->order_id = Orders::find()->where(['UserID' => $userId, 'status' => 'processing'])->orderBy(['order_id' => SORT_DESC])->one()->order_id;
+        // $model->id = Orders::find()->where(['user_id' => $userId, 'status' => 'processing'])->orderBy(['id' => SORT_DESC])->one()->id;
 
         return $this->render('view', [
-            'model' => $this->findModel($order_id),
+            'model' => $this->findModel($id),
             'order' => $order,
             'payment' => $payment,
         ]);
@@ -135,7 +135,7 @@ class OrdersController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'order_id' => $model->order_id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -149,16 +149,16 @@ class OrdersController extends Controller
     /**
      * Updates an existing Orders model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $order_id Order ID
+     * @param int $id Order ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($order_id)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($order_id);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'order_id' => $model->order_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -169,13 +169,13 @@ class OrdersController extends Controller
     /**
      * Deletes an existing Orders model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $order_id Order ID
+     * @param int $id Order ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($order_id)
+    public function actionDelete($id)
     {
-        $this->findModel($order_id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['list']);
     }
@@ -183,13 +183,13 @@ class OrdersController extends Controller
     /**
      * Finds the Orders model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $order_id Order ID
+     * @param int $id Order ID
      * @return Orders the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($order_id)
+    protected function findModel($id)
     {
-        if (($model = Orders::findOne(['order_id' => $order_id])) !== null) {
+        if (($model = Orders::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
@@ -199,7 +199,7 @@ class OrdersController extends Controller
     /**
      * Show order success page
      */
-    public function actionSuccess($order_id)
+    public function actionSuccess($id)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['site/login']);
@@ -207,7 +207,7 @@ class OrdersController extends Controller
 
         // Find order and ensure it belongs to current user
         $order = Orders::find()
-            ->where(['order_id' => $order_id, 'UserID' => Yii::$app->user->id])
+            ->where(['id' => $id, 'user_id' => Yii::$app->user->id])
             ->one();
 
         if (!$order) {

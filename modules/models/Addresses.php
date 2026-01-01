@@ -7,8 +7,8 @@ use Yii;
 /**
  * This is the model class for table "Addresses".
  *
- * @property int $address_id
- * @property int $UserID
+ * @property int $id
+ * @property int $user_id
  * @property string $recipient_name
  * @property string $street_address
  * @property string $city
@@ -39,13 +39,13 @@ class Addresses extends \yii\db\ActiveRecord
         return [
             [['state', 'phone_number'], 'default', 'value' => null],
             [['is_default'], 'default', 'value' => 0],
-            [['UserID', 'recipient_name', 'street_address', 'city', 'postal_code', 'country'], 'required'],
-            [['UserID', 'is_default'], 'integer'],
+            [['user_id', 'recipient_name', 'street_address', 'city', 'postal_code', 'country'], 'required'],
+            [['user_id', 'is_default'], 'integer'],
             [['created_at'], 'safe'],
             [['recipient_name', 'city', 'state', 'country'], 'string', 'max' => 100],
             [['street_address'], 'string', 'max' => 255],
             [['postal_code', 'phone_number'], 'string', 'max' => 20],
-            [['UserID'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['UserID' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -55,8 +55,8 @@ class Addresses extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'address_id' => 'Address ID',
-            'UserID' => 'User ID',
+            'id' => 'Address ID',
+            'user_id' => 'User ID',
             'recipient_name' => 'Recipient Name',
             'street_address' => 'Street Address',
             'city' => 'City',

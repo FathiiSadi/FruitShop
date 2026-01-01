@@ -23,7 +23,7 @@ $this->title = 'Order Success';
                     <div class="order-details mb-4">
                         <p class="lead">Thank you for your order!</p>
                         <div class="order-info">
-                            <p><strong>Order ID:</strong> <?= Html::encode($order->order_id) ?></p>
+                            <p><strong>Order ID:</strong> <?= Html::encode($order->id) ?></p>
                             <p><strong>Order Date:</strong> <?= Html::encode(date('F j, Y', strtotime($order->order_date))) ?></p>
                             <p><strong>Total Amount:</strong> $<?= Html::encode(number_format($order->total_amount, 2)) ?></p>
                             <p><strong>Status:</strong> <span class="badge badge-info"><?= Html::encode($order->displayStatus()) ?></span></p>
@@ -31,7 +31,7 @@ $this->title = 'Order Success';
                     </div>
 
                     <div class="order-actions">
-                        <?= Html::a('View Order Details', ['orders/view', 'order_id' => $order->order_id], [
+                        <?= Html::a('View Order Details', ['orders/view', 'id' => $order->id], [
                             'class' => 'btn btn-primary me-2'
                         ]) ?>
 

@@ -17,9 +17,9 @@ class CartitemSearch extends Cartitem
     public function rules()
     {
         return [
-            [['id', 'CartID', 'ProductID', 'Quantity'], 'integer'],
+            [['id', 'id', 'id', 'Quantity'], 'integer'],
             [['Price'], 'number'],
-            [['AddedAt'], 'safe'],
+            [['added_at'], 'safe'],
         ];
     }
 
@@ -61,11 +61,11 @@ class CartitemSearch extends Cartitem
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'CartID' => $this->CartID,
-            'ProductID' => $this->ProductID,
+            'id' => $this->id,
+            'id' => $this->id,
             'Quantity' => $this->Quantity,
             'Price' => $this->Price,
-            'AddedAt' => $this->AddedAt,
+            'added_at' => $this->added_at,
         ]);
 
         return $dataProvider;

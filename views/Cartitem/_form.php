@@ -12,15 +12,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'CartID')->textInput() ?>
+    <?= $form->field($model, 'id')->textInput() ?>
 
-    <?= $form->field($model, 'ProductID')->textInput() ?>
+    <?= $form->field($model, 'id')->textInput() ?>
 
     <?= $form->field($model, 'Quantity')->textInput() ?>
 
     <?= $form->field($model, 'Price')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'AddedAt')->textInput() ?>
+    <?= $form->field($model, 'added_at')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

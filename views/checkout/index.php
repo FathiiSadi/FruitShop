@@ -45,8 +45,8 @@ use yii\widgets\ActiveForm;
                     <div class="col-lg-6 mb-4">
                         <h4>Shipping Address</h4>
 
-                        <!-- Hidden field for UserID -->
-                        <?= $form->field($addressModel, 'UserID')->hiddenInput(['value' => Yii::$app->user->id])->label(false) ?>
+                        <!-- Hidden field for user_id -->
+                        <?= $form->field($addressModel, 'user_id')->hiddenInput(['value' => Yii::$app->user->id])->label(false) ?>
 
                         <div class="form-group">
                             <?= $form->field($addressModel, 'recipient_name')->textInput([

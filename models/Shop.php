@@ -35,7 +35,7 @@ class Shop extends \yii\db\ActiveRecord
      */
     // public function showProducts()
     // {
-    //     return $this->hasMany(Products::class, ['shop_id' => 'CartID']);   
+    //     return $this->hasMany(Products::class, ['shop_id' => 'id']);   
     // }
     /**
      * {@inheritdoc}
@@ -43,11 +43,11 @@ class Shop extends \yii\db\ActiveRecord
     // public function attributeLabels()
     // {
     //     return [
-    //         'CartID' => 'Cart ID',
-    //         'UserID' => 'User ID',
+    //         'id' => 'Cart ID',
+    //         'user_id' => 'User ID',
     //         'Name' => 'Shop Name',
     //         'Status' => 'Status',
-    //         'UpdatedAt' => 'Updated At',
+    //         'updated_at' => 'Updated At',
     //     ];
     // }
 }

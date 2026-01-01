@@ -64,14 +64,14 @@ $this->title = 'Products  - Admin';
                                         <?php foreach ($dataProvider->getModels() as $product): ?>
                                             <tr>
                                                 <td><?= $product->name ?></td>
-                                                <td><?= $product->ProductID ?></td>
+                                                <td><?= $product->id ?></td>
                                                 <td><?= $product->category ?></td>
                                                 <td><?= $product->price ?></td>
                                                 <td><?= $product->stock ?></td>
 
                                                 <td>
-                                                    <a href="<?= Url::toRoute(['/admin/products/update', 'ProductID' => $product->ProductID]) ?>" class="btn btn-primary btn-sm">Edit</a>
-                                                    <?= Html::beginForm(['/admin/products/delete', 'ProductID' => $product->ProductID], 'post', ['style' => 'display:inline']) ?>
+                                                    <a href="<?= Url::toRoute(['/admin/products/update', 'id' => $product->id]) ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                    <?= Html::beginForm(['/admin/products/delete', 'id' => $product->id], 'post', ['style' => 'display:inline']) ?>
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
                                                     <?= Html::endForm() ?>
                                                 </td>

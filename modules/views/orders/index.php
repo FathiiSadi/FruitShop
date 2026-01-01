@@ -60,7 +60,7 @@ $this->title = 'Orders  - Admin';
                                 <tbody>
                                     <?php foreach ($dataProvider->getModels() as $order): ?>
                                         <tr>
-                                            <td><?= $order->order_id ?></td>
+                                            <td><?= $order->id ?></td>
                                             <td><?= $order->order_date ?></td>
                                             <td><?= $order->user->username ?></td>
                                             <td><?= $order->address->city ?></td>
@@ -69,8 +69,8 @@ $this->title = 'Orders  - Admin';
                                             <td><?= $order->tax_amount ?></td>
                                             <td><?= $order->total_amount ?></td>
                                             <td>
-                                                <a href="<?= Url::toRoute(['/admin/orders/update', 'order_id' => $order->order_id]) ?>" class="btn btn-primary btn-sm">Edit</a>
-                                                <?= Html::beginForm(['/admin/orders/delete', 'order_id' => $order->order_id], 'post', ['style' => 'display:inline']) ?>
+                                                <a href="<?= Url::toRoute(['/admin/orders/update', 'id' => $order->id]) ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                <?= Html::beginForm(['/admin/orders/delete', 'id' => $order->id], 'post', ['style' => 'display:inline']) ?>
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
                                                 <?= Html::endForm() ?>
                                             </td>

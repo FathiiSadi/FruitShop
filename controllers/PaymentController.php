@@ -73,7 +73,7 @@ class PaymentController extends Controller
         $model = new Payments();
 
         $userId = Yii::$app->user->id;
-        $cart = Cart::find()->where(['UserID' => $userId, 'Status' => 'open'])->with('cartItems.product')->one();
+        $cart = Cart::find()->where(['user_id' => $userId, 'Status' => 'open'])->with('cartItems.product')->one();
 
         if ($cart === null) {
             throw new NotFoundHttpException('No active cart found.');
@@ -81,7 +81,7 @@ class PaymentController extends Controller
         $totalAmount = $cart->getTotalWithTax() + 15;
         $model->amount = $totalAmount;
         $model->payment_date = date('Y-m-d H:i:s');
-        $model->order_id = Orders::find()->where(['UserID' => $userId, 'status' => 'pending'])->orderBy(['order_id' => SORT_DESC])->one()->order_id;
+        $model->id = Orders::find()->where(['user_id' => $userId, 'status' => 'pending'])->orderBy(['id' => SORT_DESC])->one()->id;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {

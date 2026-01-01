@@ -21,13 +21,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'price') ?>
 
-    <?= $form->field($model, 'Description') ?>
+    <?= $form->field($model, 'description') ?>
 
     <?= $form->field($model, 'category') ?>
 
     <?php // echo $form->field($model, 'stock') ?>
 
-    <?php // echo $form->field($model, 'ImageURL') ?>
+    <?php // echo $form->field($model, 'image_url') ?>
 
     <?php // echo $form->field($model, 'createdAt') ?>
 

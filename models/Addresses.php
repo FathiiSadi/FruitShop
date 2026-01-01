@@ -7,8 +7,8 @@ use Yii;
 /**
  * This is the model class for table "addresses".
  *
- * @property int $address_id
- * @property int $UserID
+ * @property int $id
+ * @property int $user_id
  * @property string $recipient_name
  * @property string $street_address
  * @property string $city
@@ -41,20 +41,20 @@ class Addresses extends \yii\db\ActiveRecord
     {
         return [
 
-            // [['UserID'], 'integer'],
+            // [['user_id'], 'integer'],
             // [['created_at'], 'safe'],
             // [['recipient_name', 'city', 'state', 'country'], 'string', 'max' => 100],
             // [['street_address'], 'string', 'max' => 255],
             // [['postal_code', 'phone_number'], 'string', 'max' => 20],
             [['state', 'phone_number'], 'default', 'value' => null],
             [['is_default'], 'default', 'value' => 0],
-            // [['UserID', 'recipient_name', 'street_address', 'city', 'postal_code', 'country'], 'required'],
-            [['UserID', 'is_default'], 'integer'],
+            // [['user_id', 'recipient_name', 'street_address', 'city', 'postal_code', 'country'], 'required'],
+            [['user_id', 'is_default'], 'integer'],
             [['created_at'], 'safe'],
             [['recipient_name', 'city', 'state', 'country'], 'string', 'max' => 100],
             [['street_address'], 'string', 'max' => 255],
             [['postal_code', 'phone_number'], 'string', 'max' => 20],
-            [['UserID'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['UserID' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -66,8 +66,8 @@ class Addresses extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'address_id' => 'Address ID',
-            'UserID' => 'User ID',
+            'id' => 'Address ID',
+            'user_id' => 'User ID',
             'recipient_name' => 'Recipient Name',
             'street_address' => 'Street Address',
             'city' => 'City',
@@ -87,7 +87,7 @@ class Addresses extends \yii\db\ActiveRecord
      */
     public function getOrders()
     {
-        return $this->hasMany(Orders::class, ['address_id' => 'address_id']);
+        return $this->hasMany(Orders::class, ['id' => 'id']);
     }
 
     /**
@@ -97,14 +97,14 @@ class Addresses extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'UserID']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     public function beforeValidate()
     {
         if (parent::beforeValidate()) {
-            if (empty($this->UserID)) {
-                $this->UserID = Yii::$app->user->id;
+            if (empty($this->user_id)) {
+                $this->user_id = Yii::$app->user->id;
             }
             return true;
         }

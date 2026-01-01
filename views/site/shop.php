@@ -1,7 +1,7 @@
 <?php
 
 $products = (new \yii\db\Query())
-    ->select(['ProductID', 'name', 'price', 'Description', 'category', 'stock', 'ImageURL'])
+    ->select(['id', 'name', 'price', 'description', 'category', 'stock', 'image_url'])
     ->from('products')
     ->all();
 ?>
@@ -137,7 +137,7 @@ use yii\db\Query;
                         <div class="single-product-item">
                             <a href="/site/single-product?name=<?= urlencode($product['name']) ?>">
                                 <div class="product-image">
-                                    <img src="<?php echo Yii::$app->request->baseUrl . '/' . $product['ImageURL']; ?>"
+                                    <img src="<?php echo Yii::$app->request->baseUrl . '/' . $product['image_url']; ?>"
                                         alt="<?= Html::encode($product['name']) ?>" />
                                 </div>
                             </a>
@@ -145,8 +145,8 @@ use yii\db\Query;
                             <p class="product-price"><span>Per Kg</span> $<?php echo $product['price']; ?></p>
 
                             <button type="button" class="cart-btn btn btn-primary"
-                                data-product-id="<?= $product['ProductID'] ?>"
-                                onclick="addToCart(<?= $product['ProductID'] ?>, '<?= Html::encode($product['name']) ?>')">
+                                data-product-id="<?= $product['id'] ?>"
+                                onclick="addToCart(<?= $product['id'] ?>, '<?= Html::encode($product['name']) ?>')">
                                 <i class="fas fa-shopping-cart "></i> Add to Cart
                             </button>
                         </div>
