@@ -10,15 +10,15 @@ services:
       - "8080:80"
     environment:
       - DB_DSN=mysql:host=db;dbname=eCommerce
-      - DB_USERNAME=fruituser
-      - DB_PASSWORD=fruitpass
+      - DB_USERNAME=root
+      - DB_PASSWORD=
     depends_on:
       - db
     volumes:
       - .:/var/www/html
       - /var/www/html/vendor
       - /var/www/html/runtime
-      - /var/www/html/web/assets
+      - /var/www/html/assets
 
   db:
     image: mysql:8.0
@@ -26,9 +26,7 @@ services:
     restart: always
     environment:
       - MYSQL_DATABASE=eCommerce
-      - MYSQL_USER=fruituser
-      - MYSQL_PASSWORD=fruitpass
-      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     ports:
       - "3306:3306"
     volumes:
