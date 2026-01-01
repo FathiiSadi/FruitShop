@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => env('DB_DSN', 'mysql:host=localhost;dbname=eCommerce'),
+    'dsn' => env('DB_DSN', 'mysql:host=db;dbname=eCommerce'),
     'username' => env('DB_USERNAME', 'root'),
     'password' => env('DB_PASSWORD', ''),
     'charset' => 'utf8',
