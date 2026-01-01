@@ -5,13 +5,14 @@ namespace app\modules\models;
 use Yii;
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "users".
  *
  * @property int $id
  * @property string $username
- * @property string|null $password
+ * @property string $email
+ * @property string $password_hash
  * @property string $auth_key
- * @property string $accessToken
+ * @property string|null $access_token
  * @property string|null $role
  *
  */
@@ -31,14 +32,15 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['password'], 'default', 'value' => 123456],
             [['auth_key'], 'default', 'value' => Yii::$app->security->generateRandomString()],
-            [['accessToken'], 'default', 'value' => Yii::$app->security->generateRandomString()],
             [['role'], 'default', 'value' => 'user'],
-            [['username', 'auth_key', 'accessToken'], 'required'],
-            [['username'], 'string', 'max' => 50],
-            [['password', 'role'], 'string', 'max' => 255],
-            [['auth_key', 'accessToken'], 'string', 'max' => 100],
+            [['username', 'email', 'password_hash', 'auth_key'], 'required'],
+            [['username', 'email'], 'string', 'max' => 255],
+            [['password_hash', 'role'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['access_token'], 'string', 'max' => 100],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
         ];
     }
 
@@ -50,9 +52,10 @@ class User extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'username' => 'Username',
-            'password' => 'Password',
+            'email' => 'Email',
+            'password_hash' => 'Password Hash',
             'auth_key' => 'Auth Key',
-            'accessToken' => 'Access Token',
+            'access_token' => 'Access Token',
             'role' => 'Role',
         ];
     }

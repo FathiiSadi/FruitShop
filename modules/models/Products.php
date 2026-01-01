@@ -14,8 +14,8 @@ use Yii;
  * @property string|null $category
  * @property int|null $stock
  * @property string|null $image_url
- * @property string|null $createdAt
- * @property string|null $updatedAt
+ * @property string|null $created_at
+ * @property string|null $updated_at
  */
 class Products extends \yii\db\ActiveRecord
 {
@@ -43,7 +43,7 @@ class Products extends \yii\db\ActiveRecord
             [['price'], 'number'],
             [['description'], 'string'],
             [['stock'], 'integer'],
-            [['createdAt', 'updatedAt'], 'safe'],
+            [['created_at', 'updated_at'], 'safe'],
             [['name', 'image_url'], 'string', 'max' => 255],
             [['category'], 'string', 'max' => 100],
             [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, webp', 'checkExtensionByMimeType' => false],
@@ -65,8 +65,8 @@ class Products extends \yii\db\ActiveRecord
             'category' => 'Category',
             'stock' => 'Stock',
             'image_url' => 'Image Url',
-            'createdAt' => 'Created At',
-            'updatedAt' => 'Updated At',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 

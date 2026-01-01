@@ -40,15 +40,9 @@ class Addresses extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-
-            // [['user_id'], 'integer'],
-            // [['created_at'], 'safe'],
-            // [['recipient_name', 'city', 'state', 'country'], 'string', 'max' => 100],
-            // [['street_address'], 'string', 'max' => 255],
-            // [['postal_code', 'phone_number'], 'string', 'max' => 20],
             [['state', 'phone_number'], 'default', 'value' => null],
             [['is_default'], 'default', 'value' => 0],
-            // [['user_id', 'recipient_name', 'street_address', 'city', 'postal_code', 'country'], 'required'],
+            [['user_id', 'recipient_name', 'street_address', 'city', 'postal_code', 'country'], 'required'],
             [['user_id', 'is_default'], 'integer'],
             [['created_at'], 'safe'],
             [['recipient_name', 'city', 'state', 'country'], 'string', 'max' => 100],
@@ -87,7 +81,7 @@ class Addresses extends \yii\db\ActiveRecord
      */
     public function getOrders()
     {
-        return $this->hasMany(Orders::class, ['id' => 'id']);
+        return $this->hasMany(Orders::class, ['address_id' => 'id']);
     }
 
     /**

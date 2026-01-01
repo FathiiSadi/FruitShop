@@ -14,7 +14,7 @@ use yii\web\Response;
  * @property int $id
  * @property int $user_id
  * @property string|null $created_at
- * @property string|null $Status
+ * @property string|null $status
  *
  * @property string|null $updated_at
  * @property CartItem[] $cartItems
@@ -46,12 +46,12 @@ class Cart extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Status'], 'default', 'value' => 'open'],
+            [['status'], 'default', 'value' => 'open'],
             [['user_id'], 'required'],
             [['user_id'], 'integer'],
             [['created_at'], 'safe'],
-            [['Status'], 'string'],
-            ['Status', 'in', 'range' => array_keys(self::optsStatus())],
+            [['status'], 'string'],
+            ['status', 'in', 'range' => array_keys(self::optsStatus())],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -65,7 +65,7 @@ class Cart extends \yii\db\ActiveRecord
             'id' => 'Cart ID',
             'user_id' => 'User ID',
             'created_at' => 'Created At',
-            'Status' => 'Status',
+            'status' => 'Status',
         ];
     }
 
@@ -104,7 +104,7 @@ class Cart extends \yii\db\ActiveRecord
      */
     public function displayStatus()
     {
-        return self::optsStatus()[$this->Status];
+        return self::optsStatus()[$this->status];
     }
 
     /**
@@ -112,28 +112,28 @@ class Cart extends \yii\db\ActiveRecord
      */
     public function isStatusOpen()
     {
-        return $this->Status === self::STATUS_OPEN;
+        return $this->status === self::STATUS_OPEN;
     }
 
     public function setStatusToOpen()
     {
-        $this->Status = self::STATUS_OPEN;
+        $this->status = self::STATUS_OPEN;
     }
     public function getCartItems()
     {
-        return $this->hasMany(CartItem::class, ['id' => 'id']);
+        return $this->hasMany(CartItem::class, ['cart_id' => 'id']);
     }
     /**
      * @return bool
      */
     public function isStatusCheckedout()
     {
-        return $this->Status === self::STATUS_CHECKED_OUT;
+        return $this->status === self::STATUS_CHECKED_OUT;
     }
 
     public function setStatusToCheckedout()
     {
-        $this->Status = self::STATUS_CHECKED_OUT;
+        $this->status = self::STATUS_CHECKED_OUT;
     }
 
     /**
@@ -183,7 +183,7 @@ class Cart extends \yii\db\ActiveRecord
 
                 // Check if item already exists in the cart
                 $cartItem = CartItem::find()
-                    ->where(['id' => $cart->id, 'id' => $productId])
+                    ->where(['cart_id' => $cart->id, 'product_id' => $productId])
                     ->one();
 
 
@@ -193,8 +193,8 @@ class Cart extends \yii\db\ActiveRecord
                 } else {
                     // Create new cart item
                     $cartItem = new CartItem();
-                    $cartItem->id = $cart->id;
-                    $cartItem->id = $productId;
+                    $cartItem->cart_id = $cart->id;
+                    $cartItem->product_id = $productId;
                     $cartItem->quantity = $quantity;
                     $cartItem->price = $product->price;
                 }
@@ -232,7 +232,7 @@ class Cart extends \yii\db\ActiveRecord
                 $cart = $this->getOrCreateCart();
 
                 $cartItem = CartItem::find()
-                    ->where(['id' => $cart->id, 'id' => $productId])
+                    ->where(['cart_id' => $cart->id, 'product_id' => $productId])
                     ->one();
 
                 $product = Products::findOne($productId);
@@ -284,7 +284,7 @@ class Cart extends \yii\db\ActiveRecord
                 $cart = $this->getOrCreateCart();
 
                 $cartItem = CartItem::find()
-                    ->where(['id' => $cart->id, 'id' => $productId])
+                    ->where(['cart_id' => $cart->id, 'product_id' => $productId])
                     ->one();
 
                 if ($cartItem) {
@@ -366,7 +366,7 @@ class Cart extends \yii\db\ActiveRecord
     private function getCartItemCount($cartId)
     {
         return CartItem::find()
-            ->where(['id' => $cartId])
+            ->where(['cart_id' => $cartId])
             ->sum('quantity') ?: 0;
     }
 
@@ -456,7 +456,7 @@ class Cart extends \yii\db\ActiveRecord
     public function clearCart()
     {
         try {
-            CartItem::deleteAll(['id' => $this->id]);
+            CartItem::deleteAll(['cart_id' => $this->id]);
             return true;
         } catch (\Exception $e) {
             return false;
@@ -490,7 +490,7 @@ class Cart extends \yii\db\ActiveRecord
     {
         $newCart = new self();
         $newCart->user_id = $userId;
-        $newCart->Status = 'open';
+        $newCart->status = 'open';
         $newCart->created_at = date('Y-m-d H:i:s');
 
         if ($newCart->save()) {

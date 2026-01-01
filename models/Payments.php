@@ -7,8 +7,8 @@ use Yii;
 /**
  * This is the model class for table "payments".
  *
- * @property int $payment_id
  * @property int $id
+ * @property int $order_id
  * @property string $payment_method
  * @property float $amount
  * @property string|null $payment_status
@@ -51,8 +51,8 @@ class Payments extends \yii\db\ActiveRecord
         return [
             [['cardholder_name'], 'default', 'value' => null],
             [['payment_status'], 'default', 'value' => 'pending'],
-            [['id', 'payment_method', 'amount'], 'required'],
-            [['id'], 'integer'],
+            [['order_id', 'payment_method', 'amount'], 'required'],
+            [['order_id'], 'integer'],
             [['payment_method', 'payment_status'], 'string'],
             [['amount'], 'number'],
             [['payment_date'], 'safe'],
@@ -72,7 +72,7 @@ class Payments extends \yii\db\ActiveRecord
             ],
             [['amount'], 'number', 'min' => 0.01, 'message' => 'The amount must be greater than zero.'],
 
-            ['id', 'exist', 'skipOnError' => true, 'targetClass' => Orders::class, 'targetAttribute' => ['id' => 'id'], 'message' => 'Invalid order ID.'],
+            ['order_id', 'exist', 'skipOnError' => true, 'targetClass' => Orders::class, 'targetAttribute' => ['order_id' => 'id'], 'message' => 'Invalid order ID.'],
 
         ];
     }
@@ -82,8 +82,8 @@ class Payments extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'payment_id' => 'Payment ID',
-            'id' => 'Order ID',
+            'id' => 'Payment ID',
+            'order_id' => 'Order ID',
             'payment_method' => 'Payment Method',
             'amount' => 'Amount',
             'payment_status' => 'Payment Status',
@@ -110,7 +110,7 @@ class Payments extends \yii\db\ActiveRecord
      */
     public function getOrder()
     {
-        return $this->hasOne(Orders::class, ['id' => 'id']);
+        return $this->hasOne(Orders::class, ['id' => 'order_id']);
     }
 
 

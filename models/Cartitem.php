@@ -5,11 +5,11 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "CartItem".
+ * This is the model class for table "cart_item".
  *
  * @property int $id
- * @property int $id
- * @property int $id
+ * @property int $cart_id
+ * @property int $product_id
  * @property int $quantity
  * @property float $price
  * @property string|null $added_at
@@ -36,12 +36,12 @@ class CartItem extends \yii\db\ActiveRecord
     {
         return [
             [['quantity'], 'default', 'value' => 1],
-            [['id', 'id', 'price'], 'required'],
-            [['id', 'id', 'quantity'], 'integer'],
+            [['cart_id', 'product_id', 'price'], 'required'],
+            [['cart_id', 'product_id', 'quantity'], 'integer'],
             [['price'], 'number'],
             [['added_at'], 'safe'],
-            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Cart::class, 'targetAttribute' => ['id' => 'id']],
-            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['id' => 'id']],
+            [['cart_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cart::class, 'targetAttribute' => ['cart_id' => 'id']],
+            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['product_id' => 'id']],
         ];
     }
 
@@ -52,10 +52,10 @@ class CartItem extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'Cart Item ID',
-            'id' => 'Cart ID',
-            'id' => 'Product ID',
-            'quantity' => 'quantity',
-            'price' => 'price',
+            'cart_id' => 'Cart ID',
+            'product_id' => 'Product ID',
+            'quantity' => 'Quantity',
+            'price' => 'Price',
             'added_at' => 'Added At',
         ];
     }
@@ -67,7 +67,7 @@ class CartItem extends \yii\db\ActiveRecord
      */
     public function getCart()
     {
-        return $this->hasOne(Cart::class, ['id' => 'id']);
+        return $this->hasOne(Cart::class, ['id' => 'cart_id']);
     }
 
     /**
@@ -77,6 +77,6 @@ class CartItem extends \yii\db\ActiveRecord
      */
     public function getProduct()
     {
-        return $this->hasOne(Products::class, ['id' => 'id']);
+        return $this->hasOne(Products::class, ['id' => 'product_id']);
     }
 }

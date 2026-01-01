@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $user_id
- * @property int $id
+ * @property int $address_id
  * @property string|null $order_date
  * @property string|null $status
  * @property float $subtotal
@@ -50,15 +50,14 @@ class Orders extends \yii\db\ActiveRecord
         return [
             [['status'], 'default', 'value' => 'pending'],
             [['shipping_cost'], 'default', 'value' => 15.00],
-            [['user_id', 'id', 'subtotal', 'tax_amount', 'total_amount'], 'required'],
-            [['user_id', 'id'], 'integer'],
+            [['user_id', 'address_id', 'subtotal', 'tax_amount', 'total_amount'], 'required'],
+            [['user_id', 'address_id'], 'integer'],
             [['order_date'], 'safe'],
             [['status', 'notes'], 'string'],
             [['subtotal', 'tax_amount', 'shipping_cost', 'total_amount'], 'number'],
             ['status', 'in', 'range' => array_keys(self::optsStatus())],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
-            // Fixed: id should link to id in Addresses table
-            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Addresses::class, 'targetAttribute' => ['id' => 'id']],
+            [['address_id'], 'exist', 'skipOnError' => true, 'targetClass' => Addresses::class, 'targetAttribute' => ['address_id' => 'id']],
         ];
     }
 
@@ -71,7 +70,7 @@ class Orders extends \yii\db\ActiveRecord
         return [
             'id' => 'Order ID',
             'user_id' => 'User ID',
-            'id' => 'Address ID',
+            'address_id' => 'Address ID',
             'order_date' => 'Order Date',
             'status' => 'Status',
             'subtotal' => 'Subtotal',
@@ -88,13 +87,12 @@ class Orders extends \yii\db\ActiveRecord
 
     /**
      * Gets query for [[Address]].
-     * Fixed: id should link to id in Addresses table
      *
      * @return \yii\db\ActiveQuery
      */
     public function getAddress()
     {
-        return $this->hasOne(Addresses::class, ['id' => 'id']);
+        return $this->hasOne(Addresses::class, ['id' => 'address_id']);
     }
 
     public function getUsername()
@@ -113,7 +111,7 @@ class Orders extends \yii\db\ActiveRecord
      */
     public function getPayment()
     {
-        return $this->hasOne(Payments::className(), ['id' => 'id']);
+        return $this->hasOne(Payments::className(), ['order_id' => 'id']);
     }
     /**
      * Gets query for [[OrderItems]].
@@ -122,7 +120,7 @@ class Orders extends \yii\db\ActiveRecord
      */
     public function getOrderItems()
     {
-        return $this->hasMany(OrderItems::class, ['id' => 'id']);
+        return $this->hasMany(OrderItems::class, ['order_id' => 'id']);
     }
 
     /**
@@ -132,7 +130,7 @@ class Orders extends \yii\db\ActiveRecord
      */
     public function getPayments()
     {
-        return $this->hasMany(Payments::class, ['id' => 'id']);
+        return $this->hasMany(Payments::class, ['order_id' => 'id']);
     }
 
     /**

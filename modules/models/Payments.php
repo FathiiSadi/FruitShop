@@ -5,10 +5,10 @@ namespace app\modules\models;
 use Yii;
 
 /**
- * This is the model class for table "Payments".
+ * This is the model class for table "payments".
  *
- * @property int $payment_id
  * @property int $id
+ * @property int $order_id
  * @property string $payment_method
  * @property float $amount
  * @property string|null $payment_status
@@ -36,7 +36,7 @@ class Payments extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Payments';
+        return 'payments';
     }
 
     /**
@@ -47,8 +47,8 @@ class Payments extends \yii\db\ActiveRecord
         return [
             [['cardholder_name', 'last_four_digits', 'expiry_month', 'expiry_year'], 'default', 'value' => null],
             [['payment_status'], 'default', 'value' => 'pending'],
-            [['id', 'payment_method', 'amount'], 'required'],
-            [['id'], 'integer'],
+            [['order_id', 'payment_method', 'amount'], 'required'],
+            [['order_id'], 'integer'],
             [['payment_method', 'payment_status'], 'string'],
             [['amount'], 'number'],
             [['payment_date'], 'safe'],
@@ -57,7 +57,7 @@ class Payments extends \yii\db\ActiveRecord
             [['expiry_month'], 'string', 'max' => 2],
             ['payment_method', 'in', 'range' => array_keys(self::optsPaymentMethod())],
             ['payment_status', 'in', 'range' => array_keys(self::optsPaymentStatus())],
-            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Orders::class, 'targetAttribute' => ['id' => 'id']],
+            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Orders::class, 'targetAttribute' => ['order_id' => 'id']],
         ];
     }
 
@@ -67,8 +67,8 @@ class Payments extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'payment_id' => 'Payment ID',
-            'id' => 'Order ID',
+            'id' => 'Payment ID',
+            'order_id' => 'Order ID',
             'payment_method' => 'Payment Method',
             'amount' => 'Amount',
             'payment_status' => 'Payment Status',
@@ -78,6 +78,16 @@ class Payments extends \yii\db\ActiveRecord
             'expiry_month' => 'Expiry Month',
             'expiry_year' => 'Expiry Year',
         ];
+    }
+
+    /**
+     * Gets query for [[Order]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrder()
+    {
+        return $this->hasOne(Orders::class, ['id' => 'order_id']);
     }
 
 

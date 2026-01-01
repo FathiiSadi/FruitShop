@@ -79,7 +79,7 @@ class m260101_174524_init_db extends Migration
         $this->createTable('{{%orders}}', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
-            'id' => $this->integer()->notNull(),
+            'address_id' => $this->integer()->notNull(),
             'order_date' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'status' => $this->string(20)->defaultValue('pending'),
             'subtotal' => $this->decimal(10, 2)->notNull(),
@@ -92,7 +92,7 @@ class m260101_174524_init_db extends Migration
         // 7. Order Items Table
         $this->createTable('{{%order_items}}', [
             'id' => $this->primaryKey(),
-            'id' => $this->integer()->notNull(),
+            'order_id' => $this->integer()->notNull(),
             'product_id' => $this->integer()->notNull(),
             'quantity' => $this->integer()->notNull(),
             'unit_price' => $this->decimal(10, 2)->notNull(),
@@ -102,7 +102,7 @@ class m260101_174524_init_db extends Migration
         // 8. Payments Table
         $this->createTable('{{%payments}}', [
             'id' => $this->primaryKey(),
-            'id' => $this->integer()->notNull(),
+            'order_id' => $this->integer()->notNull(),
             'payment_method' => $this->string(30)->notNull(),
             'amount' => $this->decimal(10, 2)->notNull(),
             'payment_status' => $this->string(20)->defaultValue('pending'),
@@ -119,10 +119,10 @@ class m260101_174524_init_db extends Migration
         $this->addForeignKey('fk-cartitem-cart', '{{%cart_item}}', 'cart_id', '{{%cart}}', 'id', 'CASCADE');
         $this->addForeignKey('fk-cartitem-product', '{{%cart_item}}', 'product_id', '{{%products}}', 'id', 'CASCADE');
         $this->addForeignKey('fk-orders-user', '{{%orders}}', 'user_id', '{{%users}}', 'id', 'CASCADE');
-        $this->addForeignKey('fk-orders-address', '{{%orders}}', 'id', '{{%addresses}}', 'id', 'CASCADE');
-        $this->addForeignKey('fk-order_items-order', '{{%order_items}}', 'id', '{{%orders}}', 'id', 'CASCADE');
+        $this->addForeignKey('fk-orders-address', '{{%orders}}', 'address_id', '{{%addresses}}', 'id', 'CASCADE');
+        $this->addForeignKey('fk-order_items-order', '{{%order_items}}', 'order_id', '{{%orders}}', 'id', 'CASCADE');
         $this->addForeignKey('fk-order_items-product', '{{%order_items}}', 'product_id', '{{%products}}', 'id', 'CASCADE');
-        $this->addForeignKey('fk-payments-order', '{{%payments}}', 'id', '{{%orders}}', 'id', 'CASCADE');
+        $this->addForeignKey('fk-payments-order', '{{%payments}}', 'order_id', '{{%orders}}', 'id', 'CASCADE');
 
         // DUMP DATA
         $this->batchInsert('{{%products}}', ['name', 'price', 'description', 'category', 'stock', 'image_url'], [
