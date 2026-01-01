@@ -1,0 +1,9 @@
+vendor/
+runtime/*
+web/assets/*
+.git/
+.env
+.dockerignore
+Dockerfile
+docker-compose.yml
+node_modules/

@@ -18,7 +18,6 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'css/style.css',
         'css/normalize.css',
-        'assets_static/img/favicon.png',
         "https://fonts.googleapis.com/css?family=Open+Sans:300,400,700",
         "https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap",
         'assets_static/css/all.min.css',
@@ -31,7 +30,6 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'https://cdn.checkout.com/js/framesv2.min.js',
-        'assets_static/js/app.js',
         'assets_static/js/jquery-1.11.3.min.js',
         'assets_static/js/jquery.countdown.js',
         'assets_static/js/jquery.isotope-3.0.6.min.js',
