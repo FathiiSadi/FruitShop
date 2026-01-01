@@ -4,6 +4,8 @@ FROM php:8.2-apache
 # Set environment variables
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV COMPOSER_MEMORY_LIMIT=-1
+ENV YII_ENV=prod
+ENV YII_DEBUG=0
 
 # Install system dependencies
 # Including git as it is often required for composer dependencies
@@ -63,8 +65,8 @@ RUN mkdir -p runtime assets web/assets && \
     chmod -R 777 runtime assets web/assets
 
 # Install PHP dependencies
-# Added --prefer-dist to minimize git usage and speed up install
-RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts --prefer-dist
+# Removed --no-dev to ensure the application can boot even if environment isn't set to prod
+RUN composer install --no-interaction --optimize-autoloader --no-scripts --prefer-dist
 
 # Expose port 80
 EXPOSE 80

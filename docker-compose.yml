@@ -7,6 +7,8 @@ services:
     ports:
       - "8080:80"
     environment:
+      - YII_ENV=prod
+      - YII_DEBUG=0
       - DB_DSN=mysql:host=db;dbname=eCommerce
       - DB_USERNAME=root
       - DB_PASSWORD=
