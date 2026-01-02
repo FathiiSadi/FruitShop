@@ -12,7 +12,6 @@ use app\models\ContactForm;
 use app\models\Product;
 use app\models\Cart;
 use app\models\CartItem;
-use app\models\CartSearch;
 use app\models\Orders;
 use app\models\Products;
 use app\models\CheckoutForm;

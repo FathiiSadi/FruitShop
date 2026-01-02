@@ -30,7 +30,7 @@ class AdminAsset extends AssetBundle
         'vendors/mdi/css/materialdesignicons.min.css',
         'vendors/datatables.net-bs4/dataTables.bootstrap4.css',
         'js/select.dataTables.min.css',
-        'assets_static/css/vertical-layout-light/style.css',
+        'css/vertical-layout-light/style.css',
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
     ];
     public $js = [

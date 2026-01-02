@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\models\Cart;
-use app\models\CartSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -44,8 +43,6 @@ class CartController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CartSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
         $userId = Yii::$app->user->id; // Assuming user is logged in
         $cart = Cart::find()->where([
             'user_id' => $userId,
@@ -53,8 +50,6 @@ class CartController extends Controller
         ])->with('cartItems.product')->one();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
             'cart' => $cart,
             'userId' => $userId,
         ]);
