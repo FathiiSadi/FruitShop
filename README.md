@@ -24,7 +24,25 @@ A beautiful, fully-functional fruit shop e-commerce application built with Yii2 
 - PHP 8.2 or higher
 - Composer
 
-### Installation
+### Option 1: Quick Start Script (Recommended)
+
+**For Mac/Linux:**
+```bash
+./start.sh
+```
+
+**For Windows:**
+```bash
+start.bat
+```
+
+The script will automatically:
+- Check PHP and Composer installation
+- Install dependencies
+- Configure directories
+- Start the development server
+
+### Option 2: Manual Installation
 
 1. **Clone the repository**
    ```bash
