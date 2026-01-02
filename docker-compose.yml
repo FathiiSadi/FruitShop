@@ -7,31 +7,15 @@ services:
     ports:
       - "8080:80"
     environment:
-      - YII_ENV=prod
-      - YII_DEBUG=0
-      - DB_DSN=pgsql:host=dpg-d5begcjuibrs73ce8lag-a.virginia-postgres.render.com;port=5432;dbname=fruitshop_db;sslmode=require
-      - DB_USERNAME=fruitadmin
-      - DB_PASSWORD=6otaPMavrBeSxd7NayEGdP47NEEeuCaJ
-    depends_on:
-      - db
+      - YII_ENV=${YII_ENV:-prod}
+      - YII_DEBUG=${YII_DEBUG:-0}
+      - DB_DSN=${DB_DSN:-pgsql:host=dpg-d5begcjuibrs73ce8lag-a.virginia-postgres.render.com;port=5432;dbname=fruitshop_db;sslmode=require}
+      - DB_USERNAME=${DB_USERNAME:-fruitadmin}
+      - DB_PASSWORD=${DB_PASSWORD:-6otaPMavrBeSxd7NayEGdP47NEEeuCaJ}
+      - COOKIE_VALIDATION_KEY=${COOKIE_VALIDATION_KEY:-R_sbCgfxTckDQ-p0hNpD4Kb4NYYMont5}
     volumes:
       - .:/var/www/html
       - /var/www/html/vendor
       - /var/www/html/runtime
       - /var/www/html/assets
 
-  db:
-    image: postgres:15-alpine
-    container_name: fruitshop_db
-    restart: always
-    environment:
-      - POSTGRES_DB=fruitshop_db
-      - POSTGRES_USER=fruitadmin
-      - POSTGRES_PASSWORD=fruitpassword
-    ports:
-      - "5432:5432"
-    volumes:
-      - pg_data:/var/lib/postgresql/data
-
-volumes:
-  pg_data:

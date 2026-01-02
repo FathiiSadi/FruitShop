@@ -1,16 +1,17 @@
 <?php
 
 /**
- * Database configuration - DISABLED
- * This application uses JSON files instead of a database
- * See data/ directory for all data files
+ * Database configuration for PostgreSQL
+ * Uses environment variables for connection details
  */
 
 return [
     'class' => 'yii\db\Connection',
-    // Dummy configuration - not used
-    'dsn' => 'sqlite::memory:',
-    'username' => '',
-    'password' => '',
+    'dsn' => getenv('DB_DSN') ?: 'pgsql:host=localhost;port=5432;dbname=fruitshop_db',
+    'username' => getenv('DB_USERNAME') ?: 'fruitadmin',
+    'password' => getenv('DB_PASSWORD') ?: 'fruitpassword',
     'charset' => 'utf8',
+    'enableSchemaCache' => true,
+    'schemaCacheDuration' => 3600,
+    'schemaCache' => 'cache',
 ];

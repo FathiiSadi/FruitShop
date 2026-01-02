@@ -28,23 +28,10 @@ Thumbs.db
 *.pyc
 __pycache__/
 
-# Database dumps (not needed - we use JSON)
+# Database dumps
 *.sql
 *.dump
 
-# Docker (optional - users can enable if needed)
-# docker-compose.yml
-# Dockerfile
-
-# Temporary test files
-test_*.php
-check_*.php
-drop_*.php
-verify_*.php
-bulk_*.py
-
-# Migration files (not needed - we use JSON)
-migrations/
 
 # Cache
 web/assets/*

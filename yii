@@ -9,6 +9,10 @@
  */
 
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/config/functions.php';
+
+// Load .env file
+load_env(__DIR__ . '/.env');
 
 defined('YII_DEBUG') or define('YII_DEBUG', (bool) env('YII_DEBUG', true));
 defined('YII_ENV') or define('YII_ENV', env('YII_ENV', 'dev'));

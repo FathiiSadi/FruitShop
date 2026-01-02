@@ -88,7 +88,7 @@ class CartController extends Controller
                 $product->save();
                 // Check if item already exists in the cart
                 $cartItem = CartItem::find()
-                    ->where(['id' => $cart->id, 'id' => $productId])
+                    ->where(['cart_id' => $cart->id, 'product_id' => $productId])
                     ->one();
 
                 if ($cartItem) {
@@ -97,8 +97,8 @@ class CartController extends Controller
                 } else {
                     // Create new cart item
                     $cartItem = new CartItem();
-                    $cartItem->id = $cart->id;
-                    $cartItem->id = $productId;
+                    $cartItem->cart_id = $cart->id;
+                    $cartItem->product_id = $productId;
                     $cartItem->quantity = $quantity;
                     $cartItem->price = $product->price;
                 }
@@ -136,7 +136,7 @@ class CartController extends Controller
                 $cart = $this->getOrCreateCart();
 
                 $cartItem = CartItem::find()
-                    ->where(['id' => $cart->id, 'id' => $productId])
+                    ->where(['cart_id' => $cart->id, 'product_id' => $productId])
                     ->one();
 
                 $product = Products::findOne($productId);
@@ -187,7 +187,7 @@ class CartController extends Controller
                 $cart = $this->getOrCreateCart();
 
                 $cartItem = CartItem::find()
-                    ->where(['id' => $cart->id, 'id' => $productId])
+                    ->where(['cart_id' => $cart->id, 'product_id' => $productId])
                     ->one();
 
                 if ($cartItem) {
@@ -266,7 +266,7 @@ class CartController extends Controller
     public static function getCartItemCount($cartId)
     {
         return CartItem::find()
-            ->where(['id' => $cartId])
+            ->where(['cart_id' => $cartId])
             ->sum('quantity') ?: 0;
     }
 }
