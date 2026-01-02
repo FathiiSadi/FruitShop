@@ -20,7 +20,7 @@ class AppAsset extends AssetBundle
         'css/normalize.css',
         "https://fonts.googleapis.com/css?family=Open+Sans:300,400,700",
         "https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap",
-        'assets_static/css/all.min.css',
+        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
         'assets_static/css/owl.carousel.css',
         'assets_static/css/magnific-popup.css',
         'assets_static/css/animate.css',

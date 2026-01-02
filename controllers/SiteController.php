@@ -18,7 +18,7 @@ use app\models\CheckoutForm;
 use app\models\ProductsSearch;
 use app\models\Addresses;
 use app\models\Payments;
-use app\models\OrderItem;
+use app\models\OrderItems;
 use app\models\SignupForm;
 use Error;
 use yii\data\ActiveDataProvider;

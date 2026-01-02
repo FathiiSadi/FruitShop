@@ -7,6 +7,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 use yii\web\Response;
+use app\models\CartItem;
 
 /**
  * This is the model class for table "Cart".
