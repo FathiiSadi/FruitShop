@@ -1,34 +1,51 @@
-# phpstorm project files
-.idea
+# Yii2 runtime files
+/runtime/*
+!/runtime/.gitkeep
 
-# netbeans project files
-nbproject
+# Composer
+/vendor/
 
-# zend studio for eclipse project files
-.buildpath
-.project
-.settings
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
 
-# windows thumbnail cache
+# OS files
+.DS_Store
 Thumbs.db
 
-# composer vendor dir
-/vendor
-
-# composer itself is not needed
-composer.phar
-
-# Mac DS_Store Files
-.DS_Store
-
-# phpunit itself is not needed
-phpunit.phar
-# local phpunit config
-/phpunit.xml
-
-tests/_output/*
-tests/_support/_generated
-
-#vagrant folder
-# local environment variables
+# Environment files
 .env
+.env.local
+
+# Logs
+*.log
+
+# Python files (not needed)
+*.py
+*.pyc
+__pycache__/
+
+# Database dumps (not needed - we use JSON)
+*.sql
+*.dump
+
+# Docker (optional - users can enable if needed)
+# docker-compose.yml
+# Dockerfile
+
+# Temporary test files
+test_*.php
+check_*.php
+drop_*.php
+verify_*.php
+bulk_*.py
+
+# Migration files (not needed - we use JSON)
+migrations/
+
+# Cache
+web/assets/*
+!/web/assets/.gitkeep

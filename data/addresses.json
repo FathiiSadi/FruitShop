@@ -1,0 +1,41 @@
+[
+    {
+        "id": 1,
+        "user_id": 2,
+        "recipient_name": "John Doe",
+        "street_address": "123 Main Street",
+        "city": "New York",
+        "state": "NY",
+        "postal_code": "10001",
+        "country": "USA",
+        "phone_number": "+1-555-0123",
+        "is_default": 1,
+        "created_at": "2024-01-10 12:00:00"
+    },
+    {
+        "id": 2,
+        "user_id": 3,
+        "recipient_name": "Jane Smith",
+        "street_address": "456 Oak Avenue",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postal_code": "90001",
+        "country": "USA",
+        "phone_number": "+1-555-0456",
+        "is_default": 1,
+        "created_at": "2024-01-12 14:30:00"
+    },
+    {
+        "id": 3,
+        "user_id": 4,
+        "recipient_name": "Demo User",
+        "street_address": "789 Pine Road",
+        "city": "Chicago",
+        "state": "IL",
+        "postal_code": "60601",
+        "country": "USA",
+        "phone_number": "+1-555-0789",
+        "is_default": 1,
+        "created_at": "2024-01-15 09:15:00"
+    }
+]

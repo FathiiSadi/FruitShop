@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "order_id": 1,
+        "product_id": 1,
+        "quantity": 3,
+        "unit_price": 2.50,
+        "total_price": 7.50
+    },
+    {
+        "id": 2,
+        "order_id": 1,
+        "product_id": 4,
+        "quantity": 1,
+        "unit_price": 5.50,
+        "total_price": 5.50
+    },
+    {
+        "id": 3,
+        "order_id": 1,
+        "product_id": 2,
+        "quantity": 2,
+        "unit_price": 1.20,
+        "total_price": 2.40
+    },
+    {
+        "id": 4,
+        "order_id": 2,
+        "product_id": 6,
+        "quantity": 2,
+        "unit_price": 10.00,
+        "total_price": 20.00
+    },
+    {
+        "id": 5,
+        "order_id": 2,
+        "product_id": 3,
+        "quantity": 2,
+        "unit_price": 3.00,
+        "total_price": 6.00
+    },
+    {
+        "id": 6,
+        "order_id": 3,
+        "product_id": 5,
+        "quantity": 2,
+        "unit_price": 6.00,
+        "total_price": 12.00
+    },
+    {
+        "id": 7,
+        "order_id": 4,
+        "product_id": 7,
+        "quantity": 4,
+        "unit_price": 4.50,
+        "total_price": 18.00
+    },
+    {
+        "id": 8,
+        "order_id": 4,
+        "product_id": 8,
+        "quantity": 3,
+        "unit_price": 3.75,
+        "total_price": 11.25
+    }
+]

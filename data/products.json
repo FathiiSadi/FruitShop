@@ -1,0 +1,134 @@
+[
+    {
+        "id": 1,
+        "name": "Fresh Red Apple",
+        "price": 2.50,
+        "description": "Crisp and sweet red apples, perfect for snacking or baking. Rich in fiber and vitamin C.",
+        "category": "Fruits",
+        "stock": 150,
+        "image_url": "assets_static/img/products/product-img-1.jpg",
+        "created_at": "2024-01-15 10:30:00",
+        "updated_at": "2024-01-15 10:30:00"
+    },
+    {
+        "id": 2,
+        "name": "Organic Bananas",
+        "price": 1.20,
+        "description": "Sweet and creamy organic bananas. Great source of potassium and energy.",
+        "category": "Fruits",
+        "stock": 200,
+        "image_url": "assets_static/img/products/product-img-2.jpg",
+        "created_at": "2024-01-15 10:30:00",
+        "updated_at": "2024-01-15 10:30:00"
+    },
+    {
+        "id": 3,
+        "name": "Juicy Oranges",
+        "price": 3.00,
+        "description": "Fresh, juicy oranges packed with vitamin C. Perfect for fresh juice or eating.",
+        "category": "Fruits",
+        "stock": 120,
+        "image_url": "assets_static/img/products/product-img-3.jpg",
+        "created_at": "2024-01-15 10:30:00",
+        "updated_at": "2024-01-15 10:30:00"
+    },
+    {
+        "id": 4,
+        "name": "Fresh Strawberries",
+        "price": 5.50,
+        "description": "Sweet and succulent strawberries. Perfect for desserts, smoothies, or eating fresh.",
+        "category": "Berries",
+        "stock": 80,
+        "image_url": "assets_static/img/products/product-img-4.jpg",
+        "created_at": "2024-01-15 10:30:00",
+        "updated_at": "2024-01-15 10:30:00"
+    },
+    {
+        "id": 5,
+        "name": "Organic Blueberries",
+        "price": 6.00,
+        "description": "Antioxidant-rich organic blueberries. Great for breakfast bowls and snacking.",
+        "category": "Berries",
+        "stock": 60,
+        "image_url": "assets_static/img/products/product-img-5.jpg",
+        "created_at": "2024-01-15 10:30:00",
+        "updated_at": "2024-01-15 10:30:00"
+    },
+    {
+        "id": 6,
+        "name": "Sweet Watermelon",
+        "price": 10.00,
+        "description": "Large, sweet watermelon perfect for summer. Refreshing and hydrating.",
+        "category": "Fruits",
+        "stock": 40,
+        "image_url": "assets_static/img/products/product-img-6.jpg",
+        "created_at": "2024-01-15 10:30:00",
+        "updated_at": "2024-01-15 10:30:00"
+    },
+    {
+        "id": 7,
+        "name": "Green Grapes",
+        "price": 4.50,
+        "description": "Seedless green grapes, sweet and crunchy. Perfect for snacking.",
+        "category": "Fruits",
+        "stock": 100,
+        "image_url": "assets_static/img/products/product-img-1.jpg",
+        "created_at": "2024-01-15 10:30:00",
+        "updated_at": "2024-01-15 10:30:00"
+    },
+    {
+        "id": 8,
+        "name": "Ripe Mangoes",
+        "price": 3.75,
+        "description": "Tropical mangoes with sweet, juicy flesh. Rich in vitamins A and C.",
+        "category": "Fruits",
+        "stock": 90,
+        "image_url": "assets_static/img/products/product-img-2.jpg",
+        "created_at": "2024-01-15 10:30:00",
+        "updated_at": "2024-01-15 10:30:00"
+    },
+    {
+        "id": 9,
+        "name": "Fresh Pineapple",
+        "price": 4.00,
+        "description": "Sweet and tangy pineapple. Great for grilling or fresh eating.",
+        "category": "Fruits",
+        "stock": 70,
+        "image_url": "assets_static/img/products/product-img-3.jpg",
+        "created_at": "2024-01-15 10:30:00",
+        "updated_at": "2024-01-15 10:30:00"
+    },
+    {
+        "id": 10,
+        "name": "Organic Raspberries",
+        "price": 6.50,
+        "description": "Delicate and sweet organic raspberries. Perfect for desserts and breakfast.",
+        "category": "Berries",
+        "stock": 50,
+        "image_url": "assets_static/img/products/product-img-4.jpg",
+        "created_at": "2024-01-15 10:30:00",
+        "updated_at": "2024-01-15 10:30:00"
+    },
+    {
+        "id": 11,
+        "name": "Fresh Kiwi",
+        "price": 2.80,
+        "description": "Tangy kiwi fruit packed with vitamin C and fiber.",
+        "category": "Fruits",
+        "stock": 110,
+        "image_url": "assets_static/img/products/product-img-5.jpg",
+        "created_at": "2024-01-15 10:30:00",
+        "updated_at": "2024-01-15 10:30:00"
+    },
+    {
+        "id": 12,
+        "name": "Sweet Peaches",
+        "price": 3.50,
+        "description": "Juicy and sweet peaches. Perfect for pies or fresh eating.",
+        "category": "Fruits",
+        "stock": 85,
+        "image_url": "assets_static/img/products/product-img-6.jpg",
+        "created_at": "2024-01-15 10:30:00",
+        "updated_at": "2024-01-15 10:30:00"
+    }
+]

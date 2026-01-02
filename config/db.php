@@ -1,15 +1,16 @@
 <?php
 
+/**
+ * Database configuration - DISABLED
+ * This application uses JSON files instead of a database
+ * See data/ directory for all data files
+ */
+
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'pgsql:host=dpg-d5begcjuibrs73ce8lag-a.virginia-postgres.render.com;port=5432;dbname=fruitshop_db;sslmode=require',
-    'username' => 'fruitadmin',
-    'password' => '6otaPMavrBeSxd7NayEGdP47NEEeuCaJ',
+    // Dummy configuration - not used
+    'dsn' => 'sqlite::memory:',
+    'username' => '',
+    'password' => '',
     'charset' => 'utf8',
-
-    // Essential for Render.com PostgreSQL Production
-    'attributes' => [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_PERSISTENT => false,
-    ],
 ];

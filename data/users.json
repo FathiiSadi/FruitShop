@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "username": "admin",
+        "email": "admin@fruitshop.com",
+        "password_hash": "$2y$13$QqZ8vZ8Z8Z8Z8Z8Z8Z8Z8uO8Z8Z8Z8Z8Z8Z8Z8Z8Z8Z8Z8Z8Z8Z8Z8",
+        "auth_key": "admin_auth_key_12345",
+        "access_token": "admin_token_67890",
+        "role": "admin"
+    },
+    {
+        "id": 2,
+        "username": "john_doe",
+        "email": "john@example.com",
+        "password_hash": "$2y$13$abcdefghijklmnopqrstuvwxyz123456789ABCDEFGHIJKLMNOP",
+        "auth_key": "user_auth_key_11111",
+        "access_token": "user_token_22222",
+        "role": "user"
+    },
+    {
+        "id": 3,
+        "username": "jane_smith",
+        "email": "jane@example.com",
+        "password_hash": "$2y$13$zyxwvutsrqponmlkjihgfedcba987654321ZYXWVUTSRQPONML",
+        "auth_key": "user_auth_key_33333",
+        "access_token": "user_token_44444",
+        "role": "user"
+    },
+    {
+        "id": 4,
+        "username": "demo_user",
+        "email": "demo@fruitshop.com",
+        "password_hash": "$2y$13$demopasswordhash1234567890abcdefghijklmnopqrstuvwxyz",
+        "auth_key": "demo_auth_key_55555",
+        "access_token": "demo_token_66666",
+        "role": "user"
+    }
+]

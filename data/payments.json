@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "order_id": 1,
+        "payment_method": "visa",
+        "amount": 32.05,
+        "payment_status": "completed",
+        "payment_date": "2024-01-20 14:35:00",
+        "cardholder_name": "John Doe",
+        "last_four_digits": "4242",
+        "expiry_month": "12",
+        "expiry_year": "2025"
+    },
+    {
+        "id": 2,
+        "order_id": 2,
+        "payment_method": "cash_on_delivery",
+        "amount": 45.80,
+        "payment_status": "pending",
+        "payment_date": "2024-01-22 10:20:00",
+        "cardholder_name": null,
+        "last_four_digits": null,
+        "expiry_month": null,
+        "expiry_year": null
+    },
+    {
+        "id": 3,
+        "order_id": 3,
+        "payment_method": "visa",
+        "amount": 28.75,
+        "payment_status": "completed",
+        "payment_date": "2024-01-25 16:50:00",
+        "cardholder_name": "John Doe",
+        "last_four_digits": "1234",
+        "expiry_month": "06",
+        "expiry_year": "2026"
+    }
+]

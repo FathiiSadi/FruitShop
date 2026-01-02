@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "user_id": 2,
+        "address_id": 1,
+        "order_date": "2024-01-20 14:30:00",
+        "status": "delivered",
+        "subtotal": 15.50,
+        "tax_amount": 1.55,
+        "shipping_cost": 15.00,
+        "total_amount": 32.05,
+        "notes": "Please deliver before 5 PM"
+    },
+    {
+        "id": 2,
+        "user_id": 3,
+        "address_id": 2,
+        "order_date": "2024-01-22 10:15:00",
+        "status": "processing",
+        "subtotal": 28.00,
+        "tax_amount": 2.80,
+        "shipping_cost": 15.00,
+        "total_amount": 45.80,
+        "notes": null
+    },
+    {
+        "id": 3,
+        "user_id": 2,
+        "address_id": 1,
+        "order_date": "2024-01-25 16:45:00",
+        "status": "shipped",
+        "subtotal": 12.50,
+        "tax_amount": 1.25,
+        "shipping_cost": 15.00,
+        "total_amount": 28.75,
+        "notes": "Gift wrapping requested"
+    },
+    {
+        "id": 4,
+        "user_id": 4,
+        "address_id": 3,
+        "order_date": "2024-01-26 09:20:00",
+        "status": "pending",
+        "subtotal": 35.00,
+        "tax_amount": 3.50,
+        "shipping_cost": 15.00,
+        "total_amount": 53.50,
+        "notes": null
+    }
+]
