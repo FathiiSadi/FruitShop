@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'created_at')->textInput() ?>
 
-    <?= $form->field($model, 'Status')->dropDownList([ 'open' => 'Open', 'checked_out' => 'Checked out', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'status')->dropDownList(['open' => 'Open', 'checked_out' => 'Checked out',], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'updated_at')->textInput() ?>
 

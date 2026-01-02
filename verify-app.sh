@@ -50,6 +50,9 @@ try {
     
     $orderCount = $db->createCommand('SELECT COUNT(*) FROM orders')->queryScalar();
     echo "  Orders: $orderCount\n";
+
+    $cartCount = $db->createCommand('SELECT COUNT(*) FROM cart WHERE status = \'open\'')->queryScalar();
+    echo "  Open Carts: $cartCount\n";
     
     echo "\n";
     

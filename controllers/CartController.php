@@ -49,7 +49,7 @@ class CartController extends Controller
         $userId = Yii::$app->user->id; // Assuming user is logged in
         $cart = Cart::find()->where([
             'user_id' => $userId,
-            'Status' => 'open'
+            'status' => 'open'
         ])->with('cartItems.product')->one();
 
         return $this->render('index', [
@@ -231,13 +231,13 @@ class CartController extends Controller
 
         if (!Yii::$app->user->isGuest) {
             $cart = Cart::find()
-                ->where(['user_id' => Yii::$app->user->id, 'Status' => Cart::STATUS_OPEN])
+                ->where(['user_id' => Yii::$app->user->id, 'status' => Cart::STATUS_OPEN])
                 ->one();
         } else {
             $cartId = $session->get('cart_id');
             if ($cartId) {
                 $cart = Cart::findOne($cartId);
-                if ($cart && $cart->Status !== Cart::STATUS_OPEN) {
+                if ($cart && $cart->status !== Cart::STATUS_OPEN) {
                     $cart = null;
                     $session->remove('cart_id');
                 }

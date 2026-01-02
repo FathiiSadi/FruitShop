@@ -18,7 +18,7 @@ class CartSearch extends Cart
     {
         return [
             [['id', 'user_id'], 'integer'],
-            [['created_at', 'Status', 'updated_at'], 'safe'],
+            [['created_at', 'status', 'updated_at'], 'safe'],
         ];
     }
 
@@ -65,7 +65,7 @@ class CartSearch extends Cart
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'Status', $this->Status]);
+        $query->andFilterWhere(['like', 'status', $this->status]);
 
         return $dataProvider;
     }

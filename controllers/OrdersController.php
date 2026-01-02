@@ -47,7 +47,7 @@ class OrdersController extends Controller
 
         $user = Yii::$app->user->id;
 
-        $cart = Cart::find()->where(['user_id' => $user, 'Status' => 'open'])->with('cartItems.product')->one();
+        $cart = Cart::find()->where(['user_id' => $user, 'status' => 'open'])->with('cartItems.product')->one();
 
         if (!$cart || $cart->isEmpty()) {
             Yii::$app->session->setFlash('error', 'Your cart is empty.');
@@ -71,7 +71,7 @@ class OrdersController extends Controller
         $model->status = Orders::STATUS_PROCESSING;
 
         if ($model->save()) {
-            $cart->Status = 'checked_out';
+            $cart->status = 'checked_out';
             $cart->save();
 
 
@@ -111,7 +111,7 @@ class OrdersController extends Controller
             ->one();
 
 
-        $payment =  Payments::find()
+        $payment = Payments::find()
             ->where(['id' => Orders::find()->where(['user_id' => Yii::$app->user->id, 'status' => 'pending'])->orderBy(['id' => SORT_DESC])->one()->id])
             ->one();
 

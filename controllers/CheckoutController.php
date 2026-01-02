@@ -67,7 +67,7 @@ class CheckoutController extends Controller
         }
 
         $userId = Yii::$app->user->id;
-        $cart = Cart::find()->where(['user_id' => $userId, 'Status' => 'open'])->with('cartItems.product')->one();
+        $cart = Cart::find()->where(['user_id' => $userId, 'status' => 'open'])->with('cartItems.product')->one();
 
         if (!$cart || $cart->isEmpty()) {
             Yii::$app->session->setFlash('error', 'Your cart is empty.');
@@ -97,7 +97,7 @@ class CheckoutController extends Controller
                 Yii::$app->session->set('checkout_id', $addressModel->id);
 
                 $userId = Yii::$app->user->id;
-                $cart = Cart::find()->where(['user_id' => $userId, 'Status' => 'open'])->with('cartItems.product')->one();
+                $cart = Cart::find()->where(['user_id' => $userId, 'status' => 'open'])->with('cartItems.product')->one();
 
                 if (!$cart || $cart->isEmpty()) {
                     Yii::$app->session->setFlash('error', 'Your cart is empty.');

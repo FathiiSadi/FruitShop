@@ -43,6 +43,7 @@ class m260102_000000_create_all_tables extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
             'session_id' => $this->string(255),
+            'status' => $this->string(50)->defaultValue('open'),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);

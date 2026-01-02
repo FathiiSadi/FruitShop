@@ -29,7 +29,7 @@ class CheckoutManager extends BaseObject
     {
         $userId = Yii::$app->user->id;
         $cart = Cart::find()
-            ->where(['user_id' => $userId, 'Status' => 'open'])
+            ->where(['user_id' => $userId, 'status' => 'open'])
             ->with('cartItems.product')
             ->one();
 

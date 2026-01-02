@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'created_at') ?>
 
-    <?= $form->field($model, 'Status') ?>
+    <?= $form->field($model, 'status') ?>
 
     <?= $form->field($model, 'updated_at') ?>
 

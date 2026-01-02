@@ -22,7 +22,7 @@ class CheckoutComponent extends Component
 
         $userId = Yii::$app->user->id;
         $cart = Cart::find()
-            ->where(['user_id' => $userId, 'Status' => 'open'])
+            ->where(['user_id' => $userId, 'status' => 'open'])
             ->with('cartItems.product')
             ->one();
 
@@ -39,7 +39,7 @@ class CheckoutComponent extends Component
         $addressId = Yii::$app->session->get('checkout_id');
 
         $cart = Cart::find()
-            ->where(['user_id' => $userId, 'Status' => 'open'])
+            ->where(['user_id' => $userId, 'status' => 'open'])
             ->with('cartItems.product')
             ->one();
 

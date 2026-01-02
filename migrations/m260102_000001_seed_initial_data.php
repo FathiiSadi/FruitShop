@@ -75,6 +75,7 @@ class m260102_000001_seed_initial_data extends Migration
                 'id' => $cart['id'],
                 'user_id' => $cart['user_id'],
                 'session_id' => $cart['session_id'] ?? null,
+                'status' => $cart['status'] ?? 'open',
             ]);
         }
 

@@ -117,7 +117,8 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
-            if (Yii::$app->user->identity->role === 'admin') return $this->redirect(['/admin/default/index']);
+            if (Yii::$app->user->identity->role === 'admin')
+                return $this->redirect(['/admin/default/index']);
             else {
                 return $this->redirect(['/site/index']);
             }
@@ -168,7 +169,8 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionError(){
+    public function actionError()
+    {
         return $this->render('error');
     }
 
@@ -302,7 +304,7 @@ class SiteController extends Controller
                 $product->save();
                 // Check if item already exists in the cart
                 $cartItem = CartItem::find()
-                    ->where(['id' => $cart->id, 'id' => $productId])
+                    ->where(['cart_id' => $cart->id, 'product_id' => $productId])
                     ->one();
 
                 if ($cartItem) {
@@ -311,8 +313,8 @@ class SiteController extends Controller
                 } else {
                     // Create new cart item
                     $cartItem = new CartItem();
-                    $cartItem->id = $cart->id;
-                    $cartItem->id = $productId;
+                    $cartItem->cart_id = $cart->id;
+                    $cartItem->product_id = $productId;
                     $cartItem->quantity = $quantity;
                     $cartItem->price = $product->price;
                 }
@@ -350,7 +352,7 @@ class SiteController extends Controller
                 $cart = $this->getOrCreateCart();
 
                 $cartItem = CartItem::find()
-                    ->where(['id' => $cart->id, 'id' => $productId])
+                    ->where(['cart_id' => $cart->id, 'product_id' => $productId])
                     ->one();
 
                 $product = Products::findOne($productId);
@@ -401,7 +403,7 @@ class SiteController extends Controller
                 $cart = $this->getOrCreateCart();
 
                 $cartItem = CartItem::find()
-                    ->where(['id' => $cart->id, 'id' => $productId])
+                    ->where(['cart_id' => $cart->id, 'product_id' => $productId])
                     ->one();
 
                 if ($cartItem) {
@@ -445,13 +447,13 @@ class SiteController extends Controller
 
         if (!Yii::$app->user->isGuest) {
             $cart = Cart::find()
-                ->where(['user_id' => Yii::$app->user->id, 'Status' => Cart::STATUS_OPEN])
+                ->where(['user_id' => Yii::$app->user->id, 'status' => Cart::STATUS_OPEN])
                 ->one();
         } else {
             $cartId = $session->get('cart_id');
             if ($cartId) {
                 $cart = Cart::findOne($cartId);
-                if ($cart && $cart->Status !== Cart::STATUS_OPEN) {
+                if ($cart && $cart->status !== Cart::STATUS_OPEN) {
                     $cart = null;
                     $session->remove('cart_id');
                 }
@@ -480,7 +482,7 @@ class SiteController extends Controller
     private function getCartItemCount($cartId)
     {
         return CartItem::find()
-            ->where(['id' => $cartId])
+            ->where(['cart_id' => $cartId])
             ->sum('quantity') ?: 0;
     }
 }

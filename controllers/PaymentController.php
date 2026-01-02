@@ -55,7 +55,7 @@ class PaymentController extends Controller
      * @param int $payment_id Payment ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
-     */    
+     */
     public function actionView($payment_id)
     {
         return $this->render('view', [
@@ -73,7 +73,7 @@ class PaymentController extends Controller
         $model = new Payments();
 
         $userId = Yii::$app->user->id;
-        $cart = Cart::find()->where(['user_id' => $userId, 'Status' => 'open'])->with('cartItems.product')->one();
+        $cart = Cart::find()->where(['user_id' => $userId, 'status' => 'open'])->with('cartItems.product')->one();
 
         if ($cart === null) {
             throw new NotFoundHttpException('No active cart found.');
